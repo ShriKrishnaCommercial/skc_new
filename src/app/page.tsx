@@ -238,6 +238,9 @@ export default function Home() {
                                         </blockquote>
                                     </div>
                                 </div>
+
+
+
                                 <div className="mt-12 sm:mt-16 lg:mt-0">
                                     <div className="pl-4 -mr-48 sm:pl-6 md:-mr-16 lg:px-0 lg:m-0 lg:relative lg:h-full">
                                         <Image width="400" height="400"
