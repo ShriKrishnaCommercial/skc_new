@@ -14,7 +14,9 @@ import Footer from "@/components/Footer";
 import {useAnimation, motion, useScroll} from "framer-motion";
 import {useInView} from "react-intersection-observer";
 
+
 export default function Home() {
+    let headers = useRef(null);
     const {scrollYProgress} = useScroll();
     const animationControl = useAnimation();
     let data = [
@@ -33,6 +35,15 @@ export default function Home() {
             'msg': 'We have wide range of instrumental products'
         }
     ];
+
+    function handleChangeComplete(color: any) {
+        console.log(color)
+        // this.setState({ background: color.hex });
+    };
+    let [current_color ,set_color ] = useState('#17a19e')
+    function color_change(){
+        console.log(current_color);
+    }
     let brands = [
 
         '100-dynabrade.png',
@@ -86,6 +97,11 @@ export default function Home() {
     }, [])
     return (
         <div>
+            <input type="color" value="#17a19e"  onChange={e => set_color(e.target.value)} onInput={color_change}/>
+
+
+
+
 
             <div className="bg-white">
                 <Header/>
@@ -107,20 +123,23 @@ export default function Home() {
                                         return (
                                             <SplideSlide key={i}>
                                                 <div
-                                                    className="relative w-full shadow-xl sm:rounded-2xl sm:overflow-hidden">
+                                                    className="relative w-full md:h-[450px] shadow-xl sm:rounded-2xl sm:overflow-hidden">
                                                     <div className="absolute inset-0">
                                                         <Image width="400" height="400"
                                                                className="h-full w-full object-cover"
                                                                src={d.img}
                                                                alt="People working on laptops"/>
                                                         <div
-                                                            className="absolute inset-0 bg-gradient-to-r from-purple-800 to-indigo-700 mix-blend-multiply"></div>
+                                                            className="absolute inset-0 bg-gradient-to-r from-purple-800 to-indigo-700 mix-blend-multiply" ref={headers} style={{
+                                                            background : current_color
+                                                        }}></div>
                                                     </div>
 
                                                     <div
                                                         className="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
                                                         <h1 className={"text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl " + (current_image == i ? 'animate__animated animate__slideInDown' : '')}>
-                                                            <span className="block text-white">{d.msg}</span>
+                                                            <span
+                                                                className="block md:w-[80%] mx-auto text-center text-white">{d.msg}</span>
                                                             {/*<span className="block text-indigo-200">customer support</span>*/}
                                                         </h1>
                                                         <p className="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">{d.title}</p>
@@ -181,14 +200,16 @@ export default function Home() {
                                     <div>
                                         <div>
                                     <span
-                                        className="h-12 w-12 rounded-md flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600">
+                                        className="h-12 w-12 rounded-md flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600" style={{
+                                        background : current_color
+                                    }}>
 
                                   <svg className="h-6 w-6 text-white" width="24" height="24" viewBox="0 0 24 24"
                                        fill="none" xmlns="http://www.w3.org/2000/svg"><path
                                       d="M11 10.9794C11 10.4271 11.4477 9.97937 12 9.97937C12.5523 9.97937 13 10.4271 13 10.9794V16.9794C13 17.5317 12.5523 17.9794 12 17.9794C11.4477 17.9794 11 17.5317 11 16.9794V10.9794Z"
                                       fill="currentColor"/><path
                                       d="M12 6.05115C11.4477 6.05115 11 6.49886 11 7.05115C11 7.60343 11.4477 8.05115 12 8.05115C12.5523 8.05115 13 7.60343 13 7.05115C13 6.49886 12.5523 6.05115 12 6.05115Z"
-                                      fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd"
+                                      fill="currentColor"/><path fillRule="evenodd" clipRule="evenodd"
                                                                  d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12Z"
                                                                  fill="currentColor"/></svg>
                                     </span>
@@ -212,7 +233,9 @@ export default function Home() {
                                             </p>
                                             <div className="mt-6">
                                                 <a href="#"
-                                                   className="inline-flex bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white hover:from-purple-700 hover:to-indigo-700">Read
+                                                   className="inline-flex bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white hover:from-purple-700 hover:to-indigo-700" style={{
+                                                    background : current_color
+                                                }}>Read
                                                     More</a>
                                             </div>
                                         </div>
@@ -240,7 +263,6 @@ export default function Home() {
                                 </div>
 
 
-
                                 <div className="mt-12 sm:mt-16 lg:mt-0">
                                     <div className="pl-4 -mr-48 sm:pl-6 md:-mr-16 lg:px-0 lg:m-0 lg:relative lg:h-full">
                                         <Image width="400" height="400"
@@ -259,7 +281,9 @@ export default function Home() {
                                     <div>
                                         <div>
                                     <span
-                                        className="h-12 w-12 rounded-md flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600">
+                                        className="h-12 w-12 rounded-md flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600" style={{
+                                        background : current_color
+                                    }}>
 
                                     <svg className="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
                                          viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -291,7 +315,9 @@ export default function Home() {
                     </div>
 
 
-                    <div className="bg-gradient-to-r from-purple-800 to-indigo-700">
+                    <div className="bg-gradient-to-r from-purple-800 to-indigo-700" style={{
+                        background : current_color
+                    }}>
                         <div
                             className="max-w-4xl mx-auto px-4 py-16 sm:px-6 sm:pt-20 sm:pb-24 lg:max-w-7xl lg:pt-24 lg:px-8">
                             <h2 className="text-3xl font-extrabold text-white tracking-tight">Why choose us</h2>
@@ -489,7 +515,6 @@ export default function Home() {
                     </div>
 
 
-
                 </main>
                 <Footer/>
 
@@ -499,3 +524,4 @@ export default function Home() {
         </div>
     )
 }
+
