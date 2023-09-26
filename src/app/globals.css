@@ -25,3 +25,18 @@ body{
     background: linear-gradient(129.96deg, #FF2F2F 10.43%, #000460 92.78%), radial-gradient(100% 246.94% at 100% 0%, #FFFFFF 0%, #020063 100%), linear-gradient(58.72deg, #2200F2 0%, #530000 100%), linear-gradient(154.03deg, #B70000 0%, #FF003D 74.04%), linear-gradient(341.1deg, #FF0000 7.52%, #0038FF 77.98%), linear-gradient(136.23deg, #00C2FF 11.12%, #FF0000 86.47%), radial-gradient(57.37% 100% at 50% 0%, #B50000 0%, #0034BB 100%);
     background-blend-mode: overlay, color-burn, screen, overlay, difference, difference, normal;
 }
+
+.grid_texture {
+    background-size:250px 250px;
+    background-image: linear-gradient(to right, #80808059 -1px, transparent 1px),
+    linear-gradient(to bottom, #80808059 -1px, transparent 1px)
+}
+.grid_texture2 {
+    background-size: 44px 95px;
+    background-image: linear-gradient(to right, #8080802e -1px, transparent 1px),    linear-gradient(to bottom, #8080802e -1px, transparent 1px)
+}
+.footer_grid_texture {
+    background-size: 44px 95px;
+    background-image: linear-gradient(to right, #80808021 -1px, transparent 1px),
+    linear-gradient(to bottom, #80808047 -1px, transparent 1px)
+}

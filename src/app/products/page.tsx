@@ -22,6 +22,7 @@ import Footer from "@/components/Footer";
 // @ts-ignore
 import {Splide, SplideSlide} from "@splidejs/react-splide";
 import '@splidejs/react-splide/css';
+import {random} from "nanoid";
 
 
 const categories = [
@@ -131,7 +132,7 @@ export default function Products() {
                 {
                     (data.map((a, i) => {
                         return (
-                            <SplideSlide key={i}>
+                            <SplideSlide key={i+random(4)}>
                                 <div className="relative h-[300px]  bg-gray-900">
                                     <div>
                                         <div aria-hidden="true" className="absolute inset-0 overflow-hidden">

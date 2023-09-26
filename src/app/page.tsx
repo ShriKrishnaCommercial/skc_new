@@ -13,6 +13,7 @@ import Head from "next/head";
 import Footer from "@/components/Footer";
 import {useAnimation, motion, useScroll} from "framer-motion";
 import {useInView} from "react-intersection-observer";
+import {Testimonials} from "@/components/testimonial";
 
 
 export default function Home() {
@@ -96,7 +97,7 @@ export default function Home() {
     }, [])
     return (
         <div>
-            <input type="color" value={current_color} onChange={e => set_color(e.target.value)} onInput={color_change}/>
+            {/*<input type="color" value={current_color} onChange={e => set_color(e.target.value)} onInput={color_change}/>*/}
 
 
             <div className="bg-white">
@@ -104,7 +105,10 @@ export default function Home() {
                 <main>
                     <div className="relative">
                         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gray-100"></div>
-                        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        {/*<div className="max-w-7xl mx-auto sm:px-6 lg:px-8">*/}
+                        <div>
+
+
                             <Splide className=" z-20" ref={splide1} aria-label="My Favorite Images" options={{
                                 autoplay: true,
                                 type: 'fade',
@@ -119,7 +123,7 @@ export default function Home() {
                                         return (
                                             <SplideSlide key={i}>
                                                 <div
-                                                    className="relative w-full md:h-[450px] shadow-xl sm:rounded-2xl sm:overflow-hidden">
+                                                    className="relative w-full md:h-[450px] shadow-xl sm:overflow-hidden">
                                                     <div className="absolute inset-0">
                                                         <Image width="400" height="400"
                                                                className="h-full w-full object-cover"
@@ -134,7 +138,7 @@ export default function Home() {
 
                                                     <div
                                                         className="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
-                                                        <h1 className={"text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl " + (current_image == i ? 'animate__animated animate__slideInDown' : '')}>
+                                                        <h1 className={"text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl " + (current_image == i ? 'animate__animated animate__flipInX' : '')}>
                                                             <span
                                                                 className="block md:w-[80%] mx-auto text-center text-white">{d.msg}</span>
                                                             {/*<span className="block text-indigo-200">customer support</span>*/}
@@ -161,7 +165,7 @@ export default function Home() {
                     <div className="bg-gray-100">
                         <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
                             <p className="text-center text-sm font-semibold uppercase text-gray-500 tracking-wide">Trusted
-                                by many businesses</p>
+                                by many clients</p>
 
 
                             <Marquee>
@@ -187,7 +191,7 @@ export default function Home() {
                     </div>
 
 
-                    <div className="relative pt-16 pb-32 overflow-hidden">
+                    <div className="relative pt-16 pb-32 overflow-hidden ">
                         <div aria-hidden="true"
                              className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-gray-100"></div>
                         <div className="relative">
@@ -321,7 +325,7 @@ export default function Home() {
                         <div
                             className="max-w-4xl mx-auto px-4 py-16 sm:px-6 sm:pt-20 sm:pb-24 lg:max-w-7xl lg:pt-24 lg:px-8">
                             <h2 className="text-3xl font-extrabold text-white tracking-tight">Why choose us</h2>
-                            <p className="mt-4 max-w-3xl text-lg text-purple-200">Our business stands out with a
+                            <p className="mt-4 max-w-3xl text-lg text-black">Our business stands out with a
                                 customer-centric focus, delivering not just products/services, but an exceptional
                                 experience that fosters lasting relationships.</p>
                             <div
@@ -341,7 +345,7 @@ export default function Home() {
                                     </div>
                                     <div className="mt-6">
                                         <h3 className="text-lg font-medium text-white">Our Team</h3>
-                                        <p className="mt-2 text-sm text-purple-200">Our team is full of competent and
+                                        <p className="mt-2 text-sm text-black">Our team is full of competent and
                                             efficient team members who have good knowledge and technical skills in
                                             electrical, instrumentation and mechanical products.</p>
                                     </div>
@@ -362,7 +366,7 @@ export default function Home() {
                                     </div>
                                     <div className="mt-6">
                                         <h3 className="text-lg font-medium text-white">Well established base</h3>
-                                        <p className="mt-2 text-sm text-purple-200">We have a Long history of over the
+                                        <p className="mt-2 text-sm text-black">We have a Long history of over the
                                             years catering to the demands of our customers for all sorts of High Quality
                                             electrical, instrumentation and mechanical products.</p>
                                     </div>
@@ -383,7 +387,7 @@ export default function Home() {
                                     </div>
                                     <div className="mt-6">
                                         <h3 className="text-lg font-medium text-white">Wide customer base</h3>
-                                        <p className="mt-2 text-sm text-purple-200">Being in the Industry for years we
+                                        <p className="mt-2 text-sm text-black">Being in the Industry for years we
                                             have a wide customer base in different sectors such as Construction
                                             Industry, Public Sector and Private Sector.</p>
                                     </div>
@@ -404,7 +408,7 @@ export default function Home() {
                                     </div>
                                     <div className="mt-6">
                                         <h3 className="text-lg font-medium text-white">Quality assured</h3>
-                                        <p className="mt-2 text-sm text-purple-200">We are engaged in supply and service
+                                        <p className="mt-2 text-sm text-black">We are engaged in supply and service
                                             of best quality electrical, instrumentation and mechanical products to our
                                             clients. We have highly reliable principals, OEMs and other service teams ,
                                             who provide us with a quality-assured range of products & services.</p>
@@ -426,7 +430,7 @@ export default function Home() {
                                     </div>
                                     <div className="mt-6">
                                         <h3 className="text-lg font-medium text-white">Customer Convenience </h3>
-                                        <p className="mt-2 text-sm text-purple-200">We realize that our continued
+                                        <p className="mt-2 text-sm text-black">We realize that our continued
                                             success is dependent on maximizing value for our customers and prompt and
                                             accurate delivery.</p>
                                     </div>
@@ -447,7 +451,7 @@ export default function Home() {
                                     </div>
                                     <div className="mt-6">
                                         <h3 className="text-lg font-medium text-white">Industry expertise</h3>
-                                        <p className="mt-2 text-sm text-purple-200">With 10 years of experience, we have
+                                        <p className="mt-2 text-sm text-black">With 10 years of experience, we have
                                             built our knowledge base in the industry, which is highly beneficial to us
                                             as well as our clients business.</p>
                                     </div>
@@ -516,6 +520,7 @@ export default function Home() {
 
 
                 </main>
+                <Testimonials/>
                 <Footer/>
 
 
