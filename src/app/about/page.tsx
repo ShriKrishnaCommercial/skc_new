@@ -13,6 +13,7 @@ import {
 } from '@heroicons/react/outline'
 import Footer from "@/components/Footer";
 import {VectorMap} from "@react-jvectormap/core";
+import {Testimonials} from "@/components/testimonial";
 
 export default function About() {
     const features = [
@@ -66,6 +67,7 @@ export default function About() {
             comment: "Dear M/s Shrikrishna & everyone from your esteemed organization, I personally feel from the bottom of my heart that you have been so nice and it is our pleasure for being your customers'. You always have been keeping an eye into our requirements to deliver on time. This is absolutely satisfactory. Hoping much more support from you into our organizational goals to achieve & create milestones. Without you, it is absolutely impossible. I would like to thanks to Anuj Ji, Atul Ji, Vikash Ji and Manish ji and everyone who so ever is part of your business into. Our sincere gratitude to you all."
         }
     ]
+
     return (
         <div>
             <Header/>
@@ -205,55 +207,57 @@ export default function About() {
                     </div>
                 </div>
             </div>
-            <section className="bg-gray-900">
-                <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-6">
-                    <div className="mx-auto max-w-screen-sm">
-                        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-white mb-5">Testimonials</h2>
-                        {/*<p className="mb-8 font-light  lg:mb-16 sm:text-xl text-gray-400">Explore the*/}
-                        {/*    whole collection of open-source web components and elements built with the utility classes*/}
-                        {/*    from Tailwind</p>*/}
-                    </div>
-                    <div className="grid mb-8 lg:mb-12 lg:grid-cols-2">
-                        {
-                            (testimonail.map((t, i) => {
+            <Testimonials/>
 
-                                return (<>
-                                    <figure key={i}
-                                            className="flex flex-col justify-center items-center p-8 text-center  border-b md:p-12 lg:border-r bg-gray-800 border-gray-700">
-                                        <blockquote className="mx-auto mb-8 max-w-2xl  text-gray-400">
-                                            <h3 className="text-sm font-thin  text-white">
-                                                {/*@ts-ignore*/}
-                                                {t.comment}
-                                            </h3>
-                                        </blockquote>
-                                        <figcaption className="flex justify-center items-center space-x-3">
-                                            {/*<Image className="w-9 h-9 rounded-full"*/}
-                                            {/*       width={"400"}*/}
-                                            {/*       height={"400"}*/}
-                                            {/*       src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/karen-nelson.png"*/}
-                                            {/*       alt="profile picture"/>*/}
-                                            <div className="space-y-0.5 font-medium text-white text-left">
-                                                <div>
-                                                    {/*@ts-ignore*/}
-                                                    {t.name}
-                                                </div>
-                                                <div className="text-sm font-light text-gray-400">
-                                                    {/*@ts-ignore*/}
-                                                    {t.company}
-                                                </div>
-                                            </div>
-                                        </figcaption>
-                                    </figure>
+            {/*<section className="bg-gray-900">*/}
+            {/*    <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-6">*/}
+            {/*        <div className="mx-auto max-w-screen-sm">*/}
+            {/*            <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-white mb-5">Testimonials</h2>*/}
+            {/*            /!*<p className="mb-8 font-light  lg:mb-16 sm:text-xl text-gray-400">Explore the*!/*/}
+            {/*            /!*    whole collection of open-source web components and elements built with the utility classes*!/*/}
+            {/*            /!*    from Tailwind</p>*!/*/}
+            {/*        </div>*/}
+            {/*        <div className="grid mb-8 lg:mb-12 lg:grid-cols-2">*/}
+            {/*            {*/}
+            {/*                (testimonail.map((t, i) => {*/}
 
-                                </>)
-                            }))
-                        }
+            {/*                    return (<>*/}
+            {/*                        <figure key={i}*/}
+            {/*                                className="flex flex-col justify-center items-center p-8 text-center  border-b md:p-12 lg:border-r bg-gray-800 border-gray-700">*/}
+            {/*                            <blockquote className="mx-auto mb-8 max-w-2xl  text-gray-400">*/}
+            {/*                                <h3 className="text-sm font-thin  text-white">*/}
+            {/*                                    /!*@ts-ignore*!/*/}
+            {/*                                    {t.comment}*/}
+            {/*                                </h3>*/}
+            {/*                            </blockquote>*/}
+            {/*                            <figcaption className="flex justify-center items-center space-x-3">*/}
+            {/*                                /!*<Image className="w-9 h-9 rounded-full"*!/*/}
+            {/*                                /!*       width={"400"}*!/*/}
+            {/*                                /!*       height={"400"}*!/*/}
+            {/*                                /!*       src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/karen-nelson.png"*!/*/}
+            {/*                                /!*       alt="profile picture"/>*!/*/}
+            {/*                                <div className="space-y-0.5 font-medium text-white text-left">*/}
+            {/*                                    <div>*/}
+            {/*                                        /!*@ts-ignore*!/*/}
+            {/*                                        {t.name}*/}
+            {/*                                    </div>*/}
+            {/*                                    <div className="text-sm font-light text-gray-400">*/}
+            {/*                                        /!*@ts-ignore*!/*/}
+            {/*                                        {t.company}*/}
+            {/*                                    </div>*/}
+            {/*                                </div>*/}
+            {/*                            </figcaption>*/}
+            {/*                        </figure>*/}
+
+            {/*                    </>)*/}
+            {/*                }))*/}
+            {/*            }*/}
 
 
-                    </div>
+            {/*        </div>*/}
 
-                </div>
-            </section>
+            {/*    </div>*/}
+            {/*</section>*/}
 <Footer/>
         </div>
     )

@@ -1,8 +1,53 @@
 import Header from "@/components/Header";
 import Image from "next/image";
 import Footer from "@/components/Footer";
+import {Employees} from "@/components/Employee";
 
 export default function Contact() {
+    const people = [
+        {
+            name: 'Anuj Sanyal ',
+            role: 'Sr. Executive: Back Office',
+            imageUrl:
+                "/assets/img/leaders/Anuj_Sanyal.jpeg"
+        }, {
+            name: 'Raj Sinha ',
+            role: 'Sr. Executive: Back Office',
+            imageUrl:
+                "/assets/img/leaders/Raj Sinha.jpeg"
+        }, {
+            name: 'Atul Sharma',
+            role: 'Manager',
+            imageUrl:
+                "/assets/img/leaders/Atul_Sharma.jpeg"
+        }, {
+            name: 'Atul Sharma',
+            role: 'Sr. Executive Back Office',
+            imageUrl:
+                "/assets/img/leaders/Sanjay Kumar.jpeg"
+        }, {
+            name: 'Anuj Sanyal ',
+            role: 'Sr. Executive: Back Office',
+            imageUrl:
+                "/assets/img/leaders/Anuj_Sanyal.jpeg"
+        }, {
+            name: 'Raj Sinha ',
+            role: 'Sr. Executive: Back Office',
+            imageUrl:
+                "/assets/img/leaders/Raj Sinha.jpeg"
+        }, {
+            name: 'Atul Sharma',
+            role: 'Manager',
+            imageUrl:
+                "/assets/img/leaders/Atul_Sharma.jpeg"
+        }, {
+            name: 'Atul Sharma',
+            role: 'Sr. Executive Back Office',
+            imageUrl:
+                "/assets/img/leaders/Sanjay Kumar.jpeg"
+        },
+        // More people...
+    ]
     return (
         <>
             <Header/>
@@ -72,75 +117,107 @@ export default function Contact() {
 
                     </div>
                 </section>
-                <section className="mt-10 w-[90%] mx-auto relative z-10 pb-32 px-4 sm:px-6 lg:px-8"
-                         aria-labelledby="contact-heading">
-                    <h2 className="sr-only" id="contact-heading">Contact us</h2>
-                    <div className="grid grid-cols-1 gap-y-20 lg:grid-cols-3 lg:gap-y-0 lg:gap-x-8">
-                        <div className="flex flex-col bg-white rounded-2xl shadow-xl">
-                            <div className="flex-1 relative pt-16 px-6 pb-8 md:px-8">
-                                <div
-                                    className="absolute top-0 p-5 inline-block bg-primary rounded-xl shadow-lg transform -translate-y-1/2">
+                {/*<section className="mt-10 w-[90%] mx-auto relative z-10 pb-32 px-4 sm:px-6 lg:px-8"*/}
+                {/*         aria-labelledby="contact-heading">*/}
+                {/*    <h2 className="sr-only" id="contact-heading">Contact us</h2>*/}
+                {/*    <div className="grid grid-cols-1 gap-y-20 lg:grid-cols-3 lg:gap-y-0 lg:gap-x-8">*/}
+                {/*        <div className="flex flex-col bg-white rounded-2xl shadow-xl">*/}
+                {/*            <div className="flex-1 relative pt-16 px-6 pb-8 md:px-8">*/}
+                {/*                <div*/}
+                {/*                    className="absolute top-0 p-5 inline-block bg-primary rounded-xl shadow-lg transform -translate-y-1/2">*/}
 
-                                    <svg className="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                         viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                                    </svg>
-                                </div>
-                                Fast Growing company
-                                We are at an inflection point
-                                to achieve accelerated
-                            </div>
-                            <div className="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">
-                                <a href="tel:+91-9031512370"
-                                   className="text-base font-medium text-primary hover:text-primary">Call
-                                    us<span aria-hidden="true"> &rarr;</span></a>
-                            </div>
-                        </div>
+                {/*                    <svg className="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"*/}
+                {/*                         viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">*/}
+                {/*                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"*/}
+                {/*                              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>*/}
+                {/*                    </svg>*/}
+                {/*                </div>*/}
+                {/*                Fast Growing company*/}
+                {/*                We are at an inflection point*/}
+                {/*                to achieve accelerated*/}
+                {/*            </div>*/}
+                {/*            <div className="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">*/}
+                {/*                <a href="tel:+91-9031512370"*/}
+                {/*                   className="text-base font-medium text-primary hover:text-primary">Call*/}
+                {/*                    us<span aria-hidden="true"> &rarr;</span></a>*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
 
-                        <div className="flex flex-col bg-white rounded-2xl shadow-xl">
-                            <div className="flex-1 relative pt-16 px-6 pb-8 md:px-8">
-                                <div
-                                    className="absolute top-0 p-5 inline-block bg-primary rounded-xl shadow-lg transform -translate-y-1/2">
+                {/*        <div className="flex flex-col bg-white rounded-2xl shadow-xl">*/}
+                {/*            <div className="flex-1 relative pt-16 px-6 pb-8 md:px-8">*/}
+                {/*                <div*/}
+                {/*                    className="absolute top-0 p-5 inline-block bg-primary rounded-xl shadow-lg transform -translate-y-1/2">*/}
 
-                                    <svg className="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                         viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                              d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-medium text-gray-900">Registered office</h3>
-                                <p className="mt-4 text-base text-gray-500">Marwari Para Road, Chowk Bazar, Jugsalai,
-                                    Jamshedpur-831006, Jharkhand, India.</p>
-                            </div>
-                            <div className="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">
-                                <a href="#" className="text-base font-medium text-primary hover:text-primary">Get
-                                    Directions<span aria-hidden="true"> &rarr;</span></a>
-                            </div>
-                        </div>
+                {/*                    <svg className="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"*/}
+                {/*                         viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">*/}
+                {/*                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"*/}
+                {/*                              d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>*/}
+                {/*                    </svg>*/}
+                {/*                </div>*/}
+                {/*                <h3 className="text-xl font-medium text-gray-900">Registered office</h3>*/}
+                {/*                <p className="mt-4 text-base text-gray-500">Marwari Para Road, Chowk Bazar, Jugsalai,*/}
+                {/*                    Jamshedpur-831006, Jharkhand, India.</p>*/}
+                {/*            </div>*/}
+                {/*            <div className="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">*/}
+                {/*                <a href="#" className="text-base font-medium text-primary hover:text-primary">Get*/}
+                {/*                    Directions<span aria-hidden="true"> &rarr;</span></a>*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
 
-                        <div className="flex flex-col bg-white rounded-2xl shadow-xl">
-                            <div className="flex-1 relative pt-16 px-6 pb-8 md:px-8">
-                                <div
-                                    className="absolute top-0 p-5 inline-block bg-primary rounded-xl shadow-lg transform -translate-y-1/2">
+                {/*        <div className="flex flex-col bg-white rounded-2xl shadow-xl">*/}
+                {/*            <div className="flex-1 relative pt-16 px-6 pb-8 md:px-8">*/}
+                {/*                <div*/}
+                {/*                    className="absolute top-0 p-5 inline-block bg-primary rounded-xl shadow-lg transform -translate-y-1/2">*/}
 
-                                    <svg className="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                         viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                              d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
-                                    </svg>
-                                </div>
-                                <h3 className="text-xl font-medium text-gray-900">Warehouse/Godown</h3>
-                                <p className="mt-4 text-base text-gray-500">Shiv Ghat Road, Near S.T John, Jugsalai,
-                                    Jamshedpur- 831006</p>
-                            </div>
-                            <div className="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">
-                                <a href="#" className="text-base font-medium text-primary hover:text-primary">Get
-                                    Directions<span aria-hidden="true"> &rarr;</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                {/*                    <svg className="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"*/}
+                {/*                         viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">*/}
+                {/*                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"*/}
+                {/*                              d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>*/}
+                {/*                    </svg>*/}
+                {/*                </div>*/}
+                {/*                <h3 className="text-xl font-medium text-gray-900">Warehouse/Godown</h3>*/}
+                {/*                <p className="mt-4 text-base text-gray-500">Shiv Ghat Road, Near S.T John, Jugsalai,*/}
+                {/*                    Jamshedpur- 831006</p>*/}
+                {/*            </div>*/}
+                {/*            <div className="p-6 bg-gray-50 rounded-bl-2xl rounded-br-2xl md:px-8">*/}
+                {/*                <a href="#" className="text-base font-medium text-primary hover:text-primary">Get*/}
+                {/*                    Directions<span aria-hidden="true"> &rarr;</span></a>*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</section>*/}
+                <Employees/>
+                {/*<div className="bg-white">*/}
+                {/*    <div className="mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-10">*/}
+                {/*        <div className="grid grid-cols-1 gap-12 lg:grid-cols-3 lg:gap-8">*/}
+                {/*            <div className="space-y-5 sm:space-y-4">*/}
+                {/*                <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Meet our*/}
+                {/*                    leadership</h2>*/}
+                {/*                <p className="text-xl text-gray-500">*/}
+                {/*                    Meet our leadership, a team of visionaries and experts, guiding our company towards*/}
+                {/*                    innovation and success.*/}
+                {/*                </p>*/}
+                {/*            </div>*/}
+                {/*            <div className="lg:col-span-2">*/}
+                {/*                <ul role="list"*/}
+                {/*                    className="space-y-12 sm:grid sm:grid-cols-2 sm:gap-12 sm:space-y-0 lg:gap-x-8">*/}
+                {/*                    {people.map((person) => (*/}
+                {/*                        <li key={person.name}>*/}
+                {/*                            <div className="flex items-center space-x-4 lg:space-x-6">*/}
+                {/*                                <img className="w-16 h-16 rounded-full lg:w-20 lg:h-20"*/}
+                {/*                                     src={person.imageUrl} alt=""/>*/}
+                {/*                                <div className="font-medium text-lg leading-6 space-y-1">*/}
+                {/*                                    <h3>{person.name}</h3>*/}
+                {/*                                    <p className="text-indigo-600">{person.role}</p>*/}
+                {/*                                </div>*/}
+                {/*                            </div>*/}
+                {/*                        </li>*/}
+                {/*                    ))}*/}
+                {/*                </ul>*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
                 <section className="mt-10 w-[90%] mx-auto relative z-10 pb-32 px-4 sm:px-6 lg:px-8"
                          aria-labelledby="contact-heading">
                     <h2 className="sr-only" id="contact-heading">Contact us</h2>
@@ -173,10 +250,10 @@ export default function Contact() {
                                     <div className="md:grid md:grid-cols-3 md:gap-6">
                                         <div className="md:col-span-1">
                                             <div className="px-4 sm:px-0">
-                                                <h3 className="text-lg font-medium leading-6 text-gray-900">Personal
-                                                    Information</h3>
-                                                <p className="mt-1 text-sm text-gray-600">Use a permanent address where
-                                                    you can receive mail.</p>
+                                                <h3 className="text-lg font-medium leading-6 text-gray-900">Upload Your
+                                                    C.V</h3>
+                                                <p className="mt-1 text-sm text-gray-600">Elevate Your Career Journey:
+                                                    Submit Your CV Today!</p>
                                             </div>
                                         </div>
                                         <div className="mt-5 md:mt-0 md:col-span-2">
