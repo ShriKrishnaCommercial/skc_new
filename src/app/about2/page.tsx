@@ -1,10 +1,13 @@
 'use client'
-import {useState} from 'react'
+import React, {useState} from 'react'
 import {Dialog} from '@headlessui/react'
 import {Testimonials} from "@/components/testimonial";
 import Header from "@/components/Header";
-
-
+import AnimatedNumbers from "react-animated-numbers";
+import {AnimationOnScroll} from "react-animation-on-scroll";
+import 'animate.css';
+import TopComps from "@/components/topcomps";
+import Footer from "@/components/Footer";
 const navigation = [
     {name: 'Product', href: '#'},
     {name: 'Features', href: '#'},
@@ -105,6 +108,7 @@ const footerNavigation = {
 }
 
 export default function Example() {
+    const [num, setNum] = React.useState(331231);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     return (
@@ -263,11 +267,26 @@ export default function Example() {
                                 {/*</div>*/}
                             </div>
                             <div className="lg:flex lg:flex-auto lg:justify-center">
+
                                 <dl className="w-64 space-y-8 xl:w-80">
-                                    {stats.map((stat) => (
+                                    {stats.map((stat,k) => (
                                         <div key={stat.label} className="flex flex-col-reverse gap-y-4">
+
                                             <dt className="text-base leading-7 text-gray-600">{stat.label}</dt>
-                                            <dd className="text-5xl font-semibold tracking-tight text-gray-900">{stat.value}</dd>
+                                            <dd className="text-5xl font-semibold tracking-tight text-gray-900 flex"> <AnimatedNumbers
+                                                includeComma
+                                                animateToNumber={parseInt(stat.value.replace("+",""))}
+                                                fontStyle={{ fontSize: 40 , fontWeight : "black" }}
+                                                locale="en-US"
+                                                configs={[
+                                                    { mass: 1, tension: 220, friction: 100 },
+                                                    { mass: 1, tension: 180, friction: 130 },
+                                                    { mass: 1, tension: 280, friction: 90 },
+                                                    { mass: 1, tension: 180, friction: 135 },
+                                                    { mass: 1, tension: 260, friction: 100 },
+                                                    { mass: 1, tension: 210, friction: 180 },
+                                                ]}
+                                            ></AnimatedNumbers> <p className="-mt-1">+ {k==0 ? " Years" : ""}</p> </dd>
                                         </div>
                                     ))}
                                 </dl>
@@ -297,10 +316,12 @@ export default function Example() {
                     </div>
                     <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                         {values.map((value) => (
+                            <AnimationOnScroll animateIn="animate__fadeInUp">
                             <div key={value.name}>
                                 <dt className="font-semibold text-gray-900">{value.name}</dt>
                                 <dd className="mt-1 text-gray-600">{value.description}</dd>
                             </div>
+                            </AnimationOnScroll>
                         ))}
                     </dl>
                 </div>
@@ -377,75 +398,56 @@ export default function Example() {
 
 
 
-                <div className="bg-white py-24 sm:py-32">
-                    <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                        <h2 className="text-center text-lg font-semibold leading-8 text-gray-900">
-                            Trusted by Manufacturers around the world.
-                        </h2>
-                        <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-                            <img
-                                className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                                src="https://tailwindui.com/img/logos/158x48/transistor-logo-gray-900.svg"
-                                alt="Transistor"
-                                width={158}
-                                height={48}
-                            />
-                            <img
-                                className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                                src="https://tailwindui.com/img/logos/158x48/reform-logo-gray-900.svg"
-                                alt="Reform"
-                                width={158}
-                                height={48}
-                            />
-                            <img
-                                className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                                src="https://tailwindui.com/img/logos/158x48/tuple-logo-gray-900.svg"
-                                alt="Tuple"
-                                width={158}
-                                height={48}
-                            />
-                            <img
-                                className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
-                                src="https://tailwindui.com/img/logos/158x48/savvycal-logo-gray-900.svg"
-                                alt="SavvyCal"
-                                width={158}
-                                height={48}
-                            />
-                            <img
-                                className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
-                                src="https://tailwindui.com/img/logos/158x48/statamic-logo-gray-900.svg"
-                                alt="Statamic"
-                                width={158}
-                                height={48}
-                            />
-                        </div>
-                    </div>
-                </div>
+                {/*<div className="bg-white py-24 sm:py-32">*/}
+                {/*    <div className="mx-auto max-w-7xl px-6 lg:px-8">*/}
+                {/*        <h2 className="text-center text-lg font-semibold leading-8 text-gray-900">*/}
+                {/*            Trusted by Manufacturers around the world.*/}
+                {/*        </h2>*/}
+                {/*        <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">*/}
+                {/*            <img*/}
+                {/*                className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"*/}
+                {/*                src="https://tailwindui.com/img/logos/158x48/transistor-logo-gray-900.svg"*/}
+                {/*                alt="Transistor"*/}
+                {/*                width={158}*/}
+                {/*                height={48}*/}
+                {/*            />*/}
+                {/*            <img*/}
+                {/*                className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"*/}
+                {/*                src="https://tailwindui.com/img/logos/158x48/reform-logo-gray-900.svg"*/}
+                {/*                alt="Reform"*/}
+                {/*                width={158}*/}
+                {/*                height={48}*/}
+                {/*            />*/}
+                {/*            <img*/}
+                {/*                className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"*/}
+                {/*                src="https://tailwindui.com/img/logos/158x48/tuple-logo-gray-900.svg"*/}
+                {/*                alt="Tuple"*/}
+                {/*                width={158}*/}
+                {/*                height={48}*/}
+                {/*            />*/}
+                {/*            <img*/}
+                {/*                className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"*/}
+                {/*                src="https://tailwindui.com/img/logos/158x48/savvycal-logo-gray-900.svg"*/}
+                {/*                alt="SavvyCal"*/}
+                {/*                width={158}*/}
+                {/*                height={48}*/}
+                {/*            />*/}
+                {/*            <img*/}
+                {/*                className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"*/}
+                {/*                src="https://tailwindui.com/img/logos/158x48/statamic-logo-gray-900.svg"*/}
+                {/*                alt="Statamic"*/}
+                {/*                width={158}*/}
+                {/*                height={48}*/}
+                {/*            />*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+
+                <TopComps/>
             </main>
 
             {/* Footer */}
-            <footer className="mx-auto mt-40 max-w-7xl overflow-hidden px-6 pb-20 sm:mt-64 sm:pb-24 lg:px-8">
-                <nav className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12" aria-label="Footer">
-                    {footerNavigation.main.map((item) => (
-                        <div key={item.name} className="pb-6">
-                            <a href={item.href} className="text-sm leading-6 text-gray-600 hover:text-gray-900">
-                                {item.name}
-                            </a>
-                        </div>
-                    ))}
-                </nav>
-                {/*<div className="mt-10 flex justify-center space-x-10">*/}
-                {/*    {footerNavigation.social.map((item) => (*/}
-                {/*        <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">*/}
-                {/*            <span className="sr-only">{item.name}</span>*/}
-                {/*            <item.icon className="h-6 w-6" aria-hidden="true" />*/}
-                {/*        </a>*/}
-                {/*    ))}*/}
-                {/*</div>*/}
-                <p className="mt-10 text-center text-xs leading-5 text-gray-500">
-                    &copy; 2020 Your Company, Inc. All rights reserved.
-                </p>
-            </footer>
+           <Footer/>
         </div>
     )
 }

@@ -1,264 +1,453 @@
-import Header from "@/components/Header";
-import Image from "next/image";
-// @ts-ignore
-
-// @ts-ignore
-import {
-    CloudUploadIcon,
-    CogIcon,
-    LockClosedIcon,
-    RefreshIcon,
-    ServerIcon,
-    ShieldCheckIcon
-} from '@heroicons/react/outline'
-import Footer from "@/components/Footer";
-import {VectorMap} from "@react-jvectormap/core";
+'use client'
+import React, {useState} from 'react'
+import {Dialog} from '@headlessui/react'
 import {Testimonials} from "@/components/testimonial";
+import Header from "@/components/Header";
+import AnimatedNumbers from "react-animated-numbers";
+import {AnimationOnScroll} from "react-animation-on-scroll";
+import 'animate.css';
+import TopComps from "@/components/topcomps";
+import Footer from "@/components/Footer";
+const navigation = [
+    {name: 'Product', href: '#'},
+    {name: 'Features', href: '#'},
+    {name: 'Resources', href: '#'},
+    {name: 'Company', href: '#'},
+]
+const stats = [
 
-export default function About() {
-    const features = [
-        {
-            name: 'Customer first',
-            icon: CloudUploadIcon,
-            data: 'We M/S Shri Krishna commercial, believe in diminishing the gap between OEMs and End- users. We understand the exact requirements of customers, consider their pain areas and provide most efficient services.'
+    {label: 'Established in 2010', value: new Date().getFullYear() - 2010 + "+ Years in Business" },
+    {label: 'States', value: '15+'},
+    {label: 'Clients', value: '200+'},
+]
+const values = [
+    {
+        name: 'Customer first',
+        description:
+            "We M/S Shri Krishna commercial, believe in diminishing the gap between OEMs and End- users. We understand the exact requirements of customers, consider their pain areas and provide most efficient services."
+    },
+    {
+        name: 'Value Pricing',
+        description:
+            "Value Pricing: we believe in alleviating industrial pain areas and serving our customers with best quality products at best prices."
+    },
+    {
+        name: 'Trust',
+        description:
+            "meeting our commitments and fulfilling your requirements to build a reliable, responsible, accountable and resourceful relationship."
+    },
+    {
+        name: 'Services',
+        description:
+            "Dedicated and prompt services second to none; we always try to assist with sales services in accordance to situations prevailing"
+    },
+
+    {
+        name: 'Integrity',
+        description:
+            "a consistent and uncompromising adherence to strong moral and ethical principles and values."
+    },
+    {
+        name: 'Teamwork',
+        description:
+            "In sync with our core value we strongly believe that the only success mantra to prosper is teamwork."
+    },
+]
+const team = [
+    {
+        name: 'Anuj Sanyal ',
+        role: 'Sr. Executive: Back Office',
+        imageUrl:
+            "/assets/img/leaders/Anuj_Sanyal.jpeg"
+    }, {
+        name: 'Raj Sinha ',
+        role: 'Sr. Executive: Back Office',
+        imageUrl:
+            "/assets/img/leaders/Raj Sinha.jpeg"
+    }, {
+        name: 'Atul Sharma',
+        role: 'Manager',
+        imageUrl:
+            "/assets/img/leaders/Atul_Sharma.jpeg"
+    }, {
+        name: 'Atul Sharma',
+        role: 'Sr. Executive Back Office',
+        imageUrl:
+            "/assets/img/leaders/Sanjay Kumar.jpeg"
+    }
+    // More people...
+]
+const blogPosts = [
+    {
+        id: 1,
+        title: 'Vel expedita assumenda placeat aut nisi optio voluptates quas',
+        href: '#',
+        description:
+            'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
+        imageUrl:
+            'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80',
+        date: 'Mar 16, 2020',
+        datetime: '2020-03-16',
+        author: {
+            name: 'Michael Foster',
+            imageUrl:
+                'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
         },
-        {
-            name: 'Value Pricing',
-            icon: LockClosedIcon,
-            data: 'Value Pricing: we believe in alleviating industrial pain areas and serving our customers with best quality products at best prices.'
-        },
-        {
-            name: 'Trust',
-            icon: RefreshIcon,
-            data: 'meeting our commitments and fulfilling your requirements to build a reliable, responsible, accountable and resourceful relationship.'
-        },
-        {
-            name: 'Services',
-            icon: ShieldCheckIcon,
-            data: 'Dedicated and prompt services second to none; we always try to assist with sales services in accordance to situations prevailing'
-        },
-        {
-            name: 'Integrity',
-            icon: CogIcon,
-            data: 'a consistent and uncompromising adherence to strong moral and ethical principles and values.'
-        },
-        {
-            name: 'Teamwork',
-            icon: ServerIcon,
-            data: "In sync with our core value we strongly believe that the only success mantra to prosper is teamwork."
-        },
-    ];
-    const testimonail: {}[] = [
-        {
-            name: "WAHID HUSSAIN",
-            company: "Jindal Steel Patratu",
-            comment: "We would like to thank you and your team for your excellent service to our organisation. We really impressed by the timely support that you have been providing us."
-        }, {
-            name: "DEEPAK SHARMA",
-            company: "Sr Executive Materials,Tata Autocomp",
-            comment: "We find your service satisfactory, and supply delivery is on time."
-        }, {
-            name: "BINAY KRISHNA SHAW",
-            company: "Tata Steel LLP",
-            comment: "Very Good Responce"
-        }, {
-            name: "RABIN HALDER",
-            company: "Hooghly Metcoke",
-            comment: "Dear M/s Shrikrishna & everyone from your esteemed organization, I personally feel from the bottom of my heart that you have been so nice and it is our pleasure for being your customers'. You always have been keeping an eye into our requirements to deliver on time. This is absolutely satisfactory. Hoping much more support from you into our organizational goals to achieve & create milestones. Without you, it is absolutely impossible. I would like to thanks to Anuj Ji, Atul Ji, Vikash Ji and Manish ji and everyone who so ever is part of your business into. Our sincere gratitude to you all."
-        }
-    ]
+    },
+    // More posts...
+]
+const footerNavigation = {
+    main: [
+        {name: 'Blog', href: '#'},
+        {name: 'Jobs', href: '#'},
+        {name: 'Press', href: '#'},
+        {name: 'Accessibility', href: '#'},
+        {name: 'Partners', href: '#'},
+    ],
+
+}
+
+export default function Example() {
+    const [num, setNum] = React.useState(331231);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     return (
-        <div>
+        <div className="bg-white">
+            {/* Header */}
             <Header/>
 
-            <div className="relative bg-primary ">
-                <div className="absolute inset-0">
-                    <Image width="400" height="500"
-                           className="w-full h-full object-cover"
-                           src="https://images.unsplash.com/photo-1525130413817-d45c1d127c42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=60&&sat=-100"
-                           alt=""
-                    />
-                    <div className="absolute inset-0 bg-primary mix-blend-multiply" aria-hidden="true"/>
-                </div>
-                <div className="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
-                    <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">About
-                        us </h1>
-                    <p className="mt-6 text-xl text-white max-w-3xl">
-                        We are a dedicated team committed to providing innovative solutions and exceptional experiences.
-                        With a passion for excellence, we aim to exceed expectations and create lasting value for our
-                        customers.
-                    </p>
-                </div>
-            </div>
-            <section className="bg-white ">
-                <div
-                    className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
-                    <div className="font-light text-gray-500 sm:text-lg ">
-                        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 ">KNOW WHO WE ARE</h2>
-                        <p className="mb-4 text-m">M/S SHRI KRISHNA COMMERCIAL was established in 2010, The Company was formed
-                            with a vision of becoming specialists in the Industrial sector with a motive to pioneer in
-                            Electrical, Instrumentation, Mechanical and safety solution. Over the years, Shri Krishna
-                            Commercial has emerged as a one-stop solution for many Industrial, Electrical,
-                            Instrumentation and Mechanical products with the core value of the company's growth in line
-                            with its employees’. In sync with the idea of becoming a leading one-stop electrical product
-                            solution, we have tied up with leading OEM’s of various unique and innovative segments.
-                            Since its inception, M/S Shri Krishna commercial has grown many folds to become one of the
-                            most trusted aggregators and channel partners with more than 35+ OEMs serving more than 119+
-                            customers. We've branched our services to 8+ states of India (both in Private and Government
-                            sectors) and are working tirelessly towards expanding our base over Pan India. We envisioned
-                            on becoming the most reliable, sustainable and competitive company for industrial business
-                            solution globally.</p>
+            <main className="isolate">
+                {/* Hero section */}
+                <div className="relative isolate -z-10">
+                    <svg
+                        className="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]"
+                        aria-hidden="true"
+                    >
+                        <defs>
+                            <pattern
+                                id="1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84"
+                                width={200}
+                                height={200}
+                                x="50%"
+                                y={-1}
+                                patternUnits="userSpaceOnUse"
+                            >
+                                <path d="M.5 200V.5H200" fill="none"/>
+                            </pattern>
+                        </defs>
+                        <svg x="50%" y={-1} className="overflow-visible fill-gray-50">
+                            <path
+                                d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
+                                strokeWidth={0}
+                            />
+                        </svg>
+                        <rect width="100%" height="100%" strokeWidth={0}
+                              fill="url(#1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84)"/>
+                    </svg>
+                    <div
+                        className="absolute left-1/2 right-0 top-0 -z-10 -ml-24 transform-gpu overflow-hidden blur-3xl lg:ml-24 xl:ml-48"
+                        aria-hidden="true"
+                    >
+                        <div
+                            className="aspect-[801/1036] w-[50.0625rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30"
+                            style={{
+                                clipPath:
+                                    'polygon(63.1% 29.5%, 100% 17.1%, 76.6% 3%, 48.4% 0%, 44.6% 4.7%, 54.5% 25.3%, 59.8% 49%, 55.2% 57.8%, 44.4% 57.2%, 27.8% 47.9%, 35.1% 81.5%, 0% 97.7%, 39.2% 100%, 35.2% 81.4%, 97.2% 52.8%, 63.1% 29.5%)',
+                            }}
+                        />
                     </div>
-                    <div className="grid grid-cols-2 gap-4 mt-8">
-                        <Image className="w-full rounded-lg"
-                               width="400" height="500"
-                               src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png"
-                               alt="office content 1"/>
-                        <Image className="mt-4 w-full lg:mt-10 rounded-lg"
-                               width="400" height="500"
-                               src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png"
-                               alt="office content 2"/>
-                    </div>
-                </div>
-            </section>
-            <section className="gradient_3">
-                <div className="max-w-7xl mx-auto md:grid md:grid-cols-2 md:px-6 lg:px-8">
-                    <div className="py-12 px-4 sm:px-6 md:flex md:flex-col md:py-16 md:pl-0 md:pr-10 lg:pr-16">
-                        <div className="md:flex-shrink-0">
-                            <h3 className="font-bold text-3xl text-white">
-                                Vission
-                            </h3>
-                        </div>
-                        <blockquote className="mt-6 md:flex-grow md:flex md:flex-col">
-                            <div className="relative text-lg font-medium text-white md:flex-grow">
-                                <svg
-                                    className="absolute top-0 left-0 transform -translate-x-3 -translate-y-2 h-8 w-8 text-primary"
-                                    fill="currentColor"
-                                    viewBox="0 0 32 32"
-                                    aria-hidden="true"
-                                >
-                                    <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-                                </svg>
-                                <p className="relative">
-                                    To preserve and grow our position of market leadership in India and worldwide. Our vision is the growth of the company in line with the growth of its employees’.
-                                </p>
-                            </div>
-
-                        </blockquote>
-                    </div>
-                    <div className="py-12 px-4  sm:px-6 md:py-16 md:pr-0 md:pl-10  lg:pl-16">
-                        <div className="md:flex-shrink-0">
-                            <h3 className="font-bold text-3xl text-white">
-                                Mission
-                            </h3>
-                        </div>
-                        <blockquote className="mt-6 md:flex-grow md:flex md:flex-col">
-                            <div className="relative text-lg font-medium text-white md:flex-grow">
-                                <svg
-                                    className="absolute top-0 left-0 transform -translate-x-3 -translate-y-2 h-8 w-8 text-primary"
-                                    fill="currentColor"
-                                    viewBox="0 0 32 32"
-                                >
-                                    <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-                                </svg>
-                                <p className="relative">
-                                    Our mission is to flourish our trades in India and across the world to become the most reliable, sustainable, and competitive company for industrial business solution provider, globally.
-
-
-                                </p>
-                            </div>
-
-                        </blockquote>
-                    </div>
-                </div>
-            </section>
-
-            <div className="relative bg-white py-16 sm:py-24 lg:py-32">
-                <div className="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
-                    <h2 className="text-base font-semibold tracking-wider text-primary uppercase">Our Values</h2>
-                    <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
-                        Everything you need to know about us
-                    </p>
-                    <p className="mt-5 max-w-prose mx-auto text-xl text-gray-500">
-                        Our values drive us forward, guiding our actions to prioritize integrity, collaboration, and
-                        continuous growth. We embrace diversity and are devoted to delivering excellence in all we do.
-                    </p>
-                    <div className="mt-12">
-                        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                            {features.map((feature) => (
-                                <div key={feature.name} className="pt-6 ">
-                                    <div className="flow-root bg-gray-50 rounded-lg px-6 pb-8 h-[260px]">
-                                        <div className="-mt-6">
-                                            <div>
-                      <span className="inline-flex items-center justify-center p-3 bg-primary rounded-md shadow-lg">
-                        <feature.icon className="h-6 w-6 text-white" aria-hidden="true"/>
-                      </span>
-                                            </div>
-                                            <h3 className="mt-8 text-lg font-medium text-gray-900 tracking-tight">{feature.name}</h3>
-                                            <p className="mt-5 text-base text-gray-500">
-                                                {feature.data}
-                                            </p>
+                    <div className="overflow-hidden">
+                        <div className="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
+                            <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
+                                <div className="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
+                                    <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+                                        About us
+                                    </h1>
+                                    <p className="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
+                                        We are a dedicated team committed to providing innovative solutions and
+                                        exceptional experiences. With a passion for excellence, we aim to exceed
+                                        expectations and create lasting value for our customers.
+                                    </p>
+                                </div>
+                                <div
+                                    className="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
+                                    <div
+                                        className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
+                                        <div className="relative">
+                                            <img
+                                                src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
+                                                alt=""
+                                                className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                                            />
+                                            <div
+                                                className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"/>
+                                        </div>
+                                    </div>
+                                    <div className="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
+                                        <div className="relative">
+                                            <img
+                                                src="https://images.unsplash.com/photo-1485217988980-11786ced9454?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
+                                                alt=""
+                                                className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                                            />
+                                            <div
+                                                className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"/>
+                                        </div>
+                                        <div className="relative">
+                                            <img
+                                                src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=396&h=528&q=80"
+                                                alt=""
+                                                className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                                            />
+                                            <div
+                                                className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"/>
+                                        </div>
+                                    </div>
+                                    <div className="w-44 flex-none space-y-8 pt-32 sm:pt-0">
+                                        <div className="relative">
+                                            <img
+                                                src="https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80"
+                                                alt=""
+                                                className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                                            />
+                                            <div
+                                                className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"/>
+                                        </div>
+                                        <div className="relative">
+                                            <img
+                                                src="https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
+                                                alt=""
+                                                className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+                                            />
+                                            <div
+                                                className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"/>
                                         </div>
                                     </div>
                                 </div>
-                            ))}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <Testimonials/>
 
-            {/*<section className="bg-gray-900">*/}
-            {/*    <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-6">*/}
-            {/*        <div className="mx-auto max-w-screen-sm">*/}
-            {/*            <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-white mb-5">Testimonials</h2>*/}
-            {/*            /!*<p className="mb-8 font-light  lg:mb-16 sm:text-xl text-gray-400">Explore the*!/*/}
-            {/*            /!*    whole collection of open-source web components and elements built with the utility classes*!/*/}
-            {/*            /!*    from Tailwind</p>*!/*/}
-            {/*        </div>*/}
-            {/*        <div className="grid mb-8 lg:mb-12 lg:grid-cols-2">*/}
-            {/*            {*/}
-            {/*                (testimonail.map((t, i) => {*/}
+                {/* Content section */}
+                <div className="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
 
-            {/*                    return (<>*/}
-            {/*                        <figure key={i}*/}
-            {/*                                className="flex flex-col justify-center items-center p-8 text-center  border-b md:p-12 lg:border-r bg-gray-800 border-gray-700">*/}
-            {/*                            <blockquote className="mx-auto mb-8 max-w-2xl  text-gray-400">*/}
-            {/*                                <h3 className="text-sm font-thin  text-white">*/}
-            {/*                                    /!*@ts-ignore*!/*/}
-            {/*                                    {t.comment}*/}
-            {/*                                </h3>*/}
-            {/*                            </blockquote>*/}
-            {/*                            <figcaption className="flex justify-center items-center space-x-3">*/}
-            {/*                                /!*<Image className="w-9 h-9 rounded-full"*!/*/}
-            {/*                                /!*       width={"400"}*!/*/}
-            {/*                                /!*       height={"400"}*!/*/}
-            {/*                                /!*       src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/karen-nelson.png"*!/*/}
-            {/*                                /!*       alt="profile picture"/>*!/*/}
-            {/*                                <div className="space-y-0.5 font-medium text-white text-left">*/}
-            {/*                                    <div>*/}
-            {/*                                        /!*@ts-ignore*!/*/}
-            {/*                                        {t.name}*/}
-            {/*                                    </div>*/}
-            {/*                                    <div className="text-sm font-light text-gray-400">*/}
-            {/*                                        /!*@ts-ignore*!/*/}
-            {/*                                        {t.company}*/}
-            {/*                                    </div>*/}
-            {/*                                </div>*/}
-            {/*                            </figcaption>*/}
-            {/*                        </figure>*/}
+                    <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
+                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Know who we are</h2>
+                        <div className="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
+                            <div className="lg:w-full lg:max-w-2xl lg:flex-auto">
+                                <div className="mt-10 max-w-xl text-base leading-7 text-gray-700">
+                                    <p>
+                                        M/S SHRI KRISHNA COMMERCIAL was established in 2010, The Company was formed with
+                                        a vision of becoming specialists in the Industrial sector with a motive to
+                                        pioneer in Electrical, Instrumentation, Mechanical and safety solution. Over the
+                                        years, Shri Krishna Commercial has emerged as a one-stop solution for many
+                                        Industrial, Electrical, Instrumentation and Mechanical products with the core
+                                        value of the company's growth in line with its employees’. In sync with the idea
+                                        of becoming a leading one-stop electrical product solution, we have tied up with
+                                        leading OEM’s of various unique and innovative segments. Since its inception,
+                                        M/S Shri Krishna commercial has grown many folds to become one of the most
+                                        trusted aggregators and channel partners with more than 35+ OEMs serving more
+                                        than 119+ customers. We've branched our services to 8+ states of India (both in
+                                        Private and Government sectors) and are working tirelessly towards expanding our
+                                        base over Pan India. We envisioned on becoming the most reliable, sustainable
+                                        and competitive company for industrial business solution globally.
+                                    </p>
 
-            {/*                    </>)*/}
-            {/*                }))*/}
-            {/*            }*/}
+                                </div>
+                                {/*<h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:mt-10 mt-3">Our*/}
+                                {/*    mission</h2>*/}
+                                {/*<div className="mt-10 max-w-xl text-base leading-7 text-gray-700">*/}
+                                {/*    <p>*/}
+                                {/*        Our mission is to flourish our trades in India and across the world to become*/}
+                                {/*        the most reliable, sustainable, and competitive company for industrial business*/}
+                                {/*        solution provider, globally.*/}
+                                {/*    </p>*/}
+
+                                {/*</div>*/}
+                            </div>
+                            <div className="lg:flex lg:flex-auto lg:justify-center">
+
+                                <dl className="w-64 space-y-8 xl:w-80">
+                                    {stats.map((stat,k) => (
+                                        <div key={stat.label} className="flex flex-col-reverse gap-y-4">
+
+                                            <dt className="text-base leading-7 text-gray-600">{stat.label}</dt>
+                                            <dd className="text-5xl font-semibold tracking-tight text-gray-900 flex"> <AnimatedNumbers
+                                                includeComma
+                                                animateToNumber={parseInt(stat.value.replace("+",""))}
+                                                fontStyle={{ fontSize: 40 , fontWeight : "black" }}
+                                                locale="en-US"
+                                                configs={[
+                                                    { mass: 1, tension: 220, friction: 100 },
+                                                    { mass: 1, tension: 180, friction: 130 },
+                                                    { mass: 1, tension: 280, friction: 90 },
+                                                    { mass: 1, tension: 180, friction: 135 },
+                                                    { mass: 1, tension: 260, friction: 100 },
+                                                    { mass: 1, tension: 210, friction: 180 },
+                                                ]}
+                                            ></AnimatedNumbers> <p className="-mt-1">+ {k==0 ? " Years" : ""}</p> </dd>
+                                        </div>
+                                    ))}
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Image section */}
+                <div className="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
+                    <img
+                        src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
+                        alt=""
+                        className="aspect-[5/2] w-full object-cover xl:rounded-3xl"
+                    />
+                </div>
+
+                {/* Values section */}
+                <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-8">
+                    <div className="mx-auto max-w-2xl lg:mx-0">
+                        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our values</h2>
+                        <p className="mt-6 text-lg leading-8 text-gray-600">
+                            Our values drive us forward, guiding our actions to prioritize integrity, collaboration, and
+                            continuous growth. We embrace diversity and are devoted to delivering excellence in all we
+                            do.
+                        </p>
+                    </div>
+                    <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                        {values.map((value) => (
+                            <AnimationOnScroll animateIn="animate__fadeInUp">
+                            <div key={value.name}>
+                                <dt className="font-semibold text-gray-900">{value.name}</dt>
+                                <dd className="mt-1 text-gray-600">{value.description}</dd>
+                            </div>
+                            </AnimationOnScroll>
+                        ))}
+                    </dl>
+                </div>
+
+                {/* Logo cloud */}
+                <div className="relative isolate -z-10 mt-32 sm:mt-48">
+                    <div
+                        className="absolute inset-x-0 top-1/2 -z-10 flex -translate-y-1/2 justify-center overflow-hidden [mask-image:radial-gradient(50%_45%_at_50%_55%,white,transparent)]">
+                        <svg className="h-[40rem] w-[80rem] flex-none stroke-gray-200" aria-hidden="true">
+                            <defs>
+                                <pattern
+                                    id="e9033f3e-f665-41a6-84ef-756f6778e6fe"
+                                    width={200}
+                                    height={200}
+                                    x="50%"
+                                    y="50%"
+                                    patternUnits="userSpaceOnUse"
+                                    patternTransform="translate(-100 0)"
+                                >
+                                    <path d="M.5 200V.5H200" fill="none"/>
+                                </pattern>
+                            </defs>
+                            <svg x="50%" y="50%" className="overflow-visible fill-gray-50">
+                                <path d="M-300 0h201v201h-201Z M300 200h201v201h-201Z" strokeWidth={0}/>
+                            </svg>
+                            <rect width="100%" height="100%" strokeWidth={0}
+                                  fill="url(#e9033f3e-f665-41a6-84ef-756f6778e6fe)"/>
+                        </svg>
+                    </div>
+                    {/*<div className="mx-auto max-w-7xl px-6 lg:px-8">*/}
+                    {/*    <h2 className="text-center text-lg font-semibold leading-8 text-gray-900">*/}
+                    {/*        Trusted by the world’s most innovative teams*/}
+                    {/*    </h2>*/}
+                    {/*    <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">*/}
+                    {/*        <img*/}
+                    {/*            className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"*/}
+                    {/*            src="https://tailwindui.com/img/logos/158x48/transistor-logo-gray-900.svg"*/}
+                    {/*            alt="Transistor"*/}
+                    {/*            width={158}*/}
+                    {/*            height={48}*/}
+                    {/*        />*/}
+                    {/*        <img*/}
+                    {/*            className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"*/}
+                    {/*            src="https://tailwindui.com/img/logos/158x48/reform-logo-gray-900.svg"*/}
+                    {/*            alt="Reform"*/}
+                    {/*            width={158}*/}
+                    {/*            height={48}*/}
+                    {/*        />*/}
+                    {/*        <img*/}
+                    {/*            className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"*/}
+                    {/*            src="https://tailwindui.com/img/logos/158x48/tuple-logo-gray-900.svg"*/}
+                    {/*            alt="Tuple"*/}
+                    {/*            width={158}*/}
+                    {/*            height={48}*/}
+                    {/*        />*/}
+                    {/*        <img*/}
+                    {/*            className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"*/}
+                    {/*            src="https://tailwindui.com/img/logos/158x48/savvycal-logo-gray-900.svg"*/}
+                    {/*            alt="SavvyCal"*/}
+                    {/*            width={158}*/}
+                    {/*            height={48}*/}
+                    {/*        />*/}
+                    {/*        <img*/}
+                    {/*            className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"*/}
+                    {/*            src="https://tailwindui.com/img/logos/158x48/statamic-logo-gray-900.svg"*/}
+                    {/*            alt="Statamic"*/}
+                    {/*            width={158}*/}
+                    {/*            height={48}*/}
+                    {/*        />*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                    <Testimonials/>
+                </div>
 
 
-            {/*        </div>*/}
 
-            {/*    </div>*/}
-            {/*</section>*/}
-<Footer/>
+                {/*<div className="bg-white py-24 sm:py-32">*/}
+                {/*    <div className="mx-auto max-w-7xl px-6 lg:px-8">*/}
+                {/*        <h2 className="text-center text-lg font-semibold leading-8 text-gray-900">*/}
+                {/*            Trusted by Manufacturers around the world.*/}
+                {/*        </h2>*/}
+                {/*        <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">*/}
+                {/*            <img*/}
+                {/*                className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"*/}
+                {/*                src="https://tailwindui.com/img/logos/158x48/transistor-logo-gray-900.svg"*/}
+                {/*                alt="Transistor"*/}
+                {/*                width={158}*/}
+                {/*                height={48}*/}
+                {/*            />*/}
+                {/*            <img*/}
+                {/*                className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"*/}
+                {/*                src="https://tailwindui.com/img/logos/158x48/reform-logo-gray-900.svg"*/}
+                {/*                alt="Reform"*/}
+                {/*                width={158}*/}
+                {/*                height={48}*/}
+                {/*            />*/}
+                {/*            <img*/}
+                {/*                className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"*/}
+                {/*                src="https://tailwindui.com/img/logos/158x48/tuple-logo-gray-900.svg"*/}
+                {/*                alt="Tuple"*/}
+                {/*                width={158}*/}
+                {/*                height={48}*/}
+                {/*            />*/}
+                {/*            <img*/}
+                {/*                className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"*/}
+                {/*                src="https://tailwindui.com/img/logos/158x48/savvycal-logo-gray-900.svg"*/}
+                {/*                alt="SavvyCal"*/}
+                {/*                width={158}*/}
+                {/*                height={48}*/}
+                {/*            />*/}
+                {/*            <img*/}
+                {/*                className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"*/}
+                {/*                src="https://tailwindui.com/img/logos/158x48/statamic-logo-gray-900.svg"*/}
+                {/*                alt="Statamic"*/}
+                {/*                width={158}*/}
+                {/*                height={48}*/}
+                {/*            />*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+
+                <TopComps/>
+            </main>
+
+            {/* Footer */}
+           <Footer/>
         </div>
     )
 }

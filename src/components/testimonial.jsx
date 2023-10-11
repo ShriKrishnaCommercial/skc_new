@@ -3,7 +3,8 @@ import Image from 'next/image'
 
 
 import {Container} from "./Container";
-
+import "animate.css"
+import {AnimationOnScroll} from "react-animation-on-scroll";
 const testimonials = [
     [
         {
@@ -90,6 +91,7 @@ export function Testimonials() {
                 </div>
                 <ul className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:gap-8 lg:mt-20 lg:max-w-none lg:grid-cols-3">
                     {testimonials.map((column, columnIndex) => (
+                        <AnimationOnScroll animateIn="animate__fadeInUp">
                         <li key={columnIndex}>
                             <ul className="space-y-6 sm:space-y-8">
                                 {column.map((testimonial, testimonialIndex) => (
@@ -126,6 +128,7 @@ export function Testimonials() {
                                 ))}
                             </ul>
                         </li>
+                        </AnimationOnScroll>
                     ))}
                 </ul>
             </Container>

@@ -15,7 +15,7 @@ export default function Header() {
     }, [])
     return (
         <header>
-            <div className="relative bg-white">
+            <div className="relative bg-transparent z-10 ">
                 <div
                     className="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
                     <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -156,7 +156,7 @@ export default function Header() {
                         <a href='/products'>
 
                         <button type="button"
-                                className="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                className="text-gray-500 group  rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                 aria-expanded="false">
                             <span>Products</span>
 
@@ -184,7 +184,7 @@ export default function Header() {
                     <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
 
                         <a href="#"
-                           className="ml-8 whitespace-nowrap inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:from-purple-700 hover:to-indigo-700">
+                           className="ml-8 whitespace-nowrap inline-flex items-center justify-center bg-gradient-to-r from-primary to-orange-800 0 bg-origin-border px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:from-purple-700 hover:to-indigo-700">
                             Contact Us </a>
                     </div>
                 </div>

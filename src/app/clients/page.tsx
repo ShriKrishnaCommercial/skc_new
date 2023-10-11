@@ -8,7 +8,7 @@ import Image from "next/image";
 import React from "react";
 import "animate.css"
 import {Dialog} from "@headlessui/react";
-
+import { AnimationOnScroll } from 'react-animation-on-scroll';
 
 
 
@@ -65,7 +65,7 @@ export default function Example() {
         <>
             <Header/>
 
-            <div className="bg-white ">
+            <div className="bg-white mt-20">
                 <div className="relative isolate px-6 pt-14 lg:px-8">
                     <div
                         className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -116,12 +116,14 @@ export default function Example() {
                         {
                             (brands.map((a, i) => {
                                 return (
+                                    <AnimationOnScroll animateIn="animate__fadeInUp">
                                     <div key={i}
-                                         className="col-span-1 flex animate__animated animate__fadeIn justify-center  bg-gray-100 p-4 animate__animated animate__fadeInUp">
+                                         className="col-span-1 flex animate__animated animate__fadeIn justify-center  bg-transparent p-4 animate__animated animate__fadeInUp">
                                         <Image width="400" height="400"
                                                className="h-[100px] w-[130px] mix-blend-multiply mx-5 object-fill"
                                                src={"/img/client/" + a} alt={a}/>
                                     </div>
+                                    </AnimationOnScroll>
                                 )
                             }))
                         }
