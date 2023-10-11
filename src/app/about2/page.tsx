@@ -1,13 +1,12 @@
-'use client'
-import React, {useState} from 'react'
+
 import {Dialog} from '@headlessui/react'
 import {Testimonials} from "@/components/testimonial";
 import Header from "@/components/Header";
-import AnimatedNumbers from "react-animated-numbers";
-import {AnimationOnScroll} from "react-animation-on-scroll";
+
 import 'animate.css';
 import TopComps from "@/components/topcomps";
 import Footer from "@/components/Footer";
+
 const navigation = [
     {name: 'Product', href: '#'},
     {name: 'Features', href: '#'},
@@ -16,7 +15,7 @@ const navigation = [
 ]
 const stats = [
 
-    {label: 'Established in 2010', value: new Date().getFullYear() - 2010 + "+ Years in Business" },
+    {label: 'Established in 2010', value: new Date().getFullYear() - 2010 + "+ Years in Business"},
     {label: 'States', value: '15+'},
     {label: 'Clients', value: '200+'},
 ]
@@ -77,6 +76,7 @@ const team = [
     }
     // More people...
 ]
+// export const config = { runtime: "edge", };
 const blogPosts = [
     {
         id: 1,
@@ -108,8 +108,7 @@ const footerNavigation = {
 }
 
 export default function Example() {
-    const [num, setNum] = React.useState(331231);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
 
     return (
         <div className="bg-white">
@@ -269,24 +268,26 @@ export default function Example() {
                             <div className="lg:flex lg:flex-auto lg:justify-center">
 
                                 <dl className="w-64 space-y-8 xl:w-80">
-                                    {stats.map((stat,k) => (
+                                    {stats.map((stat, k) => (
                                         <div key={stat.label} className="flex flex-col-reverse gap-y-4">
 
                                             <dt className="text-base leading-7 text-gray-600">{stat.label}</dt>
-                                            <dd className="text-5xl font-semibold tracking-tight text-gray-900 flex"> <AnimatedNumbers
-                                                includeComma
-                                                animateToNumber={parseInt(stat.value.replace("+",""))}
-                                                fontStyle={{ fontSize: 40 , fontWeight : "black" }}
-                                                locale="en-US"
-                                                configs={[
-                                                    { mass: 1, tension: 220, friction: 100 },
-                                                    { mass: 1, tension: 180, friction: 130 },
-                                                    { mass: 1, tension: 280, friction: 90 },
-                                                    { mass: 1, tension: 180, friction: 135 },
-                                                    { mass: 1, tension: 260, friction: 100 },
-                                                    { mass: 1, tension: 210, friction: 180 },
-                                                ]}
-                                            ></AnimatedNumbers> <p className="-mt-1">+ {k==0 ? " Years" : ""}</p> </dd>
+                                            <dd className="text-5xl font-semibold tracking-tight text-gray-900 flex">
+                                                {/*<AnimatedNumbers*/}
+                                                {/*    includeComma*/}
+                                                {/*    animateToNumber={parseInt(stat.value.replace("+", ""))}*/}
+                                                {/*    fontStyle={{fontSize: 40, fontWeight: "black"}}*/}
+                                                {/*    locale="en-US"*/}
+                                                {/*    configs={[*/}
+                                                {/*        {mass: 1, tension: 220, friction: 100},*/}
+                                                {/*        {mass: 1, tension: 180, friction: 130},*/}
+                                                {/*        {mass: 1, tension: 280, friction: 90},*/}
+                                                {/*        {mass: 1, tension: 180, friction: 135},*/}
+                                                {/*        {mass: 1, tension: 260, friction: 100},*/}
+                                                {/*        {mass: 1, tension: 210, friction: 180},*/}
+                                                {/*    ]}*/}
+                                                {/*></AnimatedNumbers> <p className="-mt-1">+ {k == 0 ? " Years" : ""}</p>*/}
+                                            </dd>
                                         </div>
                                     ))}
                                 </dl>
@@ -315,14 +316,14 @@ export default function Example() {
                         </p>
                     </div>
                     <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                        {values.map((value) => (
-                            <AnimationOnScroll animateIn="animate__fadeInUp">
-                            <div key={value.name}>
-                                <dt className="font-semibold text-gray-900">{value.name}</dt>
-                                <dd className="mt-1 text-gray-600">{value.description}</dd>
-                            </div>
-                            </AnimationOnScroll>
-                        ))}
+                        {/*{values.map((value) => (*/}
+                        {/*    <AnimationOnScroll animateIn="animate__fadeInUp">*/}
+                        {/*        <div key={value.name}>*/}
+                        {/*            <dt className="font-semibold text-gray-900">{value.name}</dt>*/}
+                        {/*            <dd className="mt-1 text-gray-600">{value.description}</dd>*/}
+                        {/*        </div>*/}
+                        {/*    </AnimationOnScroll>*/}
+                        {/*))}*/}
                     </dl>
                 </div>
 
@@ -397,7 +398,6 @@ export default function Example() {
                 </div>
 
 
-
                 {/*<div className="bg-white py-24 sm:py-32">*/}
                 {/*    <div className="mx-auto max-w-7xl px-6 lg:px-8">*/}
                 {/*        <h2 className="text-center text-lg font-semibold leading-8 text-gray-900">*/}
@@ -447,7 +447,7 @@ export default function Example() {
             </main>
 
             {/* Footer */}
-           <Footer/>
+            <Footer/>
         </div>
     )
 }

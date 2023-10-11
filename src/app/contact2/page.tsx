@@ -3,9 +3,6 @@ import Image from "next/image";
 import Footer from "@/components/Footer";
 import React from "react";
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
 
 export default function Contact2() {
     return (

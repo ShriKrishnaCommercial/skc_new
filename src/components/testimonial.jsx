@@ -1,7 +1,5 @@
+'use client'
 import Image from 'next/image'
-
-
-
 import {Container} from "./Container";
 import "animate.css"
 import {AnimationOnScroll} from "react-animation-on-scroll";

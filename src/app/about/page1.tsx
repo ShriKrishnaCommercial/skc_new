@@ -107,7 +107,7 @@ const footerNavigation = {
 
 }
 
-export default function Example() {
+export default function About() {
     const [num, setNum] = React.useState(331231);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 

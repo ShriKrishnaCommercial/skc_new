@@ -3,7 +3,7 @@ import Image from "next/image";
 import Footer from "@/components/Footer";
 import React from "react";
 
-function classNames(...classes) {
+function classNames(classes:String[]) {
     return classes.filter(Boolean).join(' ')
 }
 

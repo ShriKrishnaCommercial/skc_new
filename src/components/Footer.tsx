@@ -1,5 +1,5 @@
+'use client'
 import React from "react";
-
 /* This example requires Tailwind CSS v2.0+ */
 const navigation = {
     solutions: [
@@ -30,6 +30,7 @@ const navigation = {
         {
             name: 'Facebook',
             href: '#',
+            // @ts-ignore
             icon: (props) => (
                 <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                     <path
@@ -43,6 +44,7 @@ const navigation = {
         {
             name: 'Instagram',
             href: '#',
+            // @ts-ignore
             icon: (props) => (
                 <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                     <path
@@ -56,6 +58,7 @@ const navigation = {
         {
             name: 'Twitter',
             href: '#',
+            // @ts-ignore
             icon: (props) => (
                 <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                     <path
@@ -66,6 +69,7 @@ const navigation = {
         {
             name: 'GitHub',
             href: '#',
+            // @ts-ignore
             icon: (props) => (
                 <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                     <path
@@ -79,6 +83,7 @@ const navigation = {
         {
             name: 'Dribbble',
             href: '#',
+            // @ts-ignore
             icon: (props) => (
                 <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
                     <path

@@ -132,7 +132,7 @@ export default function Products() {
                 {
                     (data.map((a, i) => {
                         return (
-                            <SplideSlide key={i+random(4)}>
+                            <SplideSlide key={i+1}>
                                 <div className="relative h-[300px]  bg-gray-900">
                                     <div>
                                         <div aria-hidden="true" className="absolute inset-0 overflow-hidden">

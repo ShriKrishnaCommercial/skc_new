@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import React, {useEffect, useRef, useState} from "react";
 import Header from "@/components/Header";
-import './globals.css'
+import './../globals.css'
 // @ts-ignore
 import {Splide, SplideSlide} from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
