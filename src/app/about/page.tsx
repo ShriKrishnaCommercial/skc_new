@@ -3,8 +3,8 @@ import React, {useState} from 'react'
 import {Dialog} from '@headlessui/react'
 import {Testimonials} from "@/components/testimonial";
 import Header from "@/components/Header";
-import AnimatedNumbers from "react-animated-numbers";
-import {AnimationOnScroll} from "react-animation-on-scroll";
+
+// import {AnimationOnScroll} from "react-animation-on-scroll";
 import 'animate.css';
 import TopComps from "@/components/topcomps";
 import Footer from "@/components/Footer";
@@ -273,20 +273,21 @@ export default function About() {
                                         <div key={stat.label} className="flex flex-col-reverse gap-y-4">
 
                                             <dt className="text-base leading-7 text-gray-600">{stat.label}</dt>
-                                            <dd className="text-5xl font-semibold tracking-tight text-gray-900 flex"> <AnimatedNumbers
-                                                includeComma
-                                                animateToNumber={parseInt(stat.value.replace("+",""))}
-                                                fontStyle={{ fontSize: 40 , fontWeight : "black" }}
-                                                locale="en-US"
-                                                configs={[
-                                                    { mass: 1, tension: 220, friction: 100 },
-                                                    { mass: 1, tension: 180, friction: 130 },
-                                                    { mass: 1, tension: 280, friction: 90 },
-                                                    { mass: 1, tension: 180, friction: 135 },
-                                                    { mass: 1, tension: 260, friction: 100 },
-                                                    { mass: 1, tension: 210, friction: 180 },
-                                                ]}
-                                            ></AnimatedNumbers> <p className="-mt-1">+ {k==0 ? " Years" : ""}</p> </dd>
+                                            {/*<dd className="text-5xl font-semibold tracking-tight text-gray-900 flex"> <AnimatedNumbers*/}
+                                            {/*    includeComma*/}
+                                            {/*    animateToNumber={parseInt(stat.value.replace("+",""))}*/}
+                                            {/*    fontStyle={{ fontSize: 40 , fontWeight : "black" }}*/}
+                                            {/*    locale="en-US"*/}
+                                            {/*    configs={[*/}
+                                            {/*        { mass: 1, tension: 220, friction: 100 },*/}
+                                            {/*        { mass: 1, tension: 180, friction: 130 },*/}
+                                            {/*        { mass: 1, tension: 280, friction: 90 },*/}
+                                            {/*        { mass: 1, tension: 180, friction: 135 },*/}
+                                            {/*        { mass: 1, tension: 260, friction: 100 },*/}
+                                            {/*        { mass: 1, tension: 210, friction: 180 },*/}
+                                            {/*    ]}*/}
+                                            {/*></AnimatedNumbers>*/}
+                                            {/*    <p className="-mt-1">+ {k==0 ? " Years" : ""}</p> </dd>*/}
                                         </div>
                                     ))}
                                 </dl>
@@ -315,14 +316,14 @@ export default function About() {
                         </p>
                     </div>
                     <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-                        {values.map((value) => (
-                            <AnimationOnScroll animateIn="animate__fadeInUp">
-                            <div key={value.name}>
-                                <dt className="font-semibold text-gray-900">{value.name}</dt>
-                                <dd className="mt-1 text-gray-600">{value.description}</dd>
-                            </div>
-                            </AnimationOnScroll>
-                        ))}
+                        {/*{values.map((value) => (*/}
+                        {/*    <AnimationOnScroll animateIn="animate__fadeInUp">*/}
+                        {/*    <div key={value.name}>*/}
+                        {/*        <dt className="font-semibold text-gray-900">{value.name}</dt>*/}
+                        {/*        <dd className="mt-1 text-gray-600">{value.description}</dd>*/}
+                        {/*    </div>*/}
+                        {/*    </AnimationOnScroll>*/}
+                        {/*))}*/}
                     </dl>
                 </div>
 
