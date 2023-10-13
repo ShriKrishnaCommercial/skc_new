@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
 var brandsSchema = new Schema({
-	'headline' : String,
-	'brands' : Array
+	'headline' : Number,
+	'brands' : String
 });
 
 module.exports = mongoose.model('brands', brandsSchema);

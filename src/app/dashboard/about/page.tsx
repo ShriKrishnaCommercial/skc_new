@@ -107,7 +107,7 @@ export default function homeedit() {
                                         about section</label>
                                     <div className="mt-2">
                                     <textarea rows={2} name="comment" id="comment" value={about}
-                                              //@ts-ignore
+                                        //@ts-ignore
                                               onInput={e => setaboutus(e.target.value)}
                                               className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                                     </textarea>
@@ -155,7 +155,12 @@ export default function homeedit() {
                                                         type="number"
                                                         name="state"
                                                         id="state"
-                                                        value={stats[1].value}
+                                                        onChange={(e) => {
+                                                            let newArr = [...stats]; // copying the old datas array
+                                                            newArr[1].value = e.target.value
+                                                            setstats(newArr);
+                                                        }}
+                                                        value={parseInt(stats[1].value)}
                                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                         placeholder="states number"
                                                     />
@@ -170,6 +175,12 @@ export default function homeedit() {
                                                     <input
                                                         type="number"
                                                         name="client"
+                                                        onChange={(e) => {
+                                                            let newArr = [...stats]; // copying the old datas array
+                                                            newArr[2].value = e.target.value
+                                                            setstats(newArr);
+                                                        }}
+                                                        value={parseInt(stats[2].value)}
                                                         id="client"
                                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                         placeholder="clients total"

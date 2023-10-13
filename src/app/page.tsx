@@ -70,7 +70,8 @@ export default function Home2() {
                            // Same substring at the start will only be typed out once, initially
                            'Electrical', 1000,
                            'Mechanical', 1000,
-                           'Instrumental', 1000
+                           'Instrumentation', 1000,
+                           'Safety', 1000
                        ]}
                        wrapper="span"
                        speed={20}
