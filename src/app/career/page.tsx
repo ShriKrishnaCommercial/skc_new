@@ -4,50 +4,7 @@ import Footer from "@/components/Footer";
 import {Employees} from "@/components/Employee";
 
 export default function Contact() {
-    const people = [
-        {
-            name: 'Anuj Sanyal ',
-            role: 'Sr. Executive: Back Office',
-            imageUrl:
-                "/assets/img/leaders/Anuj_Sanyal.jpeg"
-        }, {
-            name: 'Raj Sinha ',
-            role: 'Sr. Executive: Back Office',
-            imageUrl:
-                "/assets/img/leaders/Raj Sinha.jpeg"
-        }, {
-            name: 'Atul Sharma',
-            role: 'Manager',
-            imageUrl:
-                "/assets/img/leaders/Atul_Sharma.jpeg"
-        }, {
-            name: 'Atul Sharma',
-            role: 'Sr. Executive Back Office',
-            imageUrl:
-                "/assets/img/leaders/Sanjay Kumar.jpeg"
-        }, {
-            name: 'Anuj Sanyal ',
-            role: 'Sr. Executive: Back Office',
-            imageUrl:
-                "/assets/img/leaders/Anuj_Sanyal.jpeg"
-        }, {
-            name: 'Raj Sinha ',
-            role: 'Sr. Executive: Back Office',
-            imageUrl:
-                "/assets/img/leaders/Raj Sinha.jpeg"
-        }, {
-            name: 'Atul Sharma',
-            role: 'Manager',
-            imageUrl:
-                "/assets/img/leaders/Atul_Sharma.jpeg"
-        }, {
-            name: 'Atul Sharma',
-            role: 'Sr. Executive Back Office',
-            imageUrl:
-                "/assets/img/leaders/Sanjay Kumar.jpeg"
-        },
-        // More people...
-    ]
+
     return (
         <>
             <Header/>

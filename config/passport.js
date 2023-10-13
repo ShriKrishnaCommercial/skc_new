@@ -19,6 +19,14 @@ passport.use(
         }
     })
 );
+passport.serializeUser((user, done) => {
+    done(null, user.username);
+});
+
+passport.deserializeUser((id, done) => {
+    const user = User.find((u) => u.id === id);
+    done(null, user);
+});
 
 // JWT Strategy for token-based authentication
 const jwtOptions = {

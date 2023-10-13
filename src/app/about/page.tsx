@@ -1,113 +1,52 @@
 'use client'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Dialog} from '@headlessui/react'
 import {Testimonials} from "@/components/testimonial";
 import Header from "@/components/Header";
-
+import axios from "axios";
 // import {AnimationOnScroll} from "react-animation-on-scroll";
 import 'animate.css';
 import TopComps from "@/components/topcomps";
 import Footer from "@/components/Footer";
-const navigation = [
-    {name: 'Product', href: '#'},
-    {name: 'Features', href: '#'},
-    {name: 'Resources', href: '#'},
-    {name: 'Company', href: '#'},
-]
-const stats = [
+import dynamic from "next/dynamic";
 
-    {label: 'Established in 2010', value: new Date().getFullYear() - 2010 + "+ Years in Business" },
-    {label: 'States', value: '15+'},
-    {label: 'Clients', value: '200+'},
-]
-const values = [
-    {
-        name: 'Customer first',
-        description:
-            "We M/S Shri Krishna commercial, believe in diminishing the gap between OEMs and End- users. We understand the exact requirements of customers, consider their pain areas and provide most efficient services."
-    },
-    {
-        name: 'Value Pricing',
-        description:
-            "Value Pricing: we believe in alleviating industrial pain areas and serving our customers with best quality products at best prices."
-    },
-    {
-        name: 'Trust',
-        description:
-            "meeting our commitments and fulfilling your requirements to build a reliable, responsible, accountable and resourceful relationship."
-    },
-    {
-        name: 'Services',
-        description:
-            "Dedicated and prompt services second to none; we always try to assist with sales services in accordance to situations prevailing"
-    },
-
-    {
-        name: 'Integrity',
-        description:
-            "a consistent and uncompromising adherence to strong moral and ethical principles and values."
-    },
-    {
-        name: 'Teamwork',
-        description:
-            "In sync with our core value we strongly believe that the only success mantra to prosper is teamwork."
-    },
-]
-const team = [
-    {
-        name: 'Anuj Sanyal ',
-        role: 'Sr. Executive: Back Office',
-        imageUrl:
-            "/assets/img/leaders/Anuj_Sanyal.jpeg"
-    }, {
-        name: 'Raj Sinha ',
-        role: 'Sr. Executive: Back Office',
-        imageUrl:
-            "/assets/img/leaders/Raj Sinha.jpeg"
-    }, {
-        name: 'Atul Sharma',
-        role: 'Manager',
-        imageUrl:
-            "/assets/img/leaders/Atul_Sharma.jpeg"
-    }, {
-        name: 'Atul Sharma',
-        role: 'Sr. Executive Back Office',
-        imageUrl:
-            "/assets/img/leaders/Sanjay Kumar.jpeg"
-    }
-    // More people...
-]
-const blogPosts = [
-    {
-        id: 1,
-        title: 'Vel expedita assumenda placeat aut nisi optio voluptates quas',
-        href: '#',
-        description:
-            'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-        imageUrl:
-            'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80',
-        date: 'Mar 16, 2020',
-        datetime: '2020-03-16',
-        author: {
-            name: 'Michael Foster',
-            imageUrl:
-                'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        },
-    },
-    // More posts...
-]
-const footerNavigation = {
-    main: [
-        {name: 'Blog', href: '#'},
-        {name: 'Jobs', href: '#'},
-        {name: 'Press', href: '#'},
-        {name: 'Accessibility', href: '#'},
-        {name: 'Partners', href: '#'},
-    ],
-
-}
-
+const AnimatedNumbers = dynamic(() => import("react-animated-numbers"), {
+    ssr: false,
+});
 export default function About() {
+
+    let [stats, setstats] = useState([
+        {label: 'Established in 2010', value: new Date().getFullYear() - 2010 + "+ Years in Business"},
+        {label: 'States', value: '15+'},
+        {label: 'Clients', value: '200+'},
+    ]);
+    let [headerline, setHeaderline] = useState("We are a dedicated team committed to providing innovative solutions and exceptional experiences. With a passion for excellence, we aim to exceed expectations and create lasting value for our customers.");
+    let [about, setaboutus] = useState("M/S SHRI KRISHNA COMMERCIAL was established in 2010, The Company was formed with a vision of becoming specialists in the Industrial sector with a motive to pioneer in Electrical, Instrumentation, Mechanical and safety solution. Over the years, Shri Krishna Commercial has emerged as a one-stop solution for many Industrial, Electrical, Instrumentation and Mechanical products with the core value of the company's growth in line with its employees’. In sync with the idea of becoming a leading one-stop electrical product solution, we have tied up with leading OEM’s of various unique and innovative segments. Since its inception, M/S Shri Krishna commercial has grown many folds to become one of the most trusted aggregators and channel partners with more than 35+ OEMs serving more than 119+ customers. We've branched our services to 8+ states of India (both in Private and Government sectors) and are working tirelessly towards expanding our base over Pan India. We envisioned on becoming the most reliable, sustainable and competitive company for industrial business solution globally.");
+    let [values, setvalues] = useState("Our values drive us forward, guiding our actions to prioritize integrity, collaboration, and continuous growth. We embrace diversity and are devoted to delivering excellence in all we do.")
+
+    useEffect(() => {
+        const options = {
+            method: 'GET',
+            url: '/api/about',
+            headers: {'Content-Type': 'application/json'}
+        };
+        axios.request(options).then(function (response) {
+            const data = JSON.parse(JSON.stringify(response.data));
+            if (data != null) {
+
+                let newArr = [...stats]; // copying the old datas array
+                newArr[1].value = data[0]["state"] + "+"
+                newArr[2].value = data[0]["clients"] + "+"
+                setstats(newArr);
+                setHeaderline(data[0]["aboutus"])
+                setaboutus(data[0]["know_who_we"])
+                setvalues(data[0]["values"])
+            }
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }, [])
+
     const [num, setNum] = React.useState(331231);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -164,9 +103,7 @@ export default function About() {
                                         About us
                                     </h1>
                                     <p className="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">
-                                        We are a dedicated team committed to providing innovative solutions and
-                                        exceptional experiences. With a passion for excellence, we aim to exceed
-                                        expectations and create lasting value for our customers.
+                                        {headerline}
                                     </p>
                                 </div>
                                 <div
@@ -238,20 +175,7 @@ export default function About() {
                             <div className="lg:w-full lg:max-w-2xl lg:flex-auto">
                                 <div className="mt-10 max-w-xl text-base leading-7 text-gray-700">
                                     <p>
-                                        M/S SHRI KRISHNA COMMERCIAL was established in 2010, The Company was formed with
-                                        a vision of becoming specialists in the Industrial sector with a motive to
-                                        pioneer in Electrical, Instrumentation, Mechanical and safety solution. Over the
-                                        years, Shri Krishna Commercial has emerged as a one-stop solution for many
-                                        Industrial, Electrical, Instrumentation and Mechanical products with the core
-                                        value of the company's growth in line with its employees’. In sync with the idea
-                                        of becoming a leading one-stop electrical product solution, we have tied up with
-                                        leading OEM’s of various unique and innovative segments. Since its inception,
-                                        M/S Shri Krishna commercial has grown many folds to become one of the most
-                                        trusted aggregators and channel partners with more than 35+ OEMs serving more
-                                        than 119+ customers. We've branched our services to 8+ states of India (both in
-                                        Private and Government sectors) and are working tirelessly towards expanding our
-                                        base over Pan India. We envisioned on becoming the most reliable, sustainable
-                                        and competitive company for industrial business solution globally.
+                                        {about}
                                     </p>
 
                                 </div>
@@ -269,25 +193,26 @@ export default function About() {
                             <div className="lg:flex lg:flex-auto lg:justify-center">
 
                                 <dl className="w-64 space-y-8 xl:w-80">
-                                    {stats.map((stat,k) => (
+                                    {stats.map((stat, k) => (
                                         <div key={stat.label} className="flex flex-col-reverse gap-y-4">
 
                                             <dt className="text-base leading-7 text-gray-600">{stat.label}</dt>
-                                            {/*<dd className="text-5xl font-semibold tracking-tight text-gray-900 flex"> <AnimatedNumbers*/}
-                                            {/*    includeComma*/}
-                                            {/*    animateToNumber={parseInt(stat.value.replace("+",""))}*/}
-                                            {/*    fontStyle={{ fontSize: 40 , fontWeight : "black" }}*/}
-                                            {/*    locale="en-US"*/}
-                                            {/*    configs={[*/}
-                                            {/*        { mass: 1, tension: 220, friction: 100 },*/}
-                                            {/*        { mass: 1, tension: 180, friction: 130 },*/}
-                                            {/*        { mass: 1, tension: 280, friction: 90 },*/}
-                                            {/*        { mass: 1, tension: 180, friction: 135 },*/}
-                                            {/*        { mass: 1, tension: 260, friction: 100 },*/}
-                                            {/*        { mass: 1, tension: 210, friction: 180 },*/}
-                                            {/*    ]}*/}
-                                            {/*></AnimatedNumbers>*/}
-                                            {/*    <p className="-mt-1">+ {k==0 ? " Years" : ""}</p> </dd>*/}
+                                            <dd className="text-5xl font-semibold tracking-tight text-gray-900 flex">
+                                                <AnimatedNumbers
+                                                    includeComma
+                                                    animateToNumber={parseInt(stat.value.replace("+", ""))}
+                                                    fontStyle={{fontSize: 40, fontWeight: "black"}}
+                                                    locale="en-US"
+                                                    configs={[
+                                                        {mass: 1, tension: 220, friction: 100},
+                                                        {mass: 1, tension: 180, friction: 130},
+                                                        {mass: 1, tension: 280, friction: 90},
+                                                        {mass: 1, tension: 180, friction: 135},
+                                                        {mass: 1, tension: 260, friction: 100},
+                                                        {mass: 1, tension: 210, friction: 180},
+                                                    ]}
+                                                ></AnimatedNumbers>
+                                                <p className="-mt-1">+ {k == 0 ? " Years" : ""}</p></dd>
                                         </div>
                                     ))}
                                 </dl>
@@ -310,9 +235,7 @@ export default function About() {
                     <div className="mx-auto max-w-2xl lg:mx-0">
                         <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our values</h2>
                         <p className="mt-6 text-lg leading-8 text-gray-600">
-                            Our values drive us forward, guiding our actions to prioritize integrity, collaboration, and
-                            continuous growth. We embrace diversity and are devoted to delivering excellence in all we
-                            do.
+                            {values}
                         </p>
                     </div>
                     <dl className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
@@ -398,7 +321,6 @@ export default function About() {
                 </div>
 
 
-
                 {/*<div className="bg-white py-24 sm:py-32">*/}
                 {/*    <div className="mx-auto max-w-7xl px-6 lg:px-8">*/}
                 {/*        <h2 className="text-center text-lg font-semibold leading-8 text-gray-900">*/}
@@ -448,7 +370,7 @@ export default function About() {
             </main>
 
             {/* Footer */}
-           <Footer/>
+            <Footer/>
         </div>
     )
 }

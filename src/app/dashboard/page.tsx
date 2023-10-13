@@ -2,7 +2,10 @@
 import DashboardHeader from "@/components/Dashboard/header";
 // import AnimatedNumbers from "react-animated-numbers";
 import React from "react";
-
+import dynamic from "next/dynamic";
+const AnimatedNumbers = dynamic(() => import("react-animated-numbers"), {
+    ssr: false,
+});
 export default function dashboard() {
     const stats = [
         {name: 'Blogs', value: '$405,091.00', change: '+4.75%', changeType: 'positive'},
@@ -81,7 +84,7 @@ export default function dashboard() {
         ```
       */}
             <div className="min-h-full">
-                <DashboardHeader/>
+                <DashboardHeader title={"Dashboard"}/>
                 <main className="-mt-32">
                     <div className="rounded-lg bg-white px-1 py-6 shadow sm:px-4 mx-5 md:mx-10 ">
 
@@ -102,20 +105,20 @@ export default function dashboard() {
                                                 {stat.change}
                                             </dd>
                                             <dd className="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
-                                                {/*<AnimatedNumbers*/}
-                                                {/*    includeComma*/}
-                                                {/*    animateToNumber={parseInt(stat.value.replace("$", "").replace(",", ""))}*/}
-                                                {/*    fontStyle={{fontSize: 40, fontWeight: "black"}}*/}
-                                                {/*    locale="en-US"*/}
-                                                {/*    configs={[*/}
-                                                {/*        {mass: 1, tension: 220, friction: 100},*/}
-                                                {/*        {mass: 1, tension: 180, friction: 130},*/}
-                                                {/*        {mass: 1, tension: 280, friction: 90},*/}
-                                                {/*        {mass: 1, tension: 180, friction: 135},*/}
-                                                {/*        {mass: 1, tension: 260, friction: 100},*/}
-                                                {/*        {mass: 1, tension: 210, friction: 180},*/}
-                                                {/*    ]}*/}
-                                                {/*></AnimatedNumbers>*/}
+                                                <AnimatedNumbers
+                                                    includeComma
+                                                    animateToNumber={parseInt(stat.value.replace("$", "").replace(",", ""))}
+                                                    fontStyle={{fontSize: 40, fontWeight: "black"}}
+                                                    locale="en-US"
+                                                    configs={[
+                                                        {mass: 1, tension: 220, friction: 100},
+                                                        {mass: 1, tension: 180, friction: 130},
+                                                        {mass: 1, tension: 280, friction: 90},
+                                                        {mass: 1, tension: 180, friction: 135},
+                                                        {mass: 1, tension: 260, friction: 100},
+                                                        {mass: 1, tension: 210, friction: 180},
+                                                    ]}
+                                                ></AnimatedNumbers>
                                             </dd>
                                         </div>
                                     ))}

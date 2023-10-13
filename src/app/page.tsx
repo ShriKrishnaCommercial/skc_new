@@ -1,6 +1,6 @@
 'use client'
 import Header from "@/components/Header";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Container} from "@/components/Container";
 import Image from 'next/image'
 import {TypeAnimation} from "react-type-animation";
@@ -8,35 +8,30 @@ import "animate.css"
 import Footer from "@/components/Footer";
 import {AnimationOnScroll} from 'react-animation-on-scroll';
 import TopComps from "@/components/topcomps";
+import axios from "axios";
 
 export default function Home2() {
-    const features = [
-        {
-            name: 'Our Team',
-            description: 'Our team is full of competent and efficient team members who have good knowledge and technical skills in electrical, instrumentation and mechanical products',
-        },
-        {
-            name: 'WELL ESTABLISHED BASE',
-            description: 'We have a Long history of over the years catering to the demands of our customers for all sorts of High Quality electrical, instrumentation and mechanical products.'
-        },
-        {
-            name: 'WIDE CUSTOMER BASE',
-            description: 'Being in the Industry for years we have a wide customer base in different sectors such as Construction Industry, Public Sector and Private Sector.',
-        },
-        {
-            name: 'QUALITY ASSURED',
-            description: 'We are engaged in supply and service of best quality electrical, instrumentation and mechanical products to our clients. We have highly reliable principals, OEMs and other service teams , who provide us with a quality-assured range of products & services.',
-        },
-        {
-            name: 'CUSTOMER CONVENIENCE',
-            description: 'We realize that our continued success is dependent on maximizing value for our customers and prompt and accurate delivery..'
-        },
-        {
-            name: 'INDUSTRY EXPERTISE',
-            description: 'With 10 years of experience, we have built our knowledge base in the industry, which is highly beneficial to us as well as our clients business.'
-        }
+    const [about, setaboutus] = useState();
+    const [features, set_features] = useState([]);
+    useEffect(() => {
+        const options = {
+            method: 'GET',
+            url: '/api/home',
+            headers: {'Content-Type': 'application/json'}
+        };
 
-    ]
+        axios.request(options).then(function (response) {
+            const data = JSON.parse(JSON.stringify(response.data))
+            setaboutus(data[0].about_us);
+            set_features(data[0].why_choose_us);
+
+        }).catch(function (error) {
+            console.error(error);
+        });
+
+    }, []);
+
+
     return (
         <>
             <Header/>
@@ -73,12 +68,9 @@ export default function Home2() {
                    <TypeAnimation
                        sequence={[
                            // Same substring at the start will only be typed out once, initially
-                           'Electrical',
-                           1000, // wait 1s before replacing "Mice" with "Hamsters"
-                           'Mechanical',
-                           1000,
-                           'Instrumental',
-                           1000
+                           'Electrical', 1000,
+                           'Mechanical', 1000,
+                           'Instrumental', 1000
                        ]}
                        wrapper="span"
                        speed={20}
@@ -88,10 +80,7 @@ export default function Home2() {
                 </span>{' '}
                     products
                 </h1>
-                <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
-                    Most bookkeeping software is accurate, but hard to use. We make the
-                    opposite trade-off, and hope you don’t get audited.
-                </p>
+
                 <div className="mt-10 flex justify-center space-x-6">
 
                 </div>
@@ -161,17 +150,18 @@ export default function Home2() {
                         <div className="lg:col-end-1 lg:w-full lg:max-w-lg lg:pb-8">
                             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">About us</h2>
                             <p className="mt-6 text-base leading-7 text-gray-600">
-                                In our quest for excellence, Shri Krishna Commercial was formed in 2010 with objective
-                                of becoming specialisation in Electrical, Mechanical and Instrumentation products line.
-                                Since then Shri Krishna Commercial has grown many folds to become one of the best most
-                                sought after and reputed aggregators and traders with presence in in Jharkhand, West
-                                Bengal, Orissa and Chhattisgarh and other parts of India.
-                                In pursuance to our vision of
-                                becoming a leading one stop industrial supplies services and solutions we have
-                                collaborated and tied up with leading manufacturers and OEMs of various Electrical,
-                                Mechanical, Instrumentaion equipments, spares, fittings and supplies. While we have
-                                expanded our footprints to Four States, we are tirelessly working towards pan India
-                                abroad.
+                                {/*In our quest for excellence, Shri Krishna Commercial was formed in 2010 with objective*/}
+                                {/*of becoming specialisation in Electrical, Mechanical and Instrumentation products line.*/}
+                                {/*Since then Shri Krishna Commercial has grown many folds to become one of the best most*/}
+                                {/*sought after and reputed aggregators and traders with presence in in Jharkhand, West*/}
+                                {/*Bengal, Orissa and Chhattisgarh and other parts of India.*/}
+                                {/*In pursuance to our vision of*/}
+                                {/*becoming a leading one stop industrial supplies services and solutions we have*/}
+                                {/*collaborated and tied up with leading manufacturers and OEMs of various Electrical,*/}
+                                {/*Mechanical, Instrumentaion equipments, spares, fittings and supplies. While we have*/}
+                                {/*expanded our footprints to Four States, we are tirelessly working towards pan India*/}
+                                {/*abroad.*/}
+                                {about}
                             </p>
                             <div className="mt-10 flex">
                                 <a
@@ -182,7 +172,8 @@ export default function Home2() {
                                 </a>
                             </div>
                         </div>
-                        <div className="flex flex-wrap items-start justify-end gap-6 sm:gap-8 lg:contents">
+                        <div
+                            className="flex flex-wrap items-start md:block hidden justify-end gap-6 sm:gap-8 lg:contents">
                             <AnimationOnScroll animateIn="animate__fadeInUp">
                                 <div className="w-0 flex-auto lg:ml-auto lg:w-auto lg:flex-none lg:self-end">
                                     <img
@@ -241,8 +232,8 @@ export default function Home2() {
                         </div>
                         <dl className="col-span-2 grid grid-cols-1 gap-x-8 gap-y-10 text-base leading-7 text-gray-600 sm:grid-cols-2 lg:gap-y-16">
                             {features.map((feature) => (
-                                <AnimationOnScroll animateIn="animate__fadeInUp">
-                                    <div key={feature.name} className="relative pl-9">
+                                <AnimationOnScroll animateIn="animate__fadeInUp" key={feature["name"]}>
+                                    <div key={feature["name"]} className="relative pl-9">
                                         <dt className="font-semibold text-gray-900">
                                             <svg width="24" className="absolute left-0 top-1 h-5 w-5 text-indigo-500"
                                                  height="24" viewBox="0 0 24 24" fill="none"
@@ -252,9 +243,9 @@ export default function Home2() {
                                                     fill="currentColor"/>
                                             </svg>
 
-                                            {feature.name}
+                                            {feature["name"]}
                                         </dt>
-                                        <dd className="mt-2">{feature.description}</dd>
+                                        <dd className="mt-2">{feature["description"]}</dd>
                                     </div>
                                 </AnimationOnScroll>
                             ))}

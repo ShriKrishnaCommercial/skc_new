@@ -1,5 +1,6 @@
 import {Disclosure, Menu, Transition} from "@headlessui/react";
 import {Fragment} from "react";
+
 const user = {
     name: 'Tom Cook',
     email: 'tom@example.com',
@@ -24,7 +25,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function DashboardHeader() {
+export default function DashboardHeader({title}: { title: string }) {
     return (
         <>
             <div className="bg-indigo-600 pb-32 dashboard_pattern">
@@ -189,7 +190,7 @@ export default function DashboardHeader() {
                 </Disclosure>
                 <header className="py-10">
                     <div className="mx-auto  px-6 sm:px-8 lg:px-10">
-                        <h1 className="text-3xl font-bold tracking-tight text-white">Dashboard</h1>
+                        <h1 className="text-3xl font-bold tracking-tight text-white">{title}</h1>
                     </div>
                 </header>
             </div>
