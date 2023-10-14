@@ -1,3 +1,3 @@
-// export default function Page({ params, searchParams }) {
-//     return <div>ID: {params.id}</div>
-// }
+export default function Page() {
+    return <div>ID: </div>
+}
