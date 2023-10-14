@@ -4,7 +4,7 @@ const dbConnect = async () => {
         return;
     }
     try {
-        await mongoose.connect("mongodb://localhost:27017/skc", {
+        await mongoose.connect("mongodb://admin:Skcindia%402023@191.101.229.91:27017/?authMechanism=DEFAULT", {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         });
