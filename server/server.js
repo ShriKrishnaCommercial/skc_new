@@ -12,7 +12,11 @@ const {json} = require("express");
 const home = require("./routes/home_api");
 const about = require("./routes/aboutusRoutes");
 const brand = require("./routes/brandsRoutes");
+const client = require("./routes/clientsRoutes");
 const contactus = require("./routes/contactusRoutes");
+const cvrouter = require("./routes/cvRoutes");
+const product = require("./routes/productsRoutes");
+const subproduct = require("./routes/subproductRoutes");
 app.prepare().then(async () => {
     const server = express();
     await dbConnect()
@@ -27,7 +31,11 @@ app.prepare().then(async () => {
     server.use('/api', home);
     server.use('/api/about', about);
     server.use('/api/brands', brand);
+    server.use('/api/clients', client);
     server.use('/api/contactus', contactus);
+    server.use('/api/cvform', cvrouter);
+    server.use('/api/product', product);
+    server.use('/api/subproduct', subproduct);
 
     // Handle all other routes with Next.js
     server.all('*', (req, res) => {

@@ -140,7 +140,7 @@ export function Employees() {
             imageUrl:
                 "/assets/img/leaders/Atul_Sharma.jpeg"
         }, {
-            name: 'Atul Sharma',
+            name: 'Sanjay Kumar',
             role: 'Sr. Executive Back Office',
             imageUrl:
                 "/assets/img/leaders/Sanjay Kumar.jpeg"
@@ -224,7 +224,7 @@ export function Employees() {
                                                 src={e.imageUrl}
                                                 alt=""
                                                 layout="fill"
-                                                objectFit="cover"
+                                                objectFit="auto"
                                                 priority
                                                 sizes="(min-width: 1280px) 17.5rem, (min-width: 1024px) 25vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
                                             />

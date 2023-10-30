@@ -73,7 +73,6 @@ export default function dashboard() {
     }
 
     return (
-
         <>
             {/*
         This example requires updating your template:

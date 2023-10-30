@@ -1,9 +1,9 @@
-var mongoose = require('mongoose');
-var Schema   = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema   = mongoose.Schema;
 
-var brandsSchema = new Schema({
-	'headline' : Number,
-	'brands' : String
+const brandsSchema = new Schema({
+	'brands' : Array,
+	'type' : String
 });
 
 module.exports = mongoose.model('brands', brandsSchema);

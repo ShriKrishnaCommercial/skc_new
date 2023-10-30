@@ -5,65 +5,28 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Marquee from "react-fast-marquee";
 import Image from "next/image";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "animate.css"
 import {Dialog} from "@headlessui/react";
 import {AnimationOnScroll} from 'react-animation-on-scroll';
-
+import axios from "axios";
 
 export default function Example() {
-    let brands = [
-        "1200px-BHEL_logo.svg.webp",
-        "ADANI.png",
-        "Aditya_Birla_Group_Logo.svg.png",
-        "amalgam_steel.png",
-        "Atomic-Minerals-Directorate-for-Exploration-Research-AMD.jpg",
-        "BHUSAN POWE AND STEEL.jpg",
-        "DAE.png",
-        "DVC.jpg",
-        "FSNL.png",
-        "GRSE.png",
-        "HEC.png",
-        "HINDALCO.jpg",
-        "Hindustan_Copper_logo.svg.png",
-        "IIT_Guwahati_Logo.svg.png",
-        "INDIAN RAILWAY.jpg",
-        "Indian_Oil_Logo.svg.png",
-        "JCAPCPL.jpg",
-        "JINDAL.jpg",
-        "JSL WB.png",
-        "JSW WB.png",
-        "jusco.png",
-        "LINDE.jpg",
-        "Metalsa.png",
-        "nmdcs 01.png",
-        "NSPCL.png",
-        "NTPC.jpg",
-        "NUVOCO.jpg",
-        "opgc.png",
-        "pgcil.jpg",
-        "runaya.png",
-        "RUNGTA.jpg",
-        "SAIL.png",
-        "ta precision tube.png",
-        "tata auto comp.jpg",
-        "TATA Autocomp.png",
-        "TATA BEARING.png",
-        "TATA BLUESCOPE.png",
-        "TATA GROUP.png",
-        "TATA NOAMUNDI.png",
-        "tata power WB.png",
-        "tata steel.jpg",
-        "tata steel growth shop.jpg",
-        "tata wiron.png",
-        "THRIVENI.jpg",
-        "TINPLATE.jpg",
-        "TRF.png",
-        "TSPL.png",
-        "UBL_Logo.jpg",
-        "UCIL WB.png",
-
-    ];
+    let brands: String[] = [];
+    let [brand, setBrands] = useState(brands);
+    useEffect(() => {
+        const options = {
+            method: 'GET',
+            url: '/api/clients',
+            headers: {'Content-Type': 'application/json'}
+        };
+        axios.request(options).then(function (response) {
+            var data = JSON.parse(JSON.stringify(response.data))
+            setBrands(data[0]["clients"])
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }, []);
     return (
         <>
             <Header/>
@@ -106,12 +69,11 @@ export default function Example() {
 
                 <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
                     <p className="text-center text-base font-semibold uppercase text-gray-600 tracking-wider">
-                        Trusted by over {brands.length}+ businesses
+                        Trusted by over {brand.length}+ businesses
                     </p>
                     <div className="mt-6 grid grid-cols-2 gap-0.5 md:grid-cols-4 lg:mt-8">
-
                         {
-                            (brands.map((a, i) => {
+                            (brand.map((a, i) => {
                                 return (
                                     <AnimationOnScroll animateIn="animate__fadeInUp">
                                         <div key={i}

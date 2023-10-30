@@ -5,63 +5,30 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Marquee from "react-fast-marquee";
 import Image from "next/image";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "animate.css"
 import {AnimationOnScroll} from "react-animation-on-scroll";
+import axios from "axios";
 
 export default function Example() {
-    let brands = [
-        "AMARARAJA.jpg",
-        "anchor by pana.png",
-        "APAR.png",
-        "azbil.jpg",
-        "Balluff wb.png",
-        "Baur.png",
-        "bharat bijlee.jpg",
-        "Burkert brand.png",
-        "cesyco.png",
-        "CGL01.png",
-        "contrinex WB.png",
-        "CROMPTO LOGO.png",
-        "euchner.png",
-        "Flexim.png",
-        "general...jpg",
-        "givi misure.png",
-        "HALONIXX.jpg",
-        "HAVELLS IMAGE.jpg",
-        "heidenian wb.png",
-        "hitachi.jpg",
-        "kaycee.png",
-        "KEI.png",
-        "krykard wb.jpg",
-        "leuze wb.png",
-        "megger wb.png",
-        "michell_instruments.png",
-        "MICRO EPSILON.png",
-        "MOIST TECH LOGO.png",
-        "nidec.png",
-        "Nivo control.png",
-        "olympus - removebg - preview.png",
-        "OMC Italy.png",
-        "pepperl fuchs.png",
-        "POLYCAB1.png",
-        "pp.png",
-        "Prok Dvs.png",
-        "radio detection.png",
-        "Rishab.png",
-        "rokade wb.png",
-        "saft.png",
-        "SCS.png",
-        "secure.png",
-        "simbott.png",
-        "Spohn burkhardt.png",
-        "stanley.png",
-        "thermax wb.png",
-        "Toshbro Control.png",
-        "TR electronic.png",
-        "Uniflow.png",
-        "YAMUNA DENSON.jpg",
-    ];
+
+
+    let brands : String[] = [];
+    let [brand, setBrands] = useState(brands);
+    useEffect(() => {
+        const options = {
+            method: 'GET',
+            url: '/api/brands',
+            headers: {'Content-Type': 'application/json'}
+        };
+
+        axios.request(options).then(function (response) {
+            var data = JSON.parse(JSON.stringify(response.data))
+            setBrands(data[0]["brands"])
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }, []);
     return (
         <>
             <Header/>
@@ -111,14 +78,14 @@ export default function Example() {
                     <div className="mt-6 grid grid-cols-2 gap-0.5 md:grid-cols-4 lg:mt-8">
 
                         {
-                            (brands.map((a, i) => {
+                            (brand.map((a, i) => {
                                 return (
-                                    <AnimationOnScroll animateIn="animate__fadeInUp">
-                                        <div key={i}
+                                    <AnimationOnScroll animateIn="animate__fadeInUp" key={i}>
+                                        <div
                                              className="col-span-1 flex animate__animated animate__fadeIn justify-center  bg-transparent p-4 animate__animated animate__fadeInUp">
                                             <Image width="400" height="400"
                                                    className="h-[100px] w-[130px] mix-blend-multiply mx-5 object-fill"
-                                                   src={"/img/brand/" + a} alt={a}/>
+                                                   src={"/img/brand/" + a}  alt={a.toString()}/>
                                         </div>
                                     </AnimationOnScroll>
                                 )

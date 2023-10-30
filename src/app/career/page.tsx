@@ -1,10 +1,45 @@
+'use client'
 import Header from "@/components/Header";
 import Image from "next/image";
 import Footer from "@/components/Footer";
 import {Employees} from "@/components/Employee";
 
-export default function Contact() {
+import {useState} from "react";
+import axios from "axios";
 
+import toast, {Toaster} from 'react-hot-toast';
+export default function Contact() {
+    const [file, setfile] = useState();
+    const [first_name, setfn] = useState()
+    const [ln, setln] = useState()
+    const [em, setem] = useState()
+    const [cun, setcun] = useState()
+    const [Street_address, setStreet_address] = useState()
+
+    const submit = () => {
+        const form = new FormData();
+        form.append("cv", file);
+        form.append("firs_name", first_name);
+        form.append("last_name", ln);
+        form.append("email", em);
+        form.append("country", cun);
+        form.append("Street_address", Street_address);
+        const options = {
+            method: 'POST',
+            url: '/api/cvform/addcv',
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
+            },
+            data: form
+        };
+
+        axios.request(options).then(function (response) {
+
+            toast("Submitted Successfully")
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }
     return (
         <>
             <Header/>
@@ -214,136 +249,130 @@ export default function Contact() {
                                             </div>
                                         </div>
                                         <div className="mt-5 md:mt-0 md:col-span-2">
-                                            <form action="#" method="POST">
-                                                <div className="shadow overflow-hidden sm:rounded-md">
-                                                    <div className="px-4 py-5 bg-white sm:p-6">
-                                                        <div className="grid grid-cols-6 gap-6">
-                                                            <div className="col-span-6 sm:col-span-3">
-                                                                <label htmlFor="first-name"
-                                                                       className="block text-sm font-medium text-gray-700">
-                                                                    First name
-                                                                </label>
-                                                                <input
-                                                                    type="text"
-                                                                    name="first-name"
-                                                                    id="first-name"
-                                                                    autoComplete="given-name"
-                                                                    className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                                                />
-                                                            </div>
 
-                                                            <div className="col-span-6 sm:col-span-3">
-                                                                <label htmlFor="last-name"
-                                                                       className="block text-sm font-medium text-gray-700">
-                                                                    Last name
-                                                                </label>
-                                                                <input
-                                                                    type="text"
-                                                                    name="last-name"
-                                                                    id="last-name"
-                                                                    autoComplete="family-name"
-                                                                    className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                                                />
-                                                            </div>
-
-                                                            <div className="col-span-6 sm:col-span-4">
-                                                                <label htmlFor="email-address"
-                                                                       className="block text-sm font-medium text-gray-700">
-                                                                    Email address
-                                                                </label>
-                                                                <input
-                                                                    type="text"
-                                                                    name="email-address"
-                                                                    id="email-address"
-                                                                    autoComplete="email"
-                                                                    className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                                                />
-                                                            </div>
-
-                                                            <div className="col-span-6 sm:col-span-3">
-                                                                <label htmlFor="country"
-                                                                       className="block text-sm font-medium text-gray-700">
-                                                                    Country
-                                                                </label>
-                                                                <select
-                                                                    id="country"
-                                                                    name="country"
-                                                                    autoComplete="country-name"
-                                                                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-                                                                >
-                                                                    <option>United States</option>
-                                                                    <option>Canada</option>
-                                                                    <option>Mexico</option>
-                                                                </select>
-                                                            </div>
-
-                                                            <div className="col-span-6">
-                                                                <label htmlFor="street-address"
-                                                                       className="block text-sm font-medium text-gray-700">
-                                                                    Street address
-                                                                </label>
-                                                                <input
-                                                                    type="text"
-                                                                    name="street-address"
-                                                                    id="street-address"
-                                                                    autoComplete="street-address"
-                                                                    className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                                                />
-                                                            </div>
-
-                                                            <div className="col-span-6 sm:col-span-6 lg:col-span-2">
-                                                                <label htmlFor="city"
-                                                                       className="block text-sm font-medium text-gray-700">
-                                                                    City
-                                                                </label>
-                                                                <input
-                                                                    type="text"
-                                                                    name="city"
-                                                                    id="city"
-                                                                    autoComplete="address-level2"
-                                                                    className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                                                />
-                                                            </div>
-
-                                                            <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                                                                <label htmlFor="region"
-                                                                       className="block text-sm font-medium text-gray-700">
-                                                                    State / Province
-                                                                </label>
-                                                                <input
-                                                                    type="text"
-                                                                    name="region"
-                                                                    id="region"
-                                                                    autoComplete="address-level1"
-                                                                    className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                                                />
-                                                            </div>
-
-                                                            <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                                                                <label htmlFor="postal-code"
-                                                                       className="block text-sm font-medium text-gray-700">
-                                                                    ZIP / Postal code
-                                                                </label>
-                                                                <input
-                                                                    type="text"
-                                                                    name="postal-code"
-                                                                    id="postal-code"
-                                                                    autoComplete="postal-code"
-                                                                    className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                                                                />
-                                                            </div>
+                                            <div className="shadow overflow-hidden sm:rounded-md">
+                                                <div className="px-4 py-5 bg-white sm:p-6">
+                                                    <div className="grid grid-cols-6 gap-6">
+                                                        <div className="col-span-6 sm:col-span-3">
+                                                            <label htmlFor="first-name"
+                                                                   className="block text-sm font-medium text-gray-700">
+                                                                First name
+                                                            </label>
+                                                            <input
+                                                                onChange={(e) => {
+                                                                    setfn(e.target.value)
+                                                                }}
+                                                                type="text"
+                                                                name="first-name"
+                                                                id="first-name"
+                                                                autoComplete="given-name"
+                                                                className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                            />
                                                         </div>
-                                                    </div>
-                                                    <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                                                        <button
-                                                            type="submit"
-                                                            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                                                        >
-                                                            Submit
-                                                        </button>
+
+                                                        <div className="col-span-6 sm:col-span-3">
+                                                            <label htmlFor="last-name"
+                                                                   className="block text-sm font-medium text-gray-700">
+                                                                Last name
+                                                            </label>
+                                                            <input
+                                                                onChange={(e) => {
+                                                                    setln(e.target.value)
+                                                                }}
+                                                                type="text"
+                                                                name="last-name"
+                                                                id="last-name"
+                                                                autoComplete="family-name"
+                                                                className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                            />
+                                                        </div>
+
+                                                        <div className="col-span-6 sm:col-span-4">
+                                                            <label htmlFor="email-address"
+                                                                   className="block text-sm font-medium text-gray-700">
+                                                                Email address
+                                                            </label>
+                                                            <input
+                                                                onChange={(e) => {
+                                                                    setem(e.target.value)
+                                                                }}
+                                                                type="text"
+                                                                name="email-address"
+                                                                id="email-address"
+                                                                autoComplete="email"
+                                                                className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                            />
+                                                        </div>
+
+                                                        <div className="col-span-6 sm:col-span-3">
+                                                            <label htmlFor="country"
+                                                                   className="block text-sm font-medium text-gray-700">
+                                                                Country
+                                                            </label>
+                                                            <select
+                                                                onChange={(e) => {
+                                                                    setcun(e.target.value)
+                                                                }}
+                                                                id="country"
+                                                                name="country"
+                                                                autoComplete="country-name"
+                                                                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                                                            >
+                                                                <option>United States</option>
+                                                                <option>Canada</option>
+                                                                <option>Mexico</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div className="col-span-6">
+                                                            <label htmlFor="street-address"
+                                                                   className="block text-sm font-medium text-gray-700">
+                                                                Resume file
+                                                            </label>
+                                                            <input
+                                                                type="file"
+                                                                onChange={(e) => {
+                                                                    setfile(e.target.files[0])
+                                                                }}
+
+                                                                name="street-address"
+                                                                id="street-address"
+                                                                autoComplete="street-address"
+                                                                className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                            />
+                                                        </div>
+                                                        <div className="col-span-6">
+                                                            <label htmlFor="street-address"
+                                                                   className="block text-sm font-medium text-gray-700">
+                                                                Street address
+                                                            </label>
+                                                            <input
+                                                                onChange={(e) => {
+                                                                    setStreet_address(e.target.value)
+                                                                }}
+                                                                type="text"
+                                                                name="street-address"
+                                                                id="street-address"
+                                                                autoComplete="street-address"
+                                                                className="mt-1 focus:ring-primary focus:border-primary block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                                            />
+                                                        </div>
+
+
                                                     </div>
                                                 </div>
-                                            </form>
+                                                <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                                                    <button
+                                                        onClick={(r) => {
+                                                            submit()
+                                                        }}
+                                                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                                                    >
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
