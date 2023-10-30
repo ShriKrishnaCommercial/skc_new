@@ -82,9 +82,7 @@ export function Testimonials() {
                         Trusted by businesses worldwide.
                     </h2>
                     <p className="mt-4 text-lg tracking-tight text-slate-700">
-                        Our software is so simple that people can’t help but fall in love
-                        with it. Simplicity is easy when you just skip tons of
-                        mission-critical features.
+
                     </p>
                 </div>
                 <ul className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:gap-8 lg:mt-20 lg:max-w-none lg:grid-cols-3">

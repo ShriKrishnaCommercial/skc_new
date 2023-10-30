@@ -105,14 +105,22 @@ export default function id() {
     }
     const faqs = [
         {
-            question: 'What format are these icons?',
+            question: 'Do Shri Krishna Commercial supplies in the west part of India?',
             answer:
-                'The icons are in SVG (Scalable Vector Graphic) format. They can be imported into your design tool of choice and used directly in code.',
+                ""
         },
         {
-            question: 'Can I use the icons at different sizes?',
+            question: 'Is Shri Krishna Authorized Partner of xyz?',
             answer:
-                "Yes. The icons are drawn on a 24 x 24 pixel grid, but the icons can be scaled to different sizes as needed. We don't recommend going smaller than 20 x 20 or larger than 64 x 64 to retain legibility and visual balance.",
+                ""
+        }, {
+            question: 'What is the minimum order quantity?',
+            answer:
+                ""
+        }, {
+            question: ' Can I get a demo of this product?',
+            answer:
+                ""
         },
         // More FAQs...
     ]
@@ -175,11 +183,12 @@ export default function id() {
                                     {/*</div>*/}
                                     <div className="mt-3 text-center sm:mt-5">
                                         <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                                           Submit Details
+                                            Submit Details
                                         </Dialog.Title>
                                         <div className="mt-2">
                                             <div>
-                                                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                                                <label htmlFor="email"
+                                                       className="block text-sm font-medium text-gray-700">
                                                     Email
                                                 </label>
                                                 <div className="mt-1">
@@ -202,7 +211,7 @@ export default function id() {
                                         className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
                                         onClick={() => setOpen(false)}
                                     >
-                                       Cancel
+                                        Cancel
                                     </button>
                                 </div>
                             </div>
@@ -269,12 +278,7 @@ export default function id() {
                                 >
                                     Get Quote
                                 </button>
-                                <button
-                                    type="button"
-                                    className="w-full bg-indigo-50 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-indigo-700 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
-                                >
-                                    Preview
-                                </button>
+
                             </div>
 
                             <div className="border-t border-gray-200 mt-10 pt-10">

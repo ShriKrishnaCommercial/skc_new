@@ -1,30 +1,19 @@
 'use client'
 import React from "react";
+import Link from "next/link";
 /* This example requires Tailwind CSS v2.0+ */
 const navigation = {
     solutions: [
-        {name: 'Marketing', href: '#'},
-        {name: 'Analytics', href: '#'},
-        {name: 'Commerce', href: '#'},
-        {name: 'Insights', href: '#'},
+        {name: 'Home', href: '/'},
+        {name: 'Career', href: '/career'},
+        {name: 'Clients', href: '/clients'},
+
     ],
-    support: [
-        {name: 'Pricing', href: '#'},
-        {name: 'Documentation', href: '#'},
-        {name: 'Guides', href: '#'},
-        {name: 'API Status', href: '#'},
-    ],
-    company: [
-        {name: 'About', href: '#'},
-        {name: 'Blog', href: '#'},
-        {name: 'Jobs', href: '#'},
-        {name: 'Press', href: '#'},
-        {name: 'Partners', href: '#'},
-    ],
+
     legal: [
-        {name: 'Claim', href: '#'},
-        {name: 'Privacy', href: '#'},
-        {name: 'Terms', href: '#'},
+        {name: 'Electrical', href: '/Electrical'},
+        {name: 'Automation', href: '/Automation'},
+        {name: 'Mechanical', href: '/Mechanical'},
     ],
     social: [
         {
@@ -116,10 +105,10 @@ export default function Footer() {
                             Marwari Para Road, Jugsalai, Jamshedpur, Jharkhand 831006
 
 
-                        <br/>
                             <br/>
-                        CAN WE HELP?
-                        <br/>
+                            <br/>
+                            CAN WE HELP?
+                            <br/>
 
                             <b>+91-9031512370</b>
 
@@ -135,52 +124,30 @@ export default function Footer() {
                     </div>
                     <div className="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
                         <div className="md:grid md:grid-cols-2 md:gap-8">
-                            <div>
-                                <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Solutions</h3>
-                                <ul role="list" className="mt-4 space-y-4">
-                                    {navigation.solutions.map((item) => (
-                                        <li key={item.name}>
-                                            <a href={item.href} className="text-base text-gray-500 hover:text-gray-900">
-                                                {item.name}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                            <div className="mt-12 md:mt-0">
-                                <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Support</h3>
-                                <ul role="list" className="mt-4 space-y-4">
-                                    {navigation.support.map((item) => (
-                                        <li key={item.name}>
-                                            <a href={item.href} className="text-base text-gray-500 hover:text-gray-900">
-                                                {item.name}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+
+
                         </div>
                         <div className="md:grid md:grid-cols-2 md:gap-8">
                             <div>
-                                <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Company</h3>
+                                <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Links</h3>
                                 <ul role="list" className="mt-4 space-y-4">
-                                    {navigation.company.map((item) => (
+                                    {navigation.solutions.map((item) => (
                                         <li key={item.name}>
-                                            <a href={item.href} className="text-base text-gray-500 hover:text-gray-900">
+                                            <Link href={item.href} className="text-base text-gray-500 hover:text-gray-900">
                                                 {item.name}
-                                            </a>
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
                             <div className="mt-12 md:mt-0">
-                                <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Legal</h3>
+                                <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Products</h3>
                                 <ul role="list" className="mt-4 space-y-4">
                                     {navigation.legal.map((item) => (
                                         <li key={item.name}>
-                                            <a href={item.href} className="text-base text-gray-500 hover:text-gray-900">
+                                            <Link href={item.href} className="text-base text-gray-500 hover:text-gray-900">
                                                 {item.name}
-                                            </a>
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>
@@ -189,7 +156,8 @@ export default function Footer() {
                     </div>
                 </div>
                 <div className="mt-12 border-t border-gray-200 pt-8">
-                    <p className="text-base text-gray-400 xl:text-center">&copy; {new Date().getFullYear()} SKC. All rights
+                    <p className="text-base text-gray-400 xl:text-center">&copy; {new Date().getFullYear()} SKC. All
+                        rights
                         reserved.</p>
                 </div>
             </div>
