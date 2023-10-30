@@ -1,12 +1,12 @@
 'use client'
 import DashboardHeader from "@/components/Dashboard/header";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Link from "next/link";
 
 export default function Products() {
     const [projects, setproduxt] = useState([])
-    useState((e) => {
+    useEffect(() => {
         const options = {
             method: 'GET',
             url: '/api/product',
@@ -20,7 +20,7 @@ export default function Products() {
         }).catch(function (error) {
             console.error(error);
         });
-    }, [])
+    }, []);
 
     return (
         <div className="min-h-full">
@@ -36,21 +36,26 @@ export default function Products() {
                                 <ul role="list"
                                     className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
                                     {projects.map((project) => (
+                                        // @ts-ignore
                                         <li key={project.name} className="col-span-1 flex rounded-md shadow-sm">
                                             <div
                                                 className={
                                                     'bg-indigo-600 flex w-16 flex-shrink-0 items-center justify-center rounded-l-md text-sm font-medium text-white'
                                                 }
                                             >
+                                                {/* @ts-ignore */}
                                                 {project.name[0]}
                                             </div>
                                             <div
                                                 className="flex flex-1 items-center justify-between truncate rounded-r-md border-b border-r border-t border-gray-200 bg-white">
                                                 <div className="flex-1 truncate px-4 py-2 text-sm">
+                                                    {/* @ts-ignore */}
                                                     <Link href={"products/" + project.name}
-                                                       className="font-medium text-gray-900 hover:text-gray-600">
+                                                          className="font-medium text-gray-900 hover:text-gray-600">
+                                                        {/* @ts-ignore */}
                                                         {project.name}
                                                     </Link>
+                                                    {/* @ts-ignore */}
                                                     <p className="text-gray-500">{project.members} Members</p>
                                                 </div>
                                                 <div className="flex-shrink-0 pr-2">

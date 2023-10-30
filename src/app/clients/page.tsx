@@ -80,7 +80,7 @@ export default function Example() {
                                              className="col-span-1 flex animate__animated animate__fadeIn justify-center  bg-transparent p-4 animate__animated animate__fadeInUp">
                                             <Image width="400" height="400"
                                                    className="h-[100px] w-[130px] mix-blend-multiply mx-5 object-fill"
-                                                   src={"/img/client/" + a} alt={a}/>
+                                                   src={"/img/client/" + a} alt={a.toString()}/>
                                         </div>
                                     </AnimationOnScroll>
                                 )

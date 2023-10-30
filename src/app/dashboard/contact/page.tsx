@@ -87,13 +87,15 @@ export default function homeedit() {
                                                 </thead>
                                                 <tbody>
                                                 {dataa.map((person, personIdx) => (
-                                                    <tr key={person.email}>
+                                                    // @ts-ignore
+                                                    <tr key={person.first_name}>
                                                         <td
                                                             className={
                                                                 personIdx !== dataa.length - 1 ? 'border-b border-gray-200 ' : '' +
                                                                     'whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8'
                                                             }
                                                         >
+                                                            {/*@ts-ignore*/}
                                                             {person.first_name + " " + person.last_name} ({person.company})
                                                         </td>
                                                         <td
@@ -102,6 +104,7 @@ export default function homeedit() {
                                                                     'whitespace-nowrap hidden px-3 py-4 text-sm text-gray-500 sm:table-cell'
                                                             }
                                                         >
+                                                            {/*@ts-ignore*/}
                                                             {person.email}
                                                         </td>
                                                         <td
@@ -110,6 +113,7 @@ export default function homeedit() {
                                                                     'whitespace-nowrap hidden px-3 py-4 text-sm text-gray-500 lg:table-cell'
                                                             }
                                                         >
+                                                            {/*@ts-ignore*/}
                                                             {person.pno}
                                                         </td>
                                                         <td
@@ -118,6 +122,7 @@ export default function homeedit() {
                                                                     'whitespace-nowrap px-3 py-4 text-sm text-gray-500'
                                                             }
                                                         >
+                                                            {/*@ts-ignore*/}
                                                             {person.message}
                                                         </td>
                                                         <td
@@ -128,6 +133,7 @@ export default function homeedit() {
                                                         >
                                                             <a href="#"
                                                                className="text-indigo-600 hover:text-indigo-900">
+                                                                {/*@ts-ignore*/}
                                                                 Edit<span className="sr-only">, {person.name}</span>
                                                             </a>
                                                         </td>

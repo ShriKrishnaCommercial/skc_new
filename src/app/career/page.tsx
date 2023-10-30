@@ -9,12 +9,12 @@ import axios from "axios";
 
 import toast, {Toaster} from 'react-hot-toast';
 export default function Contact() {
-    const [file, setfile] = useState();
-    const [first_name, setfn] = useState()
-    const [ln, setln] = useState()
-    const [em, setem] = useState()
-    const [cun, setcun] = useState()
-    const [Street_address, setStreet_address] = useState()
+    const [file, setfile] = useState("");
+    const [first_name, setfn] = useState("")
+    const [ln, setln] = useState("")
+    const [em, setem] = useState("")
+    const [cun, setcun] = useState("")
+    const [Street_address, setStreet_address] = useState("")
 
     const submit = () => {
         const form = new FormData();
@@ -332,6 +332,7 @@ export default function Contact() {
                                                             <input
                                                                 type="file"
                                                                 onChange={(e) => {
+                                                                    // @ts-ignore
                                                                     setfile(e.target.files[0])
                                                                 }}
 
