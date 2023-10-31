@@ -191,7 +191,9 @@ export default function id({params}: { params: { end: string } }) {
                     <div className="lg:grid lg:grid-rows-1 lg:grid-cols-7 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
                         {/* Product image */}
                         <div className="lg:row-end-1 lg:col-span-4">
+                            {/* @ts-ignore*/}
                             <div className="aspect-w-3 aspect-h-2 rounded-lg bg-gray-100 overflow-hidden">
+                                {/* @ts-ignore*/}
                                 <img src={"/img/endproduct/" + product["image"]} alt={product["name"]}
                                      className="object-center"/>
                             </div>
@@ -202,6 +204,7 @@ export default function id({params}: { params: { end: string } }) {
                             className="max-w-2xl mx-auto mt-14 sm:mt-16 lg:max-w-none lg:mt-0 lg:row-end-2 lg:row-span-2 lg:col-span-3">
                             <div className="flex flex-col-reverse">
                                 <div className="mt-4">
+                                    {/* @ts-ignore*/}
                                     <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{product["name"]}</h1>
 
                                     <h2 id="information-heading" className="sr-only">
@@ -229,8 +232,9 @@ export default function id({params}: { params: { end: string } }) {
                                     <p className="sr-only">{reviews.average} out of 5 stars</p>
                                 </div>
                             </div>
-
+                            {/* @ts-ignore*/}
                             <p className="text-gray-500 mt-6">
+                                {/* @ts-ignore*/}
                                 <div dangerouslySetInnerHTML={{ __html: product["info" ]}} />
                                </p>
 
@@ -250,7 +254,9 @@ export default function id({params}: { params: { end: string } }) {
                                 <h3 className="text-sm font-medium text-gray-900">ASSOCIATE PARTNER</h3>
                                 <div className="mt-4 prose prose-sm text-gray-500">
                                     <ul role="list">
+                                        {/* @ts-ignore*/}
                                         {
+                                            // @ts-ignore
                                             product["partner"]
                                         }
                                         {/*{product.highlights.map((highlight) => (*/}
