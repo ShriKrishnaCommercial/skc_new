@@ -7,28 +7,36 @@ import {Splide, SplideSlide} from "@splidejs/react-splide";
 import '@splidejs/react-splide/css';
 import {random} from "nanoid";
 import axios from "axios";
-
+import {AnimationOnScroll} from "react-animation-on-scroll";
+import "animate.css"
 
 const categories = [
-    {
-        name: 'Instrumental',
-        href: '#',
-        imageSrc: '/assets/img/products/instrumentation.jpg',
-    },
     {
         name: 'Electrical',
         href: '#',
         imageSrc: '/assets/img/products/electrical.jpg',
     },
     {
-        name: 'Mechanical',
+        name: 'Instrumental',
         href: '#',
-        imageSrc: '/assets/img/products/mechanical.jpg',
-    }, {
+        imageSrc: '/assets/img/products/instrumentation.jpg',
+    },
+    {
+        name: 'Automation',
+        href: '#',
+        imageSrc: '/assets/img/products/automation.jpg',
+    }
+    , {
         name: 'Safety ',
         href: '#',
         imageSrc: '/assets/img/products/safety.jpg',
+    },
+    {
+        name: 'Mechanical',
+        href: '#',
+        imageSrc: '/assets/img/products/mechanical.jpg',
     }
+
 ]
 const products = [
     {
@@ -72,6 +80,22 @@ export default function Products() {
     let [current_image, set_current_image] = useState(0);
 
     const [top, settop] = useState([])
+    const [catpro, setcatpro] = useState([])
+
+    function getcatpro() {
+        const options = {
+            method: 'GET',
+            url: '/api/endproduct/products/page',
+            headers: {'Content-Type': 'application/json'}
+        };
+
+        axios.request(options).then(function (response) {
+            let data = JSON.parse(JSON.stringify(response.data))
+            setcatpro(data);
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }
 
     function gettop() {
         const options = {
@@ -108,7 +132,7 @@ export default function Products() {
     ];
     useEffect(() => {
         // @ts-ignore
-
+        getcatpro()
         gettop();
         // @ts-ignore
         splide1.current.splide.on('move', (n) => {
@@ -190,7 +214,7 @@ export default function Products() {
                         <div className="-my-2">
                             <div className="box-content py-2 relative h-20 overflow-x-auto xl:overflow-visible">
                                 <div
-                                    className="absolute min-w-screen-xl px-4 flex space-x-8 sm:px-6 lg:px-8 xl:relative xl:px-0 xl:space-x-0 xl:grid xl:grid-cols-4 xl:gap-x-8">
+                                    className="absolute min-w-screen-xl px-4 flex space-x-8 sm:px-6 lg:px-8 xl:relative xl:px-0 xl:space-x-0 xl:grid xl:grid-cols-5 xl:gap-x-8">
                                     {categories.map((category) => (
                                         <a
                                             key={category.name}
@@ -269,41 +293,115 @@ export default function Products() {
                         </div>
                     </div>
                 </div>
-                {/* Featured section */}
-                <section
-                    aria-labelledby="social-impact-heading"
-                    className="max-w-7xl mx-auto pt-24 px-4 sm:pt-32 sm:px-6 lg:px-8"
-                >
-                    <div className="relative rounded-lg overflow-hidden">
-                        <div className="absolute inset-0">
-                            <video src="/assets/video/office.mp4" autoPlay={true}
-                                   className="w-full h-full object-center object-cover"
-                            />
-                        </div>
-                        <div className="relative bg-gray-900 bg-opacity-75 py-32 px-6 sm:py-20 sm:px-12 lg:px-16">
-                            <div className="relative max-w-3xl mx-auto flex flex-col items-center text-center">
-                                <h2
-                                    id="social-impact-heading"
-                                    className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl"
-                                >
-                                    <span className="block sm:inline">Level up</span>
-                                    <span className="block sm:inline">your desk</span>
-                                </h2>
-                                <p className="mt-3 text-xl text-white">
-                                    Explore a wide range of electrical solutions at Shrikrishna Commercial. From LED
-                                    Lights to Cables, Batteries, and more, our products are designed for performance and
-                                    reliability. Browse our catalog for all your electrical needs.
-                                </p>
-                                <a
-                                    href="#"
-                                    className="mt-8 w-full block bg-white border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto"
-                                >
-                                    Shop Workspace
-                                </a>
-                            </div>
-                        </div>
+                <div className="bg-white">
+                    <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+                        <h2 className="text-xl font-bold text-gray-900">All Products</h2>
+
+                        {
+                            Object.entries(catpro).map(([key, value]) => {
+                                return (
+                                    <>
+
+                                        <h2 className="text-xl font-bold text-gray-900 mt-5">{key}</h2>
+                                        {/* @ts-ignore */}
+                                        <AnimationOnScroll animateIn="animate__fadeInUp">
+                                            <div
+                                                className="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-5 xl:gap-x-8">
+
+                                                {
+
+                                                    // @ts-ignore
+                                                    value.map((product) => {
+                                                        return (
+                                                            <>
+                                                                <div key={product._id}>
+                                                                    <div className="relative">
+                                                                        <div
+                                                                            className="relative h-72 w-full overflow-hidden rounded-lg">
+                                                                            {/*@ts-ignore*/}
+                                                                            <img
+
+                                                                                src={"/img/subproduct/" + product["image"]}
+
+                                                                                alt={product["name"]}
+                                                                                className="h-full w-full object-contain object-center "
+                                                                            />
+                                                                        </div>
+                                                                        <div className="relative mt-4 h-10">
+                                                                            {/*@ts-ignore*/}
+                                                                            <h3 className="text-sm font-medium text-gray-900">{product.name}</h3>
+                                                                            {/*@ts-ignore*/}
+
+                                                                        </div>
+                                                                        <div
+                                                                            className="absolute inset-x-0 top-0 flex h-72 items-end justify-end overflow-hidden rounded-lg p-4">
+                                                                            <div
+                                                                                aria-hidden="true"
+                                                                                className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50"
+                                                                            />
+                                                                            {/*@ts-ignore*/}
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="mt-6">
+                                                                        {/*@ts-ignore*/}
+                                                                        <a
+                                                                            href={product["href"]}
+                                                                            className="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200"
+                                                                        >
+                                                                            View<span
+                                                                            className="sr-only">, {/*@ts-ignore*/} {product["name"]}</span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        </AnimationOnScroll>
+                                    </>
+                                )
+
+                            })
+                        }
                     </div>
-                </section>
+                </div>
+                {/* Featured section */}
+                {/*<section*/}
+                {/*    aria-labelledby="social-impact-heading"*/}
+                {/*    className="max-w-7xl mx-auto pt-24 px-4 sm:pt-32 sm:px-6 lg:px-8"*/}
+                {/*>*/}
+                {/*    <div className="relative rounded-lg overflow-hidden">*/}
+                {/*        <div className="absolute inset-0">*/}
+                {/*            <video src="/assets/video/office.mp4" autoPlay={true}*/}
+                {/*                   className="w-full h-full object-center object-cover"*/}
+                {/*            />*/}
+                {/*        </div>*/}
+                {/*        <div className="relative bg-gray-900 bg-opacity-75 py-32 px-6 sm:py-20 sm:px-12 lg:px-16">*/}
+                {/*            <div className="relative max-w-3xl mx-auto flex flex-col items-center text-center">*/}
+                {/*                <h2*/}
+                {/*                    id="social-impact-heading"*/}
+                {/*                    className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl"*/}
+                {/*                >*/}
+                {/*                    <span className="block sm:inline">Level up</span>*/}
+                {/*                    <span className="block sm:inline">your desk</span>*/}
+                {/*                </h2>*/}
+                {/*                <p className="mt-3 text-xl text-white">*/}
+                {/*                    Explore a wide range of electrical solutions at Shrikrishna Commercial. From LED*/}
+                {/*                    Lights to Cables, Batteries, and more, our products are designed for performance and*/}
+                {/*                    reliability. Browse our catalog for all your electrical needs.*/}
+                {/*                </p>*/}
+                {/*                <a*/}
+                {/*                    href="#"*/}
+                {/*                    className="mt-8 w-full block bg-white border border-transparent rounded-md py-3 px-8 text-base font-medium text-gray-900 hover:bg-gray-100 sm:w-auto"*/}
+                {/*                >*/}
+                {/*                    Shop Workspace*/}
+                {/*                </a>*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</section>*/}
 
                 {/* Collection section */}
 

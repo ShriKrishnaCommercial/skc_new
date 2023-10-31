@@ -23,7 +23,7 @@ router.get('/any/5', async (req, res) => {
     ])
         .exec()
         .then(randomRecords => {
-           return randomRecords;
+            return randomRecords;
         })
         .catch(err => {
             console.error(err);
@@ -86,6 +86,38 @@ router.put('/:id', upload.single('endproduct'), async function (req, res, next) 
     }
 
     // req.body contains the text fields
+})
+
+router.get("/products/page", async (req, res) => {
+
+    subproductSchema.aggregate([
+        {
+            $group: {
+                _id: '$category', // Group by the 'category' field
+                products: {$push: '$$ROOT'}, // Push the whole document into the 'products' array
+            },
+        },
+        {
+            $project: {
+                _id: 0, // Exclude the "_id" field from the result
+                category: '$_id', // Rename "_id" to "category"
+                products: 1, // Include the "products" field
+            },
+        },
+    ])
+        .then(result => {
+            const groupedByCategory = {};
+            result.forEach(entry => {
+                groupedByCategory[entry.category] = entry.products;
+            });
+
+            res.json(groupedByCategory)
+        })
+        .catch(err => {
+            res.json(err)
+        });
+
+
 })
 /*
  * DELETE
