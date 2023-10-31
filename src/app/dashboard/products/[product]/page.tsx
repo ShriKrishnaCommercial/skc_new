@@ -9,7 +9,6 @@ import {Simulate} from "react-dom/test-utils";
 import submit = Simulate.submit;
 import Link from "next/link";
 
-
 export default function Page({params}: { params: { product: string } }) {
     const [subproduct, setsubprodut] = useState([]);
     const [name, setname] = useState("");
@@ -211,7 +210,7 @@ export default function Page({params}: { params: { product: string } }) {
                                             </div>
                                         </Link>
                                         <div className="md:flex justify-between">
-                                            <div>
+                                            <div className="w-40 h-20">
                                                 {/* @ts-ignore*/}
                                                 <p className="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{file.name}</p>
                                                 {/* @ts-ignore*/}

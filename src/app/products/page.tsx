@@ -1,20 +1,3 @@
-/*
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
 'use client'
 import {Fragment, useEffect, useRef, useState} from 'react'
 import Header from "@/components/Header";
@@ -23,6 +6,7 @@ import Footer from "@/components/Footer";
 import {Splide, SplideSlide} from "@splidejs/react-splide";
 import '@splidejs/react-splide/css';
 import {random} from "nanoid";
+import axios from "axios";
 
 
 const categories = [
@@ -82,8 +66,29 @@ function classNames(...classes) {
 }
 
 export default function Products() {
+
+
     let splide1 = useRef(null);
     let [current_image, set_current_image] = useState(0);
+
+    const [top, settop] = useState([])
+
+    function gettop() {
+        const options = {
+            method: 'GET',
+            url: '/api/endproduct/any/5',
+            headers: {'Content-Type': 'application/json'}
+        };
+
+        axios.request(options).then(function (response) {
+            let data = JSON.parse(JSON.stringify(response.data))
+            settop(data);
+
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }
+
 
     let data = [
         {
@@ -104,7 +109,7 @@ export default function Products() {
     useEffect(() => {
         // @ts-ignore
 
-
+        gettop();
         // @ts-ignore
         splide1.current.splide.on('move', (n) => {
             set_current_image(n)
@@ -132,7 +137,7 @@ export default function Products() {
                 {
                     (data.map((a, i) => {
                         return (
-                            <SplideSlide key={i+1}>
+                            <SplideSlide key={i + 1}>
                                 <div className="relative h-[300px]  bg-gray-900">
                                     <div>
                                         <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
@@ -215,44 +220,50 @@ export default function Products() {
                     </div>
                 </section>
                 <div className="bg-white">
-                    <div className="max-w-2xl mx-auto py-10 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
-                        <div className="md:flex md:items-center md:justify-between">
-                            <h2 className="text-2xl font-extrabold tracking-tight text-gray-900">Trending products</h2>
-                            <a href="#"
-                               className="hidden text-sm font-medium text-indigo-600 hover:text-indigo-500 md:block">
-                                Shop the collection<span aria-hidden="true"> &rarr;</span>
-                            </a>
-                        </div>
-
+                    <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+                        <h2 className="text-xl font-bold text-gray-900">Customers also bought</h2>
 
                         <div
-                            className="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
-                            {products.map((product) => (
-                                <div key={product.id} className="group relative">
-                                    <div
-                                        className="w-full h-56 bg-transparent rounded-md  overflow-hidden group-hover:opacity-75 lg:h-40 ">
-                                        <img
-                                            src={product.imageSrc}
-                                            alt={product.imageAlt}
-                                            className="w-full h-full object-center object-contain"
-                                        />
+                            className="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-5 xl:gap-x-8">
+                            {top.map((product) => (
+                                // @ts-ignore
+                                <div key={product._id}>
+                                    <div className="relative">
+                                        <div className="relative h-72 w-full overflow-hidden rounded-lg">
+                                            {/*@ts-ignore*/}
+                                            <img
+                                                src={"/img/endproduct/" + product.image}
+                                                alt={product.name}
+                                                className="h-full w-full object-contain object-center "
+                                            />
+                                        </div>
+                                        <div className="relative mt-4 h-10">
+                                            {/*@ts-ignore*/}
+                                            <h3 className="text-sm font-medium text-gray-900">{product.name}</h3>
+                                            {/*@ts-ignore*/}
+
+                                        </div>
+                                        <div
+                                            className="absolute inset-x-0 top-0 flex h-72 items-end justify-end overflow-hidden rounded-lg p-4">
+                                            <div
+                                                aria-hidden="true"
+                                                className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-black opacity-50"
+                                            />
+                                            {/*@ts-ignore*/}
+
+                                        </div>
                                     </div>
-                                    <h3 className="mt-4 text-sm text-gray-700">
-                                        <a href={product.href}>
-                                            <span className="absolute inset-0"/>
-                                            {product.name}
+                                    <div className="mt-6">
+                                        {/*@ts-ignore*/}
+                                        <a
+                                            href={product.href}
+                                            className="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200"
+                                        >
+                                            View<span className="sr-only">, {/*@ts-ignore*/} {product.name}</span>
                                         </a>
-                                    </h3>
-                                    <p className="mt-1 text-sm text-gray-500">{product.color}</p>
-                                    <p className="mt-1 text-sm font-medium text-gray-900">{product.price}</p>
+                                    </div>
                                 </div>
                             ))}
-                        </div>
-
-                        <div className="mt-8 text-sm md:hidden">
-                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                Shop the collection<span aria-hidden="true"> &rarr;</span>
-                            </a>
                         </div>
                     </div>
                 </div>

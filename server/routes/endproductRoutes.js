@@ -17,6 +17,21 @@ var upload = multer({storage: storage})
  */
 router.get('/', endproductController.list);
 
+router.get('/any/5', async (req, res) => {
+    const daata = await EndproductModel.aggregate([
+        {$sample: {size: 5}}
+    ])
+        .exec()
+        .then(randomRecords => {
+           return randomRecords;
+        })
+        .catch(err => {
+            console.error(err);
+        });
+
+    res.json(daata)
+})
+
 /*
  * GET
  */
