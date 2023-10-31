@@ -9,6 +9,7 @@ import {random} from "nanoid";
 import axios from "axios";
 import {AnimationOnScroll} from "react-animation-on-scroll";
 import "animate.css"
+import Link from "next/link";
 
 const categories = [
     {
@@ -244,7 +245,7 @@ export default function Products() {
                     </div>
                 </section>
                 <div className="bg-white">
-                    <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+                    <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
                         <h2 className="text-xl font-bold text-gray-900">Customers also bought</h2>
 
                         <div
@@ -294,7 +295,7 @@ export default function Products() {
                     </div>
                 </div>
                 <div className="bg-white">
-                    <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+                    <div className="mx-auto max-w-2xl px-4 py-10 lg:max-w-7xl lg:px-8">
                         <h2 className="text-xl font-bold text-gray-900">All Products</h2>
 
                         {
@@ -306,7 +307,7 @@ export default function Products() {
                                         {/* @ts-ignore */}
                                         <AnimationOnScroll animateIn="animate__fadeInUp">
                                             <div
-                                                className="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-5 xl:gap-x-8">
+                                                className="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-6 xl:gap-x-8">
 
                                                 {
 
@@ -345,13 +346,13 @@ export default function Products() {
                                                                     </div>
                                                                     <div className="mt-6">
                                                                         {/*@ts-ignore*/}
-                                                                        <a
-                                                                            href={product["href"]}
+                                                                        <Link
+                                                                            href={"products/endproducts/" + product["name"] + "/" + product["_id"]}
                                                                             className="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200"
                                                                         >
                                                                             View<span
-                                                                            className="sr-only">, {/*@ts-ignore*/} {product["name"]}</span>
-                                                                        </a>
+                                                                            className="sr-only">, {/*@ts-ignore*/} { product["name"] }</span>
+                                                                        </Link>
                                                                     </div>
                                                                 </div>
                                                             </>

@@ -1,20 +1,3 @@
-/*
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
 'use client'
 import {Fragment, useEffect, useRef, useState} from 'react'
 import Header from "@/components/Header";
@@ -27,54 +10,35 @@ import {CheckIcon} from '@heroicons/react/outline'
 // @ts-ignore
 import {Splide, SplideSlide} from "@splidejs/react-splide";
 import '@splidejs/react-splide/css';
+import axios from "axios";
 
-
-const categories = [
-
-    {
-        name: 'Instrumental',
-        href: '#',
-        imageSrc: '/assets/img/products/instrumentation.jpg',
-    },
-    {
-        name: 'Electrical',
-        href: '#',
-        imageSrc: '/assets/img/products/electrical.jpg',
-    },
-    {
-        name: 'Mechanical',
-        href: '#',
-        imageSrc: '/assets/img/products/mechanical.jpg',
-    }, {
-        name: 'Safety ',
-        href: '#',
-        imageSrc: '/assets/img/products/safety.jpg',
-    }
-]
 
 // @ts-ignore
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function id() {
+export default function id({params}: { params: { end: string } }) {
     const [open, setOpen] = useState(false)
-    const product = {
-        name: 'CABLE FAULT LOCATORk',
-        version: {name: '1.0', date: 'June 5, 2021', datetime: '2021-06-05'},
-        price: '$220',
-        description:
-            'The initial fault analysis provides the basis for determining the subsequent procedure in the fault location process. During pre-location, the position of the fault is roughly located. The subsequent pin-pointing enables precise determination of the cable fault. Cable identification is used to identify the defective cable in a route. You can use various measurement methods depending on the type of fault and cable type.',
-        highlights: [
-            '200+ SVG icons in 3 unique styles',
-            'Compatible with Figma, Sketch, and Adobe XD',
-            'Drawn on 24 x 24 pixel grid',
-        ],
-        imageSrc: 'https://shrikrishnacommercial.com/assets/img/end_product/727-cable%20fault%20locator%20(1).png',
-        imageAlt: 'Sample of 30 icons with friendly and fun details in outline, filled, and brand color styles.',
+    const [product, setproduct] = useState({})
+
+    function getfinal() {
+        const options = {
+            method: 'GET',
+            url: '/api/endproduct/products/final/' + params.end,
+            headers: {'Content-Type': 'application/json'}
+        };
+        axios.request(options).then(function (response) {
+            var data = JSON.parse(JSON.stringify(response.data))
+            setproduct(data)
+        }).catch(function (error) {
+            console.error(error);
+        });
     }
+
+
     const reviews = {
-        average: 4,
+        average: Math.floor(Math.random() * (4 - 3 + 1) + 4),
         featured: [
             {
                 id: 1,
@@ -137,8 +101,8 @@ export default function id() {
     useEffect(() => {
         // @ts-ignore
 
-
         // @ts-ignore
+        getfinal()
 
     }, [])
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -227,8 +191,9 @@ export default function id() {
                     <div className="lg:grid lg:grid-rows-1 lg:grid-cols-7 lg:gap-x-8 lg:gap-y-10 xl:gap-x-16">
                         {/* Product image */}
                         <div className="lg:row-end-1 lg:col-span-4">
-                            <div className="aspect-w-4 aspect-h-3 rounded-lg bg-gray-100 overflow-hidden">
-                                <img src={product.imageSrc} alt={product.imageAlt} className="object-center"/>
+                            <div className="aspect-w-3 aspect-h-2 rounded-lg bg-gray-100 overflow-hidden">
+                                <img src={"/img/endproduct/" + product["image"]} alt={product["name"]}
+                                     className="object-center"/>
                             </div>
                         </div>
 
@@ -237,15 +202,13 @@ export default function id() {
                             className="max-w-2xl mx-auto mt-14 sm:mt-16 lg:max-w-none lg:mt-0 lg:row-end-2 lg:row-span-2 lg:col-span-3">
                             <div className="flex flex-col-reverse">
                                 <div className="mt-4">
-                                    <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{product.name}</h1>
+                                    <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{product["name"]}</h1>
 
                                     <h2 id="information-heading" className="sr-only">
                                         Product information
                                     </h2>
                                     <p className="text-sm text-gray-500 mt-2">
-                                        Version {product.version.name} (Updated{' '}
-                                        <time dateTime={product.version.datetime}>{product.version.date}</time>
-                                        )
+
                                     </p>
                                 </div>
 
@@ -267,7 +230,9 @@ export default function id() {
                                 </div>
                             </div>
 
-                            <p className="text-gray-500 mt-6">{product.description}</p>
+                            <p className="text-gray-500 mt-6">
+                                <div dangerouslySetInnerHTML={{ __html: product["info" ]}} />
+                               </p>
 
                             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
                                 <button onClick={() => {
@@ -282,26 +247,29 @@ export default function id() {
                             </div>
 
                             <div className="border-t border-gray-200 mt-10 pt-10">
-                                <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
+                                <h3 className="text-sm font-medium text-gray-900">ASSOCIATE PARTNER</h3>
                                 <div className="mt-4 prose prose-sm text-gray-500">
                                     <ul role="list">
-                                        {product.highlights.map((highlight) => (
-                                            <li key={highlight}>{highlight}</li>
-                                        ))}
+                                        {
+                                            product["partner"]
+                                        }
+                                        {/*{product.highlights.map((highlight) => (*/}
+                                        {/*    <li key={highlight}>{highlight}</li>*/}
+                                        {/*))}*/}
                                     </ul>
                                 </div>
                             </div>
 
-                            <div className="border-t border-gray-200 mt-10 pt-10">
-                                <h3 className="text-sm font-medium text-gray-900">Information</h3>
-                                <p className="mt-4 text-sm text-gray-500">
-                                    {license.summary}{' '}
-                                    <a href={license.href}
-                                       className="font-medium text-indigo-600 hover:text-indigo-500">
-                                        Read full license
-                                    </a>
-                                </p>
-                            </div>
+                            {/*<div className="border-t border-gray-200 mt-10 pt-10">*/}
+                            {/*    <h3 className="text-sm font-medium text-gray-900">Information</h3>*/}
+                            {/*    <p className="mt-4 text-sm text-gray-500">*/}
+                            {/*        {license.summary}{' '}*/}
+                            {/*        <a href={license.href}*/}
+                            {/*           className="font-medium text-indigo-600 hover:text-indigo-500">*/}
+                            {/*            Read full license*/}
+                            {/*        </a>*/}
+                            {/*    </p>*/}
+                            {/*</div>*/}
 
                             <div className="border-t border-gray-200 mt-10 pt-10">
                                 <h3 className="text-sm font-medium text-gray-900">Share</h3>

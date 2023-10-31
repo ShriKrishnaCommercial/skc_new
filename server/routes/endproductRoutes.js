@@ -89,7 +89,6 @@ router.put('/:id', upload.single('endproduct'), async function (req, res, next) 
 })
 
 router.get("/products/page", async (req, res) => {
-
     subproductSchema.aggregate([
         {
             $group: {
@@ -117,6 +116,13 @@ router.get("/products/page", async (req, res) => {
             res.json(err)
         });
 
+
+})
+
+
+router.get("/products/final/:id", async (req, res) => {
+    let data = await EndproductModel.findOne({_id: req.params.id})
+    res.json(data)
 
 })
 /*
