@@ -232,8 +232,10 @@ export default function Products() {
                                         <div className="relative h-72 w-full overflow-hidden rounded-lg">
                                             {/*@ts-ignore*/}
                                             <img
-                                                src={"/img/endproduct/" + product.image}
-                                                alt={product.name}
+
+                                                src={"/img/endproduct/" + product["image"]}
+
+                                                alt={product["name"]}
                                                 className="h-full w-full object-contain object-center "
                                             />
                                         </div>
@@ -256,10 +258,10 @@ export default function Products() {
                                     <div className="mt-6">
                                         {/*@ts-ignore*/}
                                         <a
-                                            href={product.href}
+                                            href={product["href"]}
                                             className="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200"
                                         >
-                                            View<span className="sr-only">, {/*@ts-ignore*/} {product.name}</span>
+                                            View<span className="sr-only">, {/*@ts-ignore*/} {product["name"]}</span>
                                         </a>
                                     </div>
                                 </div>
