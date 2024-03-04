@@ -18,6 +18,8 @@ const cvrouter = require("./routes/cvRoutes");
 const product = require("./routes/productsRoutes");
 const subproduct = require("./routes/subproductRoutes");
 const endproduct = require("./routes/endproductRoutes");
+const jwt = require("express-jwt");
+
 app.prepare().then(async () => {
     const server = express();
     await dbConnect()
@@ -28,6 +30,25 @@ app.prepare().then(async () => {
     })
 
 
+    // server.get('/secured', jwt.expressjwt({
+        
+    // }))
+
+    server.use('/api/', jwt.expressjwt({
+        secret: "121322100581990",
+        algorithms: ["HS256"],
+        onExpired: async(req, err) =>{
+           throw err;
+        }
+    }).unless({path: ['/api/register']}))
+
+
+    server.use((err, req, res, next)=>{
+        return res.status(err.status).json({
+            "error": true,
+            "message": err.message
+        })
+    })
     server.use('/api', auth);
     server.use('/api', home);
     server.use('/api/about', about);
