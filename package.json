@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "lint": "next lint",
-    "dev": "nodemon -w server/server.js -w server/*  -w */**/* server/server.js",
+    "dev": "nodemon server/server.js server/**/*",
     "build": "next build",
     "start": "NODE_ENV=production node server/server.js"
   },
@@ -39,6 +39,7 @@
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.13",
     "express": "^4.18.2",
+    "express-jwt": "^8.4.1",
     "express-session": "^1.17.3",
     "form-data": "^4.0.0",
     "framer-motion": "^10.16.4",
