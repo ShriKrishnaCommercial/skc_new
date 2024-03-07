@@ -14,6 +14,9 @@ var storage = multer.diskStorage({
         cb(null, './public/cv')
     }, filename: function (req, file, cb) {
         cb(null, file.originalname);
+    },
+    fileFilter: function(req, file, cb){
+        console.log(file.originalname);
     }
 })
 var upload = multer({storage: storage})
