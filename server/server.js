@@ -18,6 +18,7 @@ const cvrouter = require("./routes/cvRoutes");
 const product = require("./routes/productsRoutes");
 const subproduct = require("./routes/subproductRoutes");
 const endproduct = require("./routes/endproductRoutes");
+const dashboard = require('./routes/dashboardRoutes');
 const jwt = require("express-jwt");
 
 app.prepare().then(async () => {
@@ -59,6 +60,7 @@ app.prepare().then(async () => {
     server.use('/api/product', product);
     server.use('/api/subproduct', subproduct);
     server.use('/api/endproduct', endproduct);
+    server.use('/api/dasboard', dashboard);
 
     // Handle all other routes with Next.js
     server.all('*', (req, res) => {
