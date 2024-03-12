@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
 
 
 // Login route
-router.post('/login', async (req, res) => {
+router.post('/login', async (req, res, next) => {
     const {username, password} = req.body;
 
     try {
@@ -35,23 +35,25 @@ router.post('/login', async (req, res) => {
             console.log(check)
             if (check === true) {
                 //     login jwt new
-                const token = jwt.sign({id: user._id, username: user.username}, "121322100581990")
+                const token = jwt.sign({id: user._id, username: user.username, role: 'ADMIN'},
+                    "121322100581990", {expiresIn: '1y'})
                 res.json({
                     "message": "loggedin",
                     "token": token
                 })
             } else {
-                throw "invalid details";
+                throw Error("invalid details",);
+
             }
         } else {
-            throw "user not found";
+            throw Error("user not found");
         }
 
 
     } catch (e) {
-        res.json({
-            "message": "error",
-            "token": e
+        return res.json({
+            "error": true,
+            "message": e.message
         })
 
     }
