@@ -41,7 +41,7 @@ app.prepare().then(async () => {
         onExpired: async(req, err) =>{
            throw err;
         }
-    }).unless({path: ['/api/register']}))
+    }).unless({path: ['/api/register', '/api/login']}))
 
 
     server.use((err, req, res, next)=>{
@@ -60,7 +60,7 @@ app.prepare().then(async () => {
     server.use('/api/product', product);
     server.use('/api/subproduct', subproduct);
     server.use('/api/endproduct', endproduct);
-    server.use('/api/dasboard', dashboard);
+    server.use('/api/dashboard', dashboard);
 
     // Handle all other routes with Next.js
     server.all('*', (req, res) => {

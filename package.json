@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "lint": "next lint",
-    "dev": "nodemon server/server.js server/**/*",
+    "dev": "nodemon server/server.js server/**/* next dev",
     "build": "next build",
     "start": "NODE_ENV=production node server/server.js"
   },
@@ -15,7 +15,7 @@
     "@ckeditor/ckeditor5-paragraph": "^40.0.0",
     "@ckeditor/ckeditor5-react": "^6.1.0",
     "@headlessui/react": "^1.7.17",
-    "@heroicons/react": "^1.0.6",
+    "@heroicons/react": "^2.1.1",
     "@nextui-org/react": "^2.1.13",
     "@react-jvectormap/core": "^1.0.4",
     "@react-jvectormap/india": "^1.0.1",
