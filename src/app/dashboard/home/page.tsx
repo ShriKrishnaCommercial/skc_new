@@ -6,12 +6,21 @@ import axios from "axios";
 import React from 'react';
 
 import toast, {Toaster} from 'react-hot-toast';
+import {CKEditor} from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import {EventInfo} from "framer-motion";
 
 export default function homeedit() {
 
 
     const [about, setaboutus] = useState();
     const [features, set_features] = useState([]);
+
+    async function handleChange(event : EventInfo, editor : any){
+        setaboutus(editor.getData());
+        console.log(about);
+    }
+
     useEffect(() => {
         toast("Wow so easy!")
         const options = {
@@ -69,11 +78,19 @@ export default function homeedit() {
                                         about section</label>
                                     <div className="mt-2">
 
-                                    <textarea rows={4} name="comment" id="comment" value={about}
-                                              //@ts-ignore
-                                              onInput={e => setaboutus(e.target.value)}
-                                              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                                    </textarea>
+                                    {/*<textarea rows={4} name="comment" id="comment" value={about}*/}
+                                    {/*          //@ts-ignore*/}
+                                    {/*          onInput={e => setaboutus(e.target.value)}*/}
+                                    {/*          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">*/}
+                                    {/*</textarea>*/}
+
+                                        <CKEditor
+                                            editor={ ClassicEditor }
+                                            data="Type Text Here"
+                                            onChange={handleChange}
+                                        />
+
+
 
                                     </div>
                                 </div>

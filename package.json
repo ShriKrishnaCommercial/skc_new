@@ -10,10 +10,11 @@
   },
   "dependencies": {
     "@ckeditor/ckeditor5-basic-styles": "^40.0.0",
+    "@ckeditor/ckeditor5-build-classic": "^41.2.0",
     "@ckeditor/ckeditor5-editor-classic": "^40.0.0",
     "@ckeditor/ckeditor5-essentials": "^40.0.0",
     "@ckeditor/ckeditor5-paragraph": "^40.0.0",
-    "@ckeditor/ckeditor5-react": "^6.1.0",
+    "@ckeditor/ckeditor5-react": "^6.2.0",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.1.1",
     "@nextui-org/react": "^2.1.13",

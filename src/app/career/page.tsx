@@ -8,6 +8,7 @@ import {useState} from "react";
 import axios from "axios";
 
 import toast, {Toaster} from 'react-hot-toast';
+import {useRouter} from "next/navigation";
 export default function Contact() {
     const [file, setfile] = useState("");
     const [first_name, setfn] = useState("")
@@ -15,6 +16,19 @@ export default function Contact() {
     const [em, setem] = useState("")
     const [cun, setcun] = useState("")
     const [Street_address, setStreet_address] = useState("")
+
+    const router = useRouter();
+
+    const token = sessionStorage.getItem("jwt");
+
+    if(!token){
+        router.push("/dashboard/login");
+        toast.error("Session Expired !", {
+            position: 'top-right',
+            autoClose: 3000,
+            closeOnClick: true
+        });
+    }
 
     const submit = () => {
         const form = new FormData();
@@ -24,18 +38,27 @@ export default function Contact() {
         form.append("email", em);
         form.append("country", cun);
         form.append("Street_address", Street_address);
+
+
+
+
         const options = {
             method: 'POST',
-            url: '/api/cvform/addcv',
+            url: '/api/addcv',
             headers: {
                 'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
+                'Authorization' : 'Bearer '+token
             },
             data: form
         };
 
         axios.request(options).then(function (response) {
 
-            toast("Submitted Successfully")
+            toast.success("Submitted Successfully", {
+                position: 'top-right',
+                autoClose: 3000,
+                closeOnClick: true
+            })
         }).catch(function (error) {
             console.error(error);
         });

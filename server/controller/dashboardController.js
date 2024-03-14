@@ -13,7 +13,8 @@ module.exports = {
         const countList = {
             'products' : await products.count(),
             'productsCategory' : await subProducts.count(),
-            'brands' : await brands.count()
+            'brands' : await brands.count(),
+            'cvs' : await cvModel.count()
         }
 
         return res.json({'allCounts' :  countList});
