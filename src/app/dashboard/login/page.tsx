@@ -7,7 +7,7 @@ import {headers} from "next/headers";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import {useRouter} from "next/navigation";
-
+import {setCookie} from "cookies-next";
 
 
 
@@ -52,7 +52,7 @@ export default function Example() {
                 showError(res.data.message);
             } else{
                 if(res.data.token){
-                    sessionStorage.setItem("jwt", res.data.token);
+                    setCookie("jwt", res.data.token)
                     setAuth(true);
                     router.push("/dashboard");
                 }

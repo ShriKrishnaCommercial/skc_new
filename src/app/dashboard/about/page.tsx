@@ -6,8 +6,29 @@ import axios from "axios";
 import React from 'react';
 
 import toast, {Toaster} from 'react-hot-toast';
+import {getCookie} from "cookies-next";
+import {jwtDecode} from "jwt-decode";
 
 export default function homeedit() {
+    const token = getCookie("jwt");
+    const decodedToken = jwtDecode(token);
+    if(decodedToken.role != 'ADMIN'){
+        toast.error("Wrong Token", {
+            position: 'top-right',
+            autoClose: 3000,
+            closeOnClick: true
+        })
+    }
+
+
+    if(token == undefined) {
+        router.push("/dashboard/login");
+        toast.error("Token Expired !", {
+            position: 'top-right',
+            autoClose: 3000,
+            closeOnClick: true
+        });
+    }
 
     const update = () => {
         const options = {

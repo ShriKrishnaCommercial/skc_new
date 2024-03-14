@@ -15,9 +15,30 @@ import {useAnimation, motion, useScroll} from "framer-motion";
 import {useInView} from "react-intersection-observer";
 import {Testimonials} from "@/components/testimonial";
 import TopComps from "@/components/topcomps";
+import {getCookie} from "cookies-next";
+import {jwtDecode} from "jwt-decode";
+import {toast} from "react-toastify";
 
 
 export default function Home() {
+    const token = getCookie("jwt");
+    const decodedToken = jwtDecode(token);
+    if(decodedToken.role != 'ADMIN'){
+        toast.error("Wrong Token", {
+            position: 'top-right',
+            autoClose: 3000,
+            closeOnClick: true
+        })
+    }
+
+
+    if(token == undefined){
+        router.push("/dashboard/login");
+        toast.error("Token Expired !", {
+            position: 'top-right',
+            autoClose: 3000,
+            closeOnClick: true
+        });
     let headers = useRef(null);
     const {scrollYProgress} = useScroll();
     const animationControl = useAnimation();
