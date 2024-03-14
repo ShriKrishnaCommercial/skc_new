@@ -7,9 +7,30 @@ import React from 'react';
 import "animate.css"
 
 import Image from "next/image";
+import {getCookie} from "cookies-next";
+import {jwtDecode} from "jwt-decode";
+import {toast} from "react-toastify";
 
 
 export default function brands() {
+    const token = getCookie("jwt");
+    const decodedToken = jwtDecode(token);
+    if(decodedToken.role != 'ADMIN'){
+        toast.error("Wrong Token", {
+            position: 'top-right',
+            autoClose: 3000,
+            closeOnClick: true
+        })
+    }
+
+
+    if(token == undefined){
+        router.push("/dashboard/login");
+        toast.error("Token Expired !", {
+            position: 'top-right',
+            autoClose: 3000,
+            closeOnClick: true
+        });
     const [id, setId] = useState();
     const [loading, setloading] = useState(false);
     const move_right = (key: Number) => {

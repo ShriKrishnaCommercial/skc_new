@@ -9,8 +9,29 @@ import toast, {Toaster} from 'react-hot-toast';
 import {CKEditor} from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import {EventInfo} from "framer-motion";
+import {getCookie} from "cookies-next";
+import {jwtDecode} from "jwt-decode";
 
 export default function homeedit() {
+
+    const token = getCookie("jwt");
+    const decodedToken = jwtDecode(token);
+    if(decodedToken.role != 'ADMIN'){
+        toast.error("Wrong Token", {
+            position: 'top-right',
+            autoClose: 3000,
+            closeOnClick: true
+        })
+    }
+
+
+    if(token == undefined){
+        router.push("/dashboard/login");
+        toast.error("Token Expired !", {
+            position: 'top-right',
+            autoClose: 3000,
+            closeOnClick: true
+        });
 
 
     const [about, setaboutus] = useState();

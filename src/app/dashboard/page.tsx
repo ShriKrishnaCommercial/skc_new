@@ -9,22 +9,31 @@ import {toast} from "react-toastify";
 const AnimatedNumbers = dynamic(() => import("react-animated-numbers"), {
     ssr: false,
 });
+import {getCookie} from "cookies-next";
+import {jwtDecode} from "jwt-decode";
 
 export default function dashboard() {
-    const [prodCount, setProdCount] = useState(0);
-    const [subProdCount, setSubProdCount] = useState(0);
-    const [cvCount, setCvCount] = useState(0);
-    const [brandCount, setBrandCount] = useState(0);
-
+    const [count, setCount] = useState();
+    var arr = [];
     const [people, setPeople] = useState([]);
 
     const router = useRouter();
 
-    const token = sessionStorage.getItem("jwt");
 
-    if(!token){
+    const token = getCookie("jwt");
+    const decodedToken = jwtDecode(token);
+    if(decodedToken.role != 'ADMIN'){
+        toast.error("Wrong Token", {
+            position: 'top-right',
+            autoClose: 3000,
+            closeOnClick: true
+        })
+    }
+
+
+    if(token == undefined){
         router.push("/dashboard/login");
-        toast.error("Session Expired !", {
+        toast.error("Token Expired !", {
             position: 'top-right',
             autoClose: 3000,
             closeOnClick: true
@@ -39,19 +48,24 @@ export default function dashboard() {
                 'Authorization' : 'Bearer '+token
             }
         }).then(res => {
-            setProdCount(res.data.products);
-            setSubProdCount(res.data.productsCategory);
-            setCvCount(res.data.cvs);
-            setBrandCount(res.data.brands);
+            console.log(res.data.allCounts);
+            arr = Object.values(res.data.allCounts);
+            console.log(arr)
+
         })
             .catch(err => console.error(err))
+
     }, []);
 
+
+
+
+
     const stats = [
-        {name: 'Products', value: prodCount, change: '+54.02%', changeType: 'negative'},
-        {name: 'Products Category', value: subProdCount, change: '-1.39%', changeType: 'positive'},
-        {name: 'Brands', value: brandCount, change: '+4.75%', changeType: 'positive'},
-        {name: 'CVs', value: cvCount, change: '+10.18%', changeType: 'negative'}
+        {name: 'Products', value: arr[0], change: '+54.02%', changeType: 'negative'},
+        {name: 'Products Category', value: arr[1], change: '-1.39%', changeType: 'positive'},
+        {name: 'Brands', value: arr[2], change: '+4.75%', changeType: 'positive'},
+        {name: 'CVs', value: arr[3], change: '+10.18%', changeType: 'negative'}
     ]
     useEffect(() => {
         axios.get('/api/dashboard/cvs/list', {
@@ -104,7 +118,7 @@ export default function dashboard() {
                                             <dd className="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
                                                 <AnimatedNumbers
                                                     includeComma
-                                                    animateToNumber={Number(stat.value)}
+                                                    animateToNumber={parseInt(stat.value)}
                                                     fontStyle={{fontSize: 40, fontWeight: "black"}}
                                                     locale="en-US"
                                                     configs={[
