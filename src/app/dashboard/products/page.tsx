@@ -3,14 +3,39 @@ import DashboardHeader from "@/components/Dashboard/header";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Link from "next/link";
+import {getCookie} from "cookies-next";
+import {jwtDecode} from "jwt-decode";
+import {toast} from "react-toastify";
 
 export default function Products() {
+    const token = getCookie("jwt");
+    const decodedToken = jwtDecode(token);
+    if (decodedToken.role != 'ADMIN') {
+        toast.error("Wrong Token", {
+            position: 'top-right',
+            autoClose: 3000,
+            closeOnClick: true
+        })
+    }
+
+
+    if (token == undefined) {
+        router.push("/dashboard/login");
+        toast.error("Token Expired !", {
+            position: 'top-right',
+            autoClose: 3000,
+            closeOnClick: true
+        });
+    }
     const [projects, setproduxt] = useState([])
     useEffect(() => {
         const options = {
             method: 'GET',
             url: '/api/product',
-            headers: {'Content-Type': 'application/json'}
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer '+token
+            }
         };
 
         axios.request(options).then(function (response) {

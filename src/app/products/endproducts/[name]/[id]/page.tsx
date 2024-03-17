@@ -6,6 +6,9 @@ import Header from "@/components/Header";
 // @ts-ignore
 import Footer from "@/components/Footer";
 import axios from "axios";
+import {getCookie} from "cookies-next";
+import {jwtDecode} from "jwt-decode";
+import {toast} from "react-toastify";
 
 
 const products = [

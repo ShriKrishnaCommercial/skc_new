@@ -8,8 +8,29 @@ import 'react-toastify/dist/ReactToastify.css';
 import {Simulate} from "react-dom/test-utils";
 import submit = Simulate.submit;
 import Link from "next/link";
+import {getCookie} from "cookies-next";
+import {jwtDecode} from "jwt-decode";
 
 export default function Page({params}: { params: { product: string } }) {
+    const token = getCookie("jwt");
+    const decodedToken = jwtDecode(token);
+    if (decodedToken.role != 'ADMIN') {
+        toast.error("Wrong Token", {
+            position: 'top-right',
+            autoClose: 3000,
+            closeOnClick: true
+        })
+    }
+
+
+    if (token == undefined) {
+        router.push("/dashboard/login");
+        toast.error("Token Expired !", {
+            position: 'top-right',
+            autoClose: 3000,
+            closeOnClick: true
+        });
+    }
     const [subproduct, setsubprodut] = useState([]);
     const [name, setname] = useState("");
     const [file, setfile] = useState("");
@@ -22,7 +43,10 @@ export default function Page({params}: { params: { product: string } }) {
         const options = {
             method: 'DELETE',
             url: '/api/subproduct/' + id,
-            headers: {'Content-Type': 'application/json'}
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer '+token
+            }
         };
 
         axios.request(options).then(function (response) {
@@ -56,6 +80,7 @@ export default function Page({params}: { params: { product: string } }) {
             url: '/api/subproduct/' + idt,
             headers: {
                 'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
+                'Authorization' : 'Bearer '+token
             },
             data: form
         };
@@ -82,6 +107,7 @@ export default function Page({params}: { params: { product: string } }) {
             url: '/api/subproduct/subproduct',
             headers: {
                 'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
+                'Authorization': 'Bearer '+token
             },
             data: form
         };
@@ -101,7 +127,10 @@ export default function Page({params}: { params: { product: string } }) {
         const options = {
             method: 'GET',
             url: '/api/subproduct/' + params.product,
-            headers: {'Content-Type': 'application/json'}
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer '+token
+            }
         };
         axios.request(options).then(function (response) {
             var data = JSON.parse(JSON.stringify(response.data))
