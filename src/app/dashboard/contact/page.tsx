@@ -12,7 +12,7 @@ import {jwtDecode} from "jwt-decode";
 export default function homeedit() {
     const token = getCookie("jwt");
     const decodedToken = jwtDecode(token);
-    if(decodedToken.role != 'ADMIN'){
+    if (decodedToken.role != 'ADMIN') {
         toast.error("Wrong Token", {
             position: 'top-right',
             autoClose: 3000,
@@ -21,20 +21,25 @@ export default function homeedit() {
     }
 
 
-    if(token == undefined){
+    if (token == undefined) {
         router.push("/dashboard/login");
         toast.error("Token Expired !", {
             position: 'top-right',
             autoClose: 3000,
             closeOnClick: true
         });
+    }
+
     const [dataa, setdata] = useState([])
 
     useEffect(() => {
         const options = {
             method: 'GET',
             url: '/api/contactus',
-            headers: {'Content-Type': 'application/json'}
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : 'Bearer '+token
+            }
         };
         axios.request(options).then(function (response) {
             var data = JSON.parse(JSON.stringify(response.data))

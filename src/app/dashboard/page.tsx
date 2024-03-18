@@ -11,10 +11,12 @@ const AnimatedNumbers = dynamic(() => import("react-animated-numbers"), {
 });
 import {getCookie} from "cookies-next";
 import {jwtDecode} from "jwt-decode";
+import Link from "next/link";
 
 export default function dashboard() {
     const [count, setCount] = useState();
     var arr = [];
+    const [stats, setStats] = useState([{}]);
     const [people, setPeople] = useState([]);
 
     const router = useRouter();
@@ -49,8 +51,12 @@ export default function dashboard() {
             }
         }).then(res => {
             console.log(res.data.allCounts);
-            arr = Object.values(res.data.allCounts);
-            console.log(arr)
+            setStats([
+                {name: 'Products', value: res.data.allCounts.products, change: '+54.02%', changeType: 'negative'},
+                {name: 'Products Category', value: res.data.allCounts.productsCategory, change: '-1.39%', changeType: 'positive'},
+                {name: 'Brands', value: res.data.allCounts.brands, change: '+4.75%', changeType: 'positive'},
+                {name: 'CVs', value: res.data.allCounts.cvs, change: '+10.18%', changeType: 'negative'}
+            ])
 
         })
             .catch(err => console.error(err))
@@ -61,12 +67,7 @@ export default function dashboard() {
 
 
 
-    const stats = [
-        {name: 'Products', value: arr[0], change: '+54.02%', changeType: 'negative'},
-        {name: 'Products Category', value: arr[1], change: '-1.39%', changeType: 'positive'},
-        {name: 'Brands', value: arr[2], change: '+4.75%', changeType: 'positive'},
-        {name: 'CVs', value: arr[3], change: '+10.18%', changeType: 'negative'}
-    ]
+
     useEffect(() => {
         axios.get('/api/dashboard/cvs/list', {
             headers: {
@@ -148,7 +149,12 @@ export default function dashboard() {
                                             <div className="hidden sm:flex sm:flex-col sm:items-end">
                                                 <p className="text-sm leading-6 text-gray-900">{String(person.country).toUpperCase()}</p>
                                                     <div className="mt-1 flex items-center gap-x-1.5">
-                                                        <p className="text-xs leading-5 text-gray-500">{person.file}</p>
+                                                        <p className="text-xs leading-5 text-gray-500"><Link href={`file:////public/cv/${person.file}`}>{person.file}</Link></p>
+
+                                                        {/*to ask regarding link path in docker*/}
+                                                        {/*<p className="text-xs leading-5 text-gray-500"><Link href={`file:///Users/mihirsanjaysawant/projects/skc_new/public/cv/${person.file}`}>{person.file}</Link></p>*/}
+                                                        {/*<p className="text-xs leading-5 text-gray-500"><Link href={`file:///hostname/public/cv/${person.file}`}>{person.file}</Link></p>*/}
+
                                                     </div>
                                             </div>
                                         </li>

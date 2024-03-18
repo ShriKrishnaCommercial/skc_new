@@ -17,18 +17,7 @@ export default function Contact() {
     const [cun, setcun] = useState("")
     const [Street_address, setStreet_address] = useState("")
 
-    const router = useRouter();
 
-    const token = sessionStorage.getItem("jwt");
-
-    if(!token){
-        router.push("/dashboard/login");
-        toast.error("Session Expired !", {
-            position: 'top-right',
-            autoClose: 3000,
-            closeOnClick: true
-        });
-    }
 
     const submit = () => {
         const form = new FormData();
@@ -44,21 +33,30 @@ export default function Contact() {
 
         const options = {
             method: 'POST',
-            url: '/api/addcv',
+            url: '/api/cvform/addcv',
             headers: {
                 'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
-                'Authorization' : 'Bearer '+token
             },
             data: form
         };
 
         axios.request(options).then(function (response) {
+           if(response.data!= null){
+               console.log("called")
+               toast.success("Resume Uploaded", {
+                   position: 'top-center',
+                   autoClose: 3000,
+                   closeOnClick: true
+               })
+               console.log("called end")
+           } else{
+               toast.error("Something went wrong", {
+                   position: 'top-right',
+                   autoClose: 3000,
+                   closeOnClick: true
+               })
+           }
 
-            toast.success("Submitted Successfully", {
-                position: 'top-right',
-                autoClose: 3000,
-                closeOnClick: true
-            })
         }).catch(function (error) {
             console.error(error);
         });

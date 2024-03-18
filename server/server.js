@@ -41,7 +41,9 @@ app.prepare().then(async () => {
         onExpired: async(req, err) =>{
            throw err;
         }
-    }).unless({path: ['/api/register', '/api/login']}))
+    }).unless({path: ['/api/register', '/api/login',
+            '/api/cvform/addcv', '/api/home',
+            '/api/about', '/api/brands', '/api/clients']}))
 
 
     server.use((err, req, res, next)=>{

@@ -9,17 +9,28 @@ const router = express.Router();
 const cvsController = require('./../controller/cvController.js');
 const multer = require("multer");
 const CvsModel = require("../../models/cvModel");
+const {MulterError} = require("multer");
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './public/cv')
-    }, filename: function (req, file, cb) {
-        cb(null, file.originalname);
     },
-    fileFilter: function(req, file, cb){
-        console.log(file.originalname);
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
     }
 })
-var upload = multer({storage: storage})
+const extensionsReq = ["docx", "pdf", "doc"]
+var upload = multer({
+    storage: storage,
+    fileFilter: function(req, file, cb){
+        const exts = file.originalname.split(".");
+        if(!extensionsReq.includes(exts.pop())){
+            cb(null, false);
+            cb(new Error("only docx and pdf files allowed"))
+        } else{
+            cb(null, true);
+        }
+
+    }})
 /*
  * GET
  */
@@ -50,6 +61,8 @@ router.post('/addcv', upload.single('cv'), async function (req, res, next) {
         return res.status(400).json({"message": "Error" + e})
 
     }
+
+
 
     // req.body contains the text fields
 })
