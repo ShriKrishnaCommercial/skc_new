@@ -21,8 +21,15 @@ export default function dashboard() {
 
     const router = useRouter();
 
-
     const token = getCookie("jwt");
+    if(token == undefined){
+        router.push("/dashboard/login");
+        toast.error("Token Expired !", {
+            position: 'top-right',
+            autoClose: 3000,
+            closeOnClick: true
+        });
+    } else{
     const decodedToken = jwtDecode(token);
     if(decodedToken.role != 'ADMIN'){
         toast.error("Wrong Token", {
@@ -31,16 +38,12 @@ export default function dashboard() {
             closeOnClick: true
         })
     }
-
-
-    if(token == undefined){
-        router.push("/dashboard/login");
-        toast.error("Token Expired !", {
-            position: 'top-right',
-            autoClose: 3000,
-            closeOnClick: true
-        });
     }
+
+    
+
+
+   
 
 
     useEffect(() => {
@@ -149,7 +152,8 @@ export default function dashboard() {
                                             <div className="hidden sm:flex sm:flex-col sm:items-end">
                                                 <p className="text-sm leading-6 text-gray-900">{String(person.country).toUpperCase()}</p>
                                                     <div className="mt-1 flex items-center gap-x-1.5">
-                                                        <p className="text-xs leading-5 text-gray-500"><Link href={`file:////public/cv/${person.file}`}>{person.file}</Link></p>
+                                                        {/* <p className="text-xs leading-5 text-gray-500"><Link href={`./public/cv/${person.file}`}>{person.file}</Link></p> */}
+                                                        <p className="text-xs leading-5 text-gray-500"><a href={person.file} download>{person.file}</a></p>
 
                                                         {/*to ask regarding link path in docker*/}
                                                         {/*<p className="text-xs leading-5 text-gray-500"><Link href={`file:///Users/mihirsanjaysawant/projects/skc_new/public/cv/${person.file}`}>{person.file}</Link></p>*/}
