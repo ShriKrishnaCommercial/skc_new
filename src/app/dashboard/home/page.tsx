@@ -33,7 +33,7 @@ export default function homeedit() {
             closeOnClick: true
         });
 
-
+    }
     const [about, setaboutus] = useState();
     const [features, set_features] = useState([]);
 
@@ -188,5 +188,4 @@ export default function homeedit() {
 
         </>
     )
-}
 }
