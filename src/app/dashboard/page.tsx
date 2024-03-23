@@ -12,11 +12,12 @@ const AnimatedNumbers = dynamic(() => import("react-animated-numbers"), {
 import {getCookie} from "cookies-next";
 import {jwtDecode} from "jwt-decode";
 import Link from "next/link";
+import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 
 export default function dashboard() {
     const [count, setCount] = useState();
     var arr = [];
-    const [stats, setStats] = useState([{}]);
+    const [stats, setStats] = useState<any[]>([]);
     const [people, setPeople] = useState([]);
 
     const router = useRouter();
@@ -31,6 +32,7 @@ export default function dashboard() {
         });
     } else{
     const decodedToken = jwtDecode(token);
+        // @ts-ignore
     if(decodedToken.role != 'ADMIN'){
         toast.error("Wrong Token", {
             position: 'top-right',
@@ -40,10 +42,10 @@ export default function dashboard() {
     }
     }
 
-    
 
 
-   
+
+
 
 
     useEffect(() => {
@@ -54,11 +56,16 @@ export default function dashboard() {
             }
         }).then(res => {
             console.log(res.data.allCounts);
+
             setStats([
-                {name: 'Products', value: res.data.allCounts.products, change: '+54.02%', changeType: 'negative'},
-                {name: 'Products Category', value: res.data.allCounts.productsCategory, change: '-1.39%', changeType: 'positive'},
-                {name: 'Brands', value: res.data.allCounts.brands, change: '+4.75%', changeType: 'positive'},
-                {name: 'CVs', value: res.data.allCounts.cvs, change: '+10.18%', changeType: 'negative'}
+                // @ts-ignore
+                {name: 'Products', value: res.data.allCounts.products},
+                // @ts-ignore
+                {name: 'Products Category', value: res.data.allCounts.productsCategory},
+                // @ts-ignore
+                {name: 'Brands', value: res.data.allCounts.brands},
+                // @ts-ignore
+                {name: 'CVs', value: res.data.allCounts.cvs, }
             ])
 
         })
@@ -71,35 +78,27 @@ export default function dashboard() {
 
 
 
-    useEffect(() => {
-        axios.get('/api/dashboard/cvs/list', {
-            headers: {
-                'Content-Type' : 'application/json',
-                'Authorization' : 'Bearer '+token
-            }
-        }).then(res => {
-            setPeople(res.data.cvs)
-            console.log(res.data)
-        })
-            .catch(err => console.error(err))
-    }, []);
+    // useEffect(() => {
+    //     axios.get('/api/dashboard/cvs/list', {
+    //         headers: {
+    //             'Content-Type' : 'application/json',
+    //             'Authorization' : 'Bearer '+token
+    //         }
+    //     }).then(res => {
+    //         setPeople(res.data.cvs)
+    //         console.log(res.data)
+    //     })
+    //         .catch(err => console.error(err))
+    // }, []);
 
     function classNames() {
         // return classes.filter(Boolean).join(' ')
     }
 
+    // @ts-ignore
     return (
         <>
-            {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-100">
-        <body class="h-full">
-        ```
-      */}
-            <div className="min-h-full">
-                <DashboardHeader title={"Dashboard"}/>
+            <DashboardHeader title={"Dashboard"}/>
                 <main className="-mt-32">
                     <div className="rounded-lg bg-white px-1 py-6 shadow sm:px-4 mx-5 md:mx-10 ">
 
@@ -110,10 +109,14 @@ export default function dashboard() {
                                 <dl className="mx-auto grid grid-cols-1 gap-px bg-gray-900/5 sm:grid-cols-2 lg:grid-cols-4">
                                     {stats.map((stat) => (
                                         <div
+                                            // @ts-ignore
                                             key={stat.name}
                                             className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 bg-white px-4 py-10 sm:px-6 xl:px-8"
                                         >
-                                            <dt className="text-sm font-medium leading-6 text-gray-500">{stat.name}</dt>
+
+                                            <dt className="text-sm font-medium leading-6 text-gray-500">
+                                                {stat.name}
+                                            </dt>
                                             {/*<dd*/}
                                             {/*    className={stat.changeType === 'negative' ? 'text-rose-600' : 'text-gray-700 ' + 'text-xs font-medium'}*/}
                                             {/*>*/}
@@ -122,7 +125,8 @@ export default function dashboard() {
                                             <dd className="w-full flex-none text-3xl font-medium leading-10 tracking-tight text-gray-900">
                                                 <AnimatedNumbers
                                                     includeComma
-                                                    animateToNumber={parseInt(stat.value)}
+                                                    // @ts-ignore
+                                                    animateToNumber={stat.value}
                                                     fontStyle={{fontSize: 40, fontWeight: "black"}}
                                                     locale="en-US"
                                                     configs={[
@@ -169,7 +173,6 @@ export default function dashboard() {
                     </div>
 
                 </main>
-            </div>
         </>
     )
 }
