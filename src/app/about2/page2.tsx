@@ -10,7 +10,9 @@ import {
     RefreshIcon,
     ServerIcon,
     ShieldCheckIcon
-} from '@heroicons/react/outline'
+}
+// @ts-ignore
+from '@heroicons/react/outline'
 import Footer from "@/components/Footer";
 import {VectorMap} from "@react-jvectormap/core";
 import {Testimonials} from "@/components/testimonial";

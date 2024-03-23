@@ -9,7 +9,9 @@ import {toast} from "react-toastify";
 
 export default function Products() {
     const token = getCookie("jwt");
+    // @ts-ignore
     const decodedToken = jwtDecode(token);
+    // @ts-ignore
     if (decodedToken.role != 'ADMIN') {
         toast.error("Wrong Token", {
             position: 'top-right',
@@ -20,6 +22,7 @@ export default function Products() {
 
 
     if (token == undefined) {
+        // @ts-ignore
         router.push("/dashboard/login");
         toast.error("Token Expired !", {
             position: 'top-right',

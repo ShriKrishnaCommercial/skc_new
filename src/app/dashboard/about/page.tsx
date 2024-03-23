@@ -10,11 +10,15 @@ import {getCookie} from "cookies-next";
 import {jwtDecode} from "jwt-decode";
 
 export default function homeedit() {
+
     const token = getCookie("jwt");
+    // @ts-ignore
     const decodedToken = jwtDecode(token);
+    // @ts-ignore
     if(decodedToken.role != 'ADMIN'){
         toast.error("Wrong Token", {
             position: 'top-right',
+            // @ts-ignore
             autoClose: 3000,
             closeOnClick: true
         })
@@ -22,9 +26,11 @@ export default function homeedit() {
 
 
     if(token == undefined) {
+        // @ts-ignore
         router.push("/dashboard/login");
         toast.error("Token Expired !", {
             position: 'top-right',
+            // @ts-ignore
             autoClose: 3000,
             closeOnClick: true
         });

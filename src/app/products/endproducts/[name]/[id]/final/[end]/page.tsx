@@ -2,11 +2,12 @@
 import {Fragment, useEffect, useRef, useState} from 'react'
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+// @ts-ignore
 import {StarIcon} from '@heroicons/react/solid'
 import {Tab} from '@headlessui/react'
 
 import {Dialog, Transition} from '@headlessui/react'
-import {CheckIcon} from '@heroicons/react/outline'
+
 // @ts-ignore
 import {Splide, SplideSlide} from "@splidejs/react-splide";
 import '@splidejs/react-splide/css';

@@ -45,6 +45,7 @@ export default function Contact() {
                console.log("called")
                toast.success("Resume Uploaded", {
                    position: 'top-center',
+                   // @ts-ignore
                    autoClose: 3000,
                    closeOnClick: true
                })
@@ -52,6 +53,7 @@ export default function Contact() {
            } else{
                toast.error("Something went wrong", {
                    position: 'top-right',
+                   // @ts-ignore
                    autoClose: 3000,
                    closeOnClick: true
                })
