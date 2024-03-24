@@ -13,27 +13,32 @@ import {toast} from "react-toastify";
 
 
 export default function brands() {
-    const token = getCookie("jwt");
-    // @ts-ignore
-    const decodedToken = jwtDecode(token);
-    // @ts-ignore
-    if (decodedToken.role != 'ADMIN') {
-        toast.error("Wrong Token", {
-            position: 'top-right',
-            autoClose: 3000,
-            closeOnClick: true
-        })
-    }
-
-
-    if (token == undefined) {
+    try{
+        const token = getCookie("jwt");
         // @ts-ignore
-        router.push("/dashboard/login");
-        toast.error("Token Expired !", {
-            position: 'top-right',
-            autoClose: 3000,
-            closeOnClick: true
-        });
+        const decodedToken = jwtDecode(token);
+        // @ts-ignore
+        if(decodedToken.role != 'ADMIN'){
+            toast.error("Wrong Token", {
+                position: 'top-right',
+                // @ts-ignore
+                autoClose: 3000,
+                closeOnClick: true
+            })
+        }
+        if(token == undefined) {
+            // @ts-ignore
+            router.push("/dashboard/login");
+            toast.error("Token Expired !", {
+                position: 'top-right',
+                // @ts-ignore
+                autoClose: 3000,
+                closeOnClick: true
+            });
+        }
+    }catch (e){
+        // @ts-ignore
+        console.error(e.message);
     }
         const [id, setId] = useState();
         const [loading, setloading] = useState(false);

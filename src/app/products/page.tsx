@@ -10,6 +10,9 @@ import axios from "axios";
 import {AnimationOnScroll} from "react-animation-on-scroll";
 import "animate.css"
 import Link from "next/link";
+import {getCookie} from "cookies-next";
+import {jwtDecode} from "jwt-decode";
+import toast from "react-hot-toast";
 
 const categories = [
     {
@@ -75,6 +78,34 @@ function classNames(...classes) {
 }
 
 export default function Products() {
+    let token : any = null;
+    try{
+        token = getCookie("jwt");
+        // @ts-ignore
+        const decodedToken = jwtDecode(token);
+        // @ts-ignore
+        if(decodedToken.role != 'ADMIN'){
+            toast.error("Wrong Token", {
+                position: 'top-right',
+                // @ts-ignore
+                autoClose: 3000,
+                closeOnClick: true
+            })
+        }
+        if(token == undefined) {
+            // @ts-ignore
+            router.push("/dashboard/login");
+            toast.error("Token Expired !", {
+                position: 'top-right',
+                // @ts-ignore
+                autoClose: 3000,
+                closeOnClick: true
+            });
+        }
+    }catch (e){
+        // @ts-ignore
+        console.error(e.message);
+    }
 
 
     let splide1 = useRef(null);
@@ -87,12 +118,15 @@ export default function Products() {
         const options = {
             method: 'GET',
             url: '/api/endproduct/products/page',
-            headers: {'Content-Type': 'application/json'}
+            headers: {'Content-Type': 'application/json',
+                'Authorization' : 'Bearer '+token
+            }
         };
 
         axios.request(options).then(function (response) {
             let data = JSON.parse(JSON.stringify(response.data))
             setcatpro(data);
+            console.log("data1", data)
         }).catch(function (error) {
             console.error(error);
         });
@@ -102,12 +136,15 @@ export default function Products() {
         const options = {
             method: 'GET',
             url: '/api/endproduct/any/5',
-            headers: {'Content-Type': 'application/json'}
+            headers: {'Content-Type': 'application/json',
+                'Authorization' : 'Bearer '+token
+            }
         };
 
         axios.request(options).then(function (response) {
             let data = JSON.parse(JSON.stringify(response.data))
             settop(data);
+            console.log(data)
 
         }).catch(function (error) {
             console.error(error);

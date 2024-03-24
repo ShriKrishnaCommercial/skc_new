@@ -15,17 +15,33 @@ import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 
 export default function cvedit() {
 
-    const token = getCookie("jwt");
-    // @ts-ignore
-    const decodedToken = jwtDecode(token);
-    // @ts-ignore
-    if(decodedToken.role != 'ADMIN'){
-        toast.error("Wrong Token", {
-            position: 'top-right',
+    let token : any = null;
+    try{
+        token = getCookie("jwt");
+        // @ts-ignore
+        const decodedToken = jwtDecode(token);
+        // @ts-ignore
+        if(decodedToken.role != 'ADMIN'){
+            toast.error("Wrong Token", {
+                position: 'top-right',
+                // @ts-ignore
+                autoClose: 3000,
+                closeOnClick: true
+            })
+        }
+        if(token == undefined) {
             // @ts-ignore
-            autoClose: 3000,
-            closeOnClick: true
-        })
+            router.push("/dashboard/login");
+            toast.error("Token Expired !", {
+                position: 'top-right',
+                // @ts-ignore
+                autoClose: 3000,
+                closeOnClick: true
+            });
+        }
+    }catch (e){
+        // @ts-ignore
+        console.error(e.message);
     }
 
     const [people, setPeople] = useState([]);
@@ -49,17 +65,7 @@ export default function cvedit() {
     }
 
 
-    if(token == undefined){
-        // @ts-ignore
-        router.push("/dashboard/login");
-        toast.error("Token Expired !", {
-            position: 'top-right',
-            // @ts-ignore
-            autoClose: 3000,
-            closeOnClick: true
-        });
 
-    }
 
     useEffect(() => {
         axios.get('/api/dashboard/cvs/list', {

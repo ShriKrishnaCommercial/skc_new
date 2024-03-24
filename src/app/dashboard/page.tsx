@@ -15,6 +15,34 @@ import Link from "next/link";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 
 export default function dashboard() {
+    let token : any = null;
+    try{
+        token = getCookie("jwt");
+        // @ts-ignore
+        const decodedToken = jwtDecode(token);
+        // @ts-ignore
+        if(decodedToken.role != 'ADMIN'){
+            toast.error("Wrong Token", {
+                position: 'top-right',
+                // @ts-ignore
+                autoClose: 3000,
+                closeOnClick: true
+            })
+        }
+        if(token == undefined) {
+            // @ts-ignore
+            router.push("/dashboard/login");
+            toast.error("Token Expired !", {
+                position: 'top-right',
+                // @ts-ignore
+                autoClose: 3000,
+                closeOnClick: true
+            });
+        }
+    }catch (e){
+        // @ts-ignore
+        console.error(e.message);
+    }
     const [count, setCount] = useState();
     var arr = [];
     const [stats, setStats] = useState<any[]>([]);
@@ -22,25 +50,7 @@ export default function dashboard() {
 
     const router = useRouter();
 
-    const token = getCookie("jwt");
-    if(token == undefined){
-        router.push("/dashboard/login");
-        toast.error("Token Expired !", {
-            position: 'top-right',
-            autoClose: 3000,
-            closeOnClick: true
-        });
-    } else{
-    const decodedToken = jwtDecode(token);
-        // @ts-ignore
-    if(decodedToken.role != 'ADMIN'){
-        toast.error("Wrong Token", {
-            position: 'top-right',
-            autoClose: 3000,
-            closeOnClick: true
-        })
-    }
-    }
+
 
 
 
