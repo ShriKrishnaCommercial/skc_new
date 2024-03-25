@@ -13,10 +13,12 @@ import {toast} from "react-toastify";
 
 
 export default function brands() {
+    var [toke,settoke] =useState('')
     try{
         const token = getCookie("jwt");
         // @ts-ignore
         const decodedToken = jwtDecode(token);
+        console.log(decodedToken)
         // @ts-ignore
         if(decodedToken.role != 'ADMIN'){
             toast.error("Wrong Token", {
@@ -134,7 +136,8 @@ export default function brands() {
             const options = {
                 method: 'PUT',
                 url: '/api/brands/' + id,
-                headers: {'Content-Type': 'application/json'},
+                headers: {'Content-Type': 'application/json',
+                  },
                 data: {
                     brands: brand
                 }
@@ -165,6 +168,7 @@ export default function brands() {
         }, []);
         // @ts-ignore
         const uploadbrand = (event) => {
+            console.log('called');
             const form = new FormData();
             const file = event.target.files[0];
             form.append("brand", file);

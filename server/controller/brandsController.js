@@ -52,9 +52,6 @@ module.exports = {
     /**
      * brandsController.update()
      */
-    addimage: async function (req, res) {
-
-    },
 
     update: async function (req, res) {
         const id = req.params.id;

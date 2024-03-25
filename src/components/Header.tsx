@@ -3,16 +3,43 @@ import React, {useEffect, useState} from "react";
 import '../app/globals.css'
 import Image from "next/image";
 import {ToastContainer} from "react-toastify";
-
+import axios from "axios";
+// const mongoose = require('mongoose');
 export default function Header() {
     let [position, set_positon] = useState(0);
+
 
     function scroll() {
         set_positon(window.scrollY)
     }
 
+    async function componentDidMount() {
+
+        const response = await fetch('https://geolocation-db.com/json/');
+        const data = await response.json();
+        data['url'] = window.location.href
+
+        var options = {
+            method: 'POST',
+            url: '/va',
+            headers: {'Content-Type': 'application/json'},
+            data:data
+        };
+
+        axios.request(options).then(function (response) {
+            // console.log(response.data);
+        }).catch(function (error) {
+            // console.error(error);
+        });
+
+
+    }
+
+    componentDidMount()
+
     useEffect(() => {
         window.addEventListener('scroll', scroll)
+
     }, [])
     return (
         <header>
