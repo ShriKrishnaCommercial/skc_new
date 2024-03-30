@@ -4,54 +4,22 @@ import DashboardHeader from "@/components/Dashboard/header";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import React from 'react';
+import {toast} from "react-toastify";
 
-import toast, {Toaster} from 'react-hot-toast';
-import {CKEditor} from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import {EventInfo} from "framer-motion";
-import {getCookie} from "cookies-next";
-import {jwtDecode} from "jwt-decode";
 
 export default function homeedit() {
 
-    let token : any = null;
-    try{
-        token = getCookie("jwt");
-        // @ts-ignore
-        const decodedToken = jwtDecode(token);
-        // @ts-ignore
-        if(decodedToken.role != 'ADMIN'){
-            toast.error("Wrong Token", {
-                position: 'top-right',
-                // @ts-ignore
-                autoClose: 3000,
-                closeOnClick: true
-            })
-        }
-        if(token == undefined) {
-            // @ts-ignore
-            router.push("/dashboard/login");
-            toast.error("Token Expired !", {
-                position: 'top-right',
-                // @ts-ignore
-                autoClose: 3000,
-                closeOnClick: true
-            });
-        }
-    }catch (e){
-        // @ts-ignore
-        console.error(e.message);
-    }
-    const [about, setaboutus] = useState();
+
+    const [about, setaboutus] = useState('');
     const [features, set_features] = useState([]);
 
-    async function handleChange(event : EventInfo, editor : any){
-        setaboutus(editor.getData());
+    async function handleChange(n:string){
+        setaboutus(n);
         console.log(about);
     }
 
     useEffect(() => {
-        toast("Wow so easy!")
+
         const options = {
             method: 'GET',
             url: '/api/home',
@@ -82,15 +50,13 @@ export default function homeedit() {
 
         axios.request(options).then(function (response) {
             console.log(response.data);
+            alert("Updated")
         }).catch(function (error) {
             console.error(error);
         });
 
     }
-    // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
+
     return (
         <>
             <DashboardHeader title={"Home"}/>
@@ -117,11 +83,18 @@ export default function homeedit() {
                                     {/*          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">*/}
                                     {/*</textarea>*/}
 
-                                        <CKEditor
-                                            editor={ ClassicEditor }
-                                            data="Type Text Here"
-                                            // @ts-ignore
-                                            onChange={handleChange}
+                                        <textarea
+                                            rows={4}
+                                            name="comment"
+                                            id="comment"
+                                            onInput={(e) => {
+                                                //@ts-ignore
+                                                handleChange(e.target.value)
+
+                                            }}
+                                            className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            //@ts-ignore
+                                            defaultValue={about}
                                         />
 
 

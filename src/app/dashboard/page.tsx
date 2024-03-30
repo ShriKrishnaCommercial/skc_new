@@ -12,7 +12,7 @@ const AnimatedNumbers = dynamic(() => import("react-animated-numbers"), {
 import {getCookie} from "cookies-next";
 import {jwtDecode} from "jwt-decode";
 import Link from "next/link";
-import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
+// import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 
 export default function dashboard() {
     let token : any = null;

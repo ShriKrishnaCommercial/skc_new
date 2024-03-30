@@ -33,7 +33,7 @@ app.prepare().then(async () => {
         res.json('done')
     });
 
-        server.get('/test', async (req, res) => {
+    server.get('/test', async (req, res) => {
         data = [{"id": "1", "name": "LED LIGHTS & FITTINGS"}, {"id": "2", "name": "CABLES"}, {
             "id": "3",
             "name": "BATTERIES"
@@ -112,6 +112,94 @@ app.prepare().then(async () => {
     server.use('/api/subproduct', subproduct);
     server.use('/api/endproduct', endproduct);
     server.use('/api/dashboard', dashboard);
+    // analytics
+
+    server.get('/va/counts', async (req, res) => {
+        var total = await vamodel.find({}).count()
+        const currentDate = new Date();
+        var month = await vamodel.aggregate([
+            {
+                $match: {
+                    createdAt: {
+                        $gte: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1), // Records created on or after the first day of this month
+                        $lte: new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0)   // Records created on or before the last day of this month
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    count: { $sum: 1 } // Count the records
+                }
+            }
+        ])
+
+        const currentDate2 = new Date();
+        const startOfDay = new Date(currentDate2.getFullYear(), currentDate2.getMonth(), currentDate2.getDate());
+        const endOfDay = new Date(currentDate2.getFullYear(), currentDate2.getMonth(), currentDate2.getDate() + 1);
+
+
+
+        const today = await vamodel.aggregate([
+            {
+                $match: {
+                    createdAt: {
+                        $gte: startOfDay,
+                        $lt: endOfDay
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    count: { $sum: 1 }
+                }
+            }
+        ]);
+
+        const country = await vamodel.aggregate([
+            {
+                $group: {
+                    _id: {
+                        country_code: "$country_code",
+                        country_name: "$country_name"
+                    },
+
+                    count: { $sum: 1 }
+                },
+
+            }
+        ])
+        const state = await vamodel.aggregate([
+            {
+                $group: {
+                    _id: "$state",
+                    count: { $sum: 1 }
+                }
+            }
+        ])
+        const city = await vamodel.aggregate([
+            {
+                $group: {
+                    _id: "$city",
+                    count: { $sum: 1 }
+                }
+            }
+        ])
+
+
+
+
+        res.json({
+            "all": total,
+            "month":month,
+            "today": today,
+            "country":country,
+            "state":state,
+            "city":city
+        })
+    });
+
 
     // Handle all other routes with Next.js
     server.all('*', (req, res) => {

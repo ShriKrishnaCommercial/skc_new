@@ -8,28 +8,7 @@ import {jwtDecode} from "jwt-decode";
 import {toast} from "react-toastify";
 
 export default function Products() {
-    const token = getCookie("jwt");
-    // @ts-ignore
-    const decodedToken = jwtDecode(token);
-    // @ts-ignore
-    if (decodedToken.role != 'ADMIN') {
-        toast.error("Wrong Token", {
-            position: 'top-right',
-            autoClose: 3000,
-            closeOnClick: true
-        })
-    }
 
-
-    if (token == undefined) {
-        // @ts-ignore
-        router.push("/dashboard/login");
-        toast.error("Token Expired !", {
-            position: 'top-right',
-            autoClose: 3000,
-            closeOnClick: true
-        });
-    }
     const [projects, setproduxt] = useState([])
     useEffect(() => {
         const options = {
@@ -37,7 +16,7 @@ export default function Products() {
             url: '/api/product',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization' : 'Bearer '+token
+                'Authorization' : 'Bearer'
             }
         };
 

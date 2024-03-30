@@ -23,7 +23,7 @@ export default function Header() {
             method: 'POST',
             url: '/va',
             headers: {'Content-Type': 'application/json'},
-            data:data
+            data: data
         };
 
         axios.request(options).then(function (response) {
@@ -35,7 +35,10 @@ export default function Header() {
 
     }
 
-    componentDidMount()
+
+    useEffect(() => {
+        componentDidMount()
+    }, []);
 
     useEffect(() => {
         window.addEventListener('scroll', scroll)

@@ -7,7 +7,7 @@ import DashboardHeader from "@/components/Dashboard/header";
 export default function xyz() {
     return (
         <>
-            <DashboardHeader/>
+            <DashboardHeader title={'ji'}/>
         Hi
 
         </>
