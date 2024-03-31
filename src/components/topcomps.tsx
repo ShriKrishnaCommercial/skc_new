@@ -1,61 +1,44 @@
 'use client'
 import Marquee from "react-fast-marquee";
 import Image from "next/image";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
 
 export default function TopComps() {
-    let brands = [
-        "1200px-BHEL_logo.svg.webp",
-        "ADANI.png",
-        "Aditya_Birla_Group_Logo.svg.png",
-        "amalgam_steel.png",
-        "Atomic-Minerals-Directorate-for-Exploration-Research-AMD.jpg",
-        "BHUSAN POWE AND STEEL.jpg",
-        "DAE.png",
-        "DVC.jpg",
-        "FSNL.png",
-        "GRSE.png",
-        "HEC.png",
-        "HINDALCO.jpg",
-        "Hindustan_Copper_logo.svg.png",
-        "IIT_Guwahati_Logo.svg.png",
-        "INDIAN RAILWAY.jpg",
-        "Indian_Oil_Logo.svg.png",
-        "JCAPCPL.jpg",
-        // "JINDAL.jpg",
-        // "JSL WB.png",
-        // "JSW WB.png",
-        // "jusco.png",
-        // "LINDE.jpg",
-        // "Metalsa.png",
-        // "nmdcs 01.png",
-        // "NSPCL.png",
-        // "NTPC.jpg",
-        // "NUVOCO.jpg",
-        // "opgc.png",
-        // "pgcil.jpg",
-        // "runaya.png",
-        // "RUNGTA.jpg",
-        // "SAIL.png",
-        // "ta precision tube.png",
-        // "tata auto comp.jpg",
-        // "TATA Autocomp.png",
-        // "TATA BEARING.png",
-        // "TATA BLUESCOPE.png",
-        // "TATA GROUP.png",
-        // "TATA NOAMUNDI.png",
-        // "tata power WB.png",
-        // "tata steel.jpg",
-        // "tata steel growth shop.jpg",
-        // "tata wiron.png",
-        // "THRIVENI.jpg",
-        // "TINPLATE.jpg",
-        // "TRF.png",
-        // "TSPL.png",
-        // "UBL_Logo.jpg",
-        // "UCIL WB.png",
+    const [topcomps, setTopcomps] = useState([])
+    // let brands = [
+    //     "1200px-BHEL_logo.svg.webp",
+    //     "ADANI.png",
+    //     "Aditya_Birla_Group_Logo.svg.png",
+    //     "amalgam_steel.png",
+    //     "Atomic-Minerals-Directorate-for-Exploration-Research-AMD.jpg",
+    //     "BHUSAN POWE AND STEEL.jpg",
+    //     "DAE.png",
+    //     "DVC.jpg",
+    //     "FSNL.png",
+    //     "GRSE.png",
+    //     "HEC.png",
+    //     "HINDALCO.jpg",
+    //     "Hindustan_Copper_logo.svg.png",
+    //     "IIT_Guwahati_Logo.svg.png",
+    //     "INDIAN RAILWAY.jpg",
+    //     "Indian_Oil_Logo.svg.png",
+    //     "JCAPCPL.jpg",
+    // ];
+    useEffect(() => {
+        const options = {
+            method: 'GET',
+            url: '/api/topcomps',
+            headers: {'Content-Type': 'application/json'}
+        };
 
-    ];
+        axios.request(options).then(function (response) {
+            var data = JSON.parse(JSON.stringify(response.data))
+            setTopcomps(data[0]["topcomps"])
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }, []);
     return (
 
         <>
@@ -68,7 +51,7 @@ export default function TopComps() {
                     <Marquee>
                         <div className="flex mt-3">
                             {
-                                (brands.map((a, i) => {
+                                (topcomps.map((a, i) => {
                                     return (
                                         <div key={i}
                                              className="col-span-1 flex justify-center  bg-transparent">

@@ -15,6 +15,7 @@ const vamodel = require('./../models/viewanalytics')
 const home = require("./routes/home_api");
 const about = require("./routes/aboutusRoutes");
 const brand = require("./routes/brandsRoutes");
+const topcomps = require("./routes/topcompsRoutes");
 const client = require("./routes/clientsRoutes");
 const contactus = require("./routes/contactusRoutes");
 const cvrouter = require("./routes/cvRoutes");
@@ -107,6 +108,7 @@ app.prepare().then(async () => {
     server.use('/api', home);
     server.use('/api/about', about);
     server.use('/api/brands', brand);
+    server.use('/api/topcomps', topcomps);
     server.use('/api/clients', client);
     server.use('/api/contactus', contactus);
     server.use('/api/cvform', cvrouter);

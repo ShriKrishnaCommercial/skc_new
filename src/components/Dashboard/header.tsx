@@ -17,6 +17,7 @@ const navigation = [
     {name: 'Clients', href: '/dashboard/clients', current: false},
     {name: 'Products', href: '/dashboard/products', current: false},
     {name: 'Faq', href: '/dashboard/faq', current: false},
+    {name: 'Top Companies', href: '/dashboard/topcomps', current: false},
     {name: 'Brands', href: '/dashboard/brands', current: false},
     {name: 'Contact', href: '/dashboard/contact', current: false},
     {name: 'brands', href: '/dashboard/brands', current: false},
