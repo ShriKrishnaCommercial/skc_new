@@ -23,6 +23,7 @@ const subproduct = require("./routes/subproductRoutes");
 const endproduct = require("./routes/endproductRoutes");
 const dashboard = require('./routes/dashboardRoutes');
 const quotes = require('./routes/quotesRoute');
+const faq = require('./routes/faqRoutes');
 const jwt = require("express-jwt");
 
 app.prepare().then(async () => {
@@ -114,6 +115,7 @@ app.prepare().then(async () => {
     server.use('/api/endproduct', endproduct);
     server.use('/api/quotes',quotes);
     server.use('/api/dashboard', dashboard);
+    server.use('/api/faq', faq);
     // analytics
 
     server.get('/va/counts', async (req, res) => {

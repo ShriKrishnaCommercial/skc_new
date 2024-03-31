@@ -15,7 +15,7 @@
     "@ckeditor/ckeditor5-essentials": "^40.0.0",
     "@ckeditor/ckeditor5-paragraph": "^40.0.0",
     "@ckeditor/ckeditor5-react": "^6.2.0",
-    "@headlessui/react": "^1.7.17",
+    "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^1.0.6",
     "@nextui-org/react": "^2.1.13",
     "@react-jvectormap/core": "^1.0.4",

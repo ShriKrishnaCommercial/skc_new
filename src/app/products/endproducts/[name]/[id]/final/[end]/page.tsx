@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 import {Fragment, useEffect, useState} from 'react'
 import Header from "@/components/Header";
@@ -22,6 +23,7 @@ export default function id({params}: { params: { end: string } }) {
     const [open, setOpen] = useState(false)
     const [product, setproduct] = useState({})
     const [email, setEmail] = useState('');
+
     function getfinal() {
         const options = {
             method: 'GET',
@@ -36,34 +38,34 @@ export default function id({params}: { params: { end: string } }) {
         });
     }
 
-    function postQuote(name:string){
+    function postQuote(name: string) {
         const data = {
             email: email,
             // @ts-ignore
             product: name
         }
-        if(email.length === 0){
-                toast.error("Please Enter Email", {
-                    position: 'top-right',
-                    // @ts-ignore
-                    autoClose: 3000,
-                    closeOnClick: true
-                });
-        } else{
+        if (email.length === 0) {
+            toast.error("Please Enter Email", {
+                position: 'top-right',
+                // @ts-ignore
+                autoClose: 3000,
+                closeOnClick: true
+            });
+        } else {
             axios.post('/api/quotes/new', data, {
-                headers : {
-                    'Content-Type' : 'application/json'
+                headers: {
+                    'Content-Type': 'application/json'
                 }
             }).then(resp => {
-                if(resp.status === 201){
+                if (resp.status === 201) {
                     toast.success("Quote Submitted", {
                         position: 'top-right',
                         // @ts-ignore
                         autoClose: 3000,
                         closeOnClick: true
                     });
-                } else{
-                    if(resp.data.error === true && resp.data.message === "Duplicate Entry"){
+                } else {
+                    if (resp.data.error === true && resp.data.message === "Duplicate Entry") {
                         toast.error("Quote Already Submitted", {
                             position: 'top-right',
                             // @ts-ignore
@@ -78,29 +80,30 @@ export default function id({params}: { params: { end: string } }) {
 
     }
 
-    const avg =  Math.floor(Math.random() * (4 - 3 + 1) + 4)
+    const avg = Math.floor(Math.random() * (4 - 3 + 1) + 4)
     // const reviews = []
-    const faqs = [
-        {
-            question: 'Do Shri Krishna Commercial supplies in the west part of India?',
-            answer:
-                ""
-        },
-        {
-            question: 'Is Shri Krishna Authorized Partner of xyz?',
-            answer:
-                ""
-        }, {
-            question: 'What is the minimum order quantity?',
-            answer:
-                ""
-        }, {
-            question: ' Can I get a demo of this product?',
-            answer:
-                ""
-        },
-        // More FAQs...
-    ]
+    const [faq, setFaq] = useState([])
+    // const faqs = [
+    //     {
+    //         question: 'Do Shri Krishna Commercial supplies in the west part of India?',
+    //         answer:
+    //             "Yes"
+    //     },
+    //     {
+    //         question: 'Is Shri Krishna Authorized Partner of xyz?',
+    //         answer:
+    //             ""
+    //     }, {
+    //         question: 'What is the minimum order quantity?',
+    //         answer:
+    //             ""
+    //     }, {
+    //         question: ' Can I get a demo of this product?',
+    //         answer:
+    //             ""
+    //     },
+    //     // More FAQs...
+    // ]
     const license = {
         href: '#',
         summary: 'For personal and professional use. You cannot resell or redistribute these icons in their original or modified state.',
@@ -109,9 +112,25 @@ export default function id({params}: { params: { end: string } }) {
             <p>The initial fault analysis provides the basis for determining the subsequent procedure in the fault location process. During pre-location, the position of the fault is roughly located. The subsequent pin-pointing enables precise determination of the cable fault. Cable identification is used to identify the defective cable in a route. You can use various measurement methods depending on the type of fault and cable type.</p>
         `,
     };
+
+    async function get_faq() {
+        var options = {
+            method: 'GET',
+            url: '/api/faq/single/' + params.end,
+            headers: {'Content-Type': 'application/json'}
+        };
+
+        axios.request(options).then(function (response) {
+            var data = JSON.parse(JSON.stringify(response.data))
+            setFaq(data)
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }
+
     useEffect(() => {
         // @ts-ignore
-
+        get_faq()
         // @ts-ignore
         getfinal()
 
@@ -345,30 +364,8 @@ export default function id({params}: { params: { end: string } }) {
                             <Tab.Group as="div">
                                 <div className="border-b border-gray-200">
                                     <Tab.List className="-mb-px flex space-x-8">
-                                        <Tab
-                                            className={({selected}) =>
-                                                classNames(
-                                                    selected
-                                                        ? 'border-indigo-600 text-indigo-600'
-                                                        : 'border-transparent text-gray-700 hover:text-gray-800 hover:border-gray-300',
-                                                    'whitespace-nowrap py-6 border-b-2 font-medium text-sm'
-                                                )
-                                            }
-                                        >
-                                            Customer Reviews
-                                        </Tab>
-                                        <Tab
-                                            className={({selected}) =>
-                                                classNames(
-                                                    selected
-                                                        ? 'border-indigo-600 text-indigo-600'
-                                                        : 'border-transparent text-gray-700 hover:text-gray-800 hover:border-gray-300',
-                                                    'whitespace-nowrap py-6 border-b-2 font-medium text-sm'
-                                                )
-                                            }
-                                        >
-                                            FAQ
-                                        </Tab>
+
+
                                         <Tab
                                             className={({selected}) =>
                                                 classNames(
@@ -381,61 +378,25 @@ export default function id({params}: { params: { end: string } }) {
                                         >
                                             Information
                                         </Tab>
+                                        {
+                                            faq.length > 0 ?
+                                                <Tab
+                                                    className={({selected}) =>
+                                                        classNames(
+                                                            selected
+                                                                ? 'border-indigo-600 text-indigo-600'
+                                                                : 'border-transparent text-gray-700 hover:text-gray-800 hover:border-gray-300',
+                                                            'whitespace-nowrap py-6 border-b-2 font-medium text-sm'
+                                                        )
+                                                    }
+                                                >
+                                                    FAQ
+                                                </Tab>
+                                                : <></>
+                                        }
                                     </Tab.List>
                                 </div>
                                 <Tab.Panels as={Fragment}>
-                                    <Tab.Panel className="-mb-10">
-                                        <h3 className="sr-only">Customer Reviews</h3>
-
-                                        {/*{reviews.featured.map((review, reviewIdx) => (*/}
-                                        {/*    <div key={review.id} className="flex text-sm text-gray-500 space-x-4">*/}
-                                        {/*        <div className="flex-none py-10">*/}
-                                        {/*            <img src={review.avatarSrc} alt=""*/}
-                                        {/*                 className="w-10 h-10 bg-gray-100 rounded-full"/>*/}
-                                        {/*        </div>*/}
-                                        {/*        <div*/}
-                                        {/*            className={classNames(reviewIdx === 0 ? '' : 'border-t border-gray-200', 'py-10')}>*/}
-                                        {/*            <h3 className="font-medium text-gray-900">{review.author}</h3>*/}
-                                        {/*            <p>*/}
-                                        {/*                <time dateTime={review.datetime}>{review.date}</time>*/}
-                                        {/*            </p>*/}
-
-                                        {/*            <div className="flex items-center mt-4">*/}
-                                        {/*                {[0, 1, 2, 3, 4].map((rating) => (*/}
-                                        {/*                    <StarIcon*/}
-                                        {/*                        key={rating}*/}
-                                        {/*                        className={classNames(*/}
-                                        {/*                            review.rating > rating ? 'text-yellow-400' : 'text-gray-300',*/}
-                                        {/*                            'h-5 w-5 flex-shrink-0'*/}
-                                        {/*                        )}*/}
-                                        {/*                        aria-hidden="true"*/}
-                                        {/*                    />*/}
-                                        {/*                ))}*/}
-                                        {/*            </div>*/}
-                                        {/*            <p className="sr-only">{review.rating} out of 5 stars</p>*/}
-
-                                        {/*            <div*/}
-                                        {/*                className="mt-4 prose prose-sm max-w-none text-gray-500"*/}
-                                        {/*                dangerouslySetInnerHTML={{__html: review.content}}*/}
-                                        {/*            />*/}
-                                        {/*        </div>*/}
-                                        {/*    </div>*/}
-                                        {/*))}*/}
-                                    </Tab.Panel>
-
-                                    <Tab.Panel as="dl" className="text-sm text-gray-500">
-                                        <h3 className="sr-only">Frequently Asked Questions</h3>
-
-                                        {faqs.map((faq) => (
-                                            <Fragment key={faq.question}>
-                                                <dt className="mt-10 font-medium text-gray-900">{faq.question}</dt>
-                                                <dd className="mt-2 prose prose-sm max-w-none text-gray-500">
-                                                    <p>{faq.answer}</p>
-                                                </dd>
-                                            </Fragment>
-                                        ))}
-                                    </Tab.Panel>
-
                                     <Tab.Panel className="pt-10">
                                         <h3 className="sr-only">License</h3>
 
@@ -444,6 +405,24 @@ export default function id({params}: { params: { end: string } }) {
                                             dangerouslySetInnerHTML={{__html: license.content}}
                                         />
                                     </Tab.Panel>
+
+                                    {
+                                        faq.length > 0 ?
+
+                                            <Tab.Panel as="dl" className="text-sm text-gray-500">
+                                                <h3 className="sr-only">Frequently Asked Questions</h3>
+
+                                                {faq.map((faqs) => (
+                                                    <Fragment key={faqs.question}>
+                                                        <dt className="mt-10 font-medium text-gray-900">{faqs.question}</dt>
+                                                        <dd className="mt-2 prose prose-sm max-w-none text-gray-500">
+                                                            <p>{faqs.answer}</p>
+                                                        </dd>
+                                                    </Fragment>
+                                                ))}
+                                            </Tab.Panel>
+                                            : <></>}
+
                                 </Tab.Panels>
                             </Tab.Group>
                         </div>
