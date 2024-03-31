@@ -19,6 +19,7 @@ const navigation = [
     {name: 'Brands', href: '/dashboard/brands', current: false},
     {name: 'Contact', href: '/dashboard/contact', current: false},
     {name: 'brands', href: '/dashboard/brands', current: false},
+    {name: 'Quotes', href: '/dashboard/quotes', current: false}
 ]
 const userNavigation = []
 

@@ -10,6 +10,7 @@ import {Dialog, Tab, Transition} from '@headlessui/react'
 import {Splide, SplideSlide} from "@splidejs/react-splide";
 import '@splidejs/react-splide/css';
 import axios from "axios";
+import toast from "react-hot-toast";
 
 
 // @ts-ignore
@@ -20,7 +21,7 @@ function classNames(...classes) {
 export default function id({params}: { params: { end: string } }) {
     const [open, setOpen] = useState(false)
     const [product, setproduct] = useState({})
-
+    const [email, setEmail] = useState('');
     function getfinal() {
         const options = {
             method: 'GET',
@@ -33,6 +34,48 @@ export default function id({params}: { params: { end: string } }) {
         }).catch(function (error) {
             console.error(error);
         });
+    }
+
+    function postQuote(name:string){
+        const data = {
+            email: email,
+            // @ts-ignore
+            product: name
+        }
+        if(email.length === 0){
+                toast.error("Please Enter Email", {
+                    position: 'top-right',
+                    // @ts-ignore
+                    autoClose: 3000,
+                    closeOnClick: true
+                });
+        } else{
+            axios.post('/api/quotes/new', data, {
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            }).then(resp => {
+                if(resp.status === 201){
+                    toast.success("Quote Submitted", {
+                        position: 'top-right',
+                        // @ts-ignore
+                        autoClose: 3000,
+                        closeOnClick: true
+                    });
+                } else{
+                    if(resp.data.error === true && resp.data.message === "Duplicate Entry"){
+                        toast.error("Quote Already Submitted", {
+                            position: 'top-right',
+                            // @ts-ignore
+                            autoClose: 3000,
+                            closeOnClick: true
+                        });
+                    }
+                }
+
+            }).catch(err => console.error(err.message));
+        }
+
     }
 
     const avg =  Math.floor(Math.random() * (4 - 3 + 1) + 4)
@@ -130,6 +173,7 @@ export default function id({params}: { params: { end: string } }) {
                                                         id="email"
                                                         className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                                                         placeholder="you@example.com"
+                                                        onChange={event => setEmail(event.target.value)}
                                                     />
                                                 </div>
                                             </div>
@@ -141,9 +185,15 @@ export default function id({params}: { params: { end: string } }) {
                                     <button
                                         type="button"
                                         className="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
-                                        onClick={() => setOpen(false)}
+                                        onClick={() => {
+                                            setOpen(false)
+                                            // // @ts-ignore
+                                            // console.log(product["name"])
+                                            // @ts-ignore
+                                            postQuote(product["name"]);
+                                        }}
                                     >
-                                        Cancel
+                                        Submit
                                     </button>
                                 </div>
                             </div>

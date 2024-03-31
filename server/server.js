@@ -22,6 +22,7 @@ const product = require("./routes/productsRoutes");
 const subproduct = require("./routes/subproductRoutes");
 const endproduct = require("./routes/endproductRoutes");
 const dashboard = require('./routes/dashboardRoutes');
+const quotes = require('./routes/quotesRoute');
 const jwt = require("express-jwt");
 
 app.prepare().then(async () => {
@@ -111,6 +112,7 @@ app.prepare().then(async () => {
     server.use('/api/product', product);
     server.use('/api/subproduct', subproduct);
     server.use('/api/endproduct', endproduct);
+    server.use('/api/quotes',quotes);
     server.use('/api/dashboard', dashboard);
     // analytics
 

@@ -3,67 +3,25 @@ import Image from 'next/image'
 import {Container} from "./Container";
 import "animate.css"
 import {AnimationOnScroll} from "react-animation-on-scroll";
-const testimonials = [
-    [
-        {
-            content:
-                'TaxPal is so easy to use I can’t help but wonder if it’s really doing the things the government expects me to do.',
-            author: {
-                name: 'Sheryl Berge',
-                role: 'CEO at Lynch LLC',
-
-            },
-        },
-        {
-            content:
-                'I’m trying to get a hold of someone in support, I’m in a lot of trouble right now and they are saying it has something to do with my books. Please get back to me right away.',
-            author: {
-                name: 'Amy Hahn',
-                role: 'Director at Velocity Industries',
-
-            },
-        },
-    ],
-    [
-        {
-            content:
-                'The best part about TaxPal is every time I pay my employees, my bank balance doesn’t go down like it used to. Looking forward to spending this extra cash when I figure out why my card is being declined.',
-            author: {
-                name: 'Leland Kiehn',
-                role: 'Founder of Kiehn and Sons',
-
-            },
-        },
-        {
-            content:
-                'There are so many things I had to do with my old software that I just don’t do at all with TaxPal. Suspicious but I can’t say I don’t love it.',
-            author: {
-                name: 'Erin Powlowski',
-                role: 'COO at Armstrong Inc',
-
-            },
-        },
-    ],
-    [
-        {
-            content:
-                'I used to have to remit tax to the EU and with TaxPal I somehow don’t have to do that anymore. Nervous to travel there now though.',
-            author: {
-                name: 'Peter Renolds',
-                role: 'Founder of West Inc',
-
-            },
-        },
-        {
-            content:
-                'This is the fourth email I’ve sent to your support team. I am literally being held in jail for tax fraud. Please answer your damn emails, this is important.',
-            author: {
-                name: 'Amy Hahn',
-                role: 'Director at Velocity Industries',
-
-            },
-        },
-    ],
+// copied the array data from page 2tsx, and used here as this component is used later
+const testimonials =  [
+    {
+        name: "WAHID HUSSAIN",
+        company: "Jindal Steel Patratu",
+        comment: "We would like to thank you and your team for your excellent service to our organisation. We really impressed by the timely support that you have been providing us."
+    }, {
+        name: "DEEPAK SHARMA",
+        company: "Sr Executive Materials,Tata Autocomp",
+        comment: "We find your service satisfactory, and supply delivery is on time."
+    }, {
+        name: "BINAY KRISHNA SHAW",
+        company: "Tata Steel LLP",
+        comment: "Very Good Responce"
+    }, {
+        name: "RABIN HALDER",
+        company: "Hooghly Metcoke",
+        comment: "Dear M/s Shrikrishna & everyone from your esteemed organization, I personally feel from the bottom of my heart that you have been so nice and it is our pleasure for being your customers'. You always have been keeping an eye into our requirements to deliver on time. This is absolutely satisfactory. Hoping much more support from you into our organizational goals to achieve & create milestones. Without you, it is absolutely impossible. I would like to thanks to Anuj Ji, Atul Ji, Vikash Ji and Manish ji and everyone who so ever is part of your business into. Our sincere gratitude to you all."
+    }
 ]
 
 export function Testimonials() {
@@ -85,13 +43,12 @@ export function Testimonials() {
 
                     </p>
                 </div>
-                <ul className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:gap-8 lg:mt-20 lg:max-w-none lg:grid-cols-3">
+                <ul className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:gap-8 lg:mt-20 lg:max-w-none lg:grid-cols-2">
                     {testimonials.map((column, columnIndex) => (
                         <AnimationOnScroll animateIn="animate__fadeInUp">
                         <li key={columnIndex}>
                             <ul className="space-y-6 sm:space-y-8">
-                                {column.map((testimonial, testimonialIndex) => (
-                                    <li key={testimonialIndex}>
+                                    <li key={columnIndex}>
                                         <figure className="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
                                             <svg
                                                 aria-hidden="true"
@@ -103,25 +60,24 @@ export function Testimonials() {
                                             </svg>
                                             <blockquote className="relative">
                                                 <p className="text-lg tracking-tight text-slate-900">
-                                                    {testimonial.content}
+                                                    {column.comment}
                                                 </p>
                                             </blockquote>
                                             <figcaption className="relative mt-6 flex items-center justify-between border-t border-slate-100 pt-6">
                                                 <div>
                                                     <div className="font-display text-base text-slate-900">
-                                                        {testimonial.author.name}
+                                                        {column.name}
                                                     </div>
                                                     <div className="mt-1 text-sm text-slate-500">
-                                                        {testimonial.author.role}
+                                                        {column.company}
                                                     </div>
                                                 </div>
-                                                <div className="h-14 w-14 overflow-hidden rounded-full bg-slate-50">
-                                                    {/*<Image src={testimonial.author.image} alt="" />*/}
-                                                </div>
+                                                {/*<div className="h-14 w-14 overflow-hidden rounded-full bg-slate-50">*/}
+                                                {/*    /!*<Image src={testimonial.author.image} alt="" />*!/*/}
+                                                {/*</div>*/}
                                             </figcaption>
                                         </figure>
                                     </li>
-                                ))}
                             </ul>
                         </li>
                         </AnimationOnScroll>
