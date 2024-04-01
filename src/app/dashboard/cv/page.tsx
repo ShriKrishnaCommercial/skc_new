@@ -138,7 +138,7 @@ export default function cvedit() {
                                                             <div className="mt-1 flex items-center gap-x-1.5">
                                                                 {/* <p className="text-xs leading-5 text-gray-500"><Link href={`./public/cv/${person.file}`}>{person.file}</Link></p> */}
                                                                 <p className="text-xs leading-5 text-gray-500"><a
-                                                                    href={person.file}
+                                                                    href={'/cv/'+person.file}
                                                                     download>{person.file}</a></p>
 
                                                             </div>
