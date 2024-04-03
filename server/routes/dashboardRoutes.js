@@ -13,6 +13,6 @@ router.get('/cvs/list', dashboardController.getAllCvs);
 // get all quotes
 router.get('/quotes/all', quotesController.allQuotes);
 // update leaders
-router.put("/:id", leaderController.update);
+router.put("/leader/:id", leaderController.update);
 
 module.exports = router;
