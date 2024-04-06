@@ -1,5 +1,4 @@
 const LeaderModel = require('../../models/leaderModel');
-const FaqModel = require("../../models/faqModel");
 
 module.exports = {
     list: async function (req, res) {
@@ -10,6 +9,7 @@ module.exports = {
 
     update: async function (req, res) {
         const id = req.params.id;
+        console.log(id);
         const leader = await LeaderModel.findOne({ _id: id }).exec()
         if (leader != null) {
             // update
@@ -19,10 +19,10 @@ module.exports = {
 
             leader.name = req.body.name ? req.body.name : leader.name
             leader.role = req.body.role ? req.body.role : leader.role
-            leader.imageUrl = req.body.imageUrl ? req.body.imageurl : leader.imageUrl
+            leader.imageUrl = req.body.imageUrl ? req.body.imageUrl : leader.imageUrl
 
-            await FaqModel.updateOne({_id: id },faq).exec()
-            return res.json(faq);
+            await LeaderModel.updateOne({_id: id },leader).exec()
+            return res.json(leader);
         } else {
             // create
             return res.status(400).json({ "message": "Error" })

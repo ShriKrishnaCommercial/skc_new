@@ -4,15 +4,13 @@ import Image from "next/image";
 import DashboardHeader from "@/components/Dashboard/header";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import {log} from "node:util";
 
 export default function homeedit(){
 
     const [people, setPeople] = useState([]);
-    const[leader, setLeader] = useState({});
-    const[updateId, setUpdateId] = useState('');
-    const[updateId2, setUpdateId2] = useState('');
-    const[updateName, setUpdateName] = useState('');
-    const[updateRole, setUpdateRole] = useState('');
+    const [url, setUrl] = useState('');
+
     useEffect(() => {
         axios.get("/api/leaders/all")
             .then(resp => {
@@ -21,25 +19,57 @@ export default function homeedit(){
             .catch(err => console.error(err));
     }, []);
 
-    async function updateLeader(id: string){
-        var options = {
-            method: "PUT",
-            url: "/dashboard/leader/"+id,
-            headers: {"Content-Type":"application/json"},
-            data: {
-                name : updateName,
-                role: updateRole
-            }
+    function updateChangeName(toUpdate: string, leader : object){
+        return {...leader, name: toUpdate}
+    }
+
+    function updateChangeRole(toUpdate: string, leader: object){
+        return {... leader, role: toUpdate};
+    }
+
+    function updateChangeImg(toUpdate: string, leader: object){
+        return {...leader, imageUrl: toUpdate}
+
+    }
+
+     function changeImage(event){
+        const form = new FormData();
+        const file = event.target.files[0];
+        form.append("leader", file);
+        const options = {
+            method: 'POST',
+            url: '/api/dashboard/leader/addimage',
+            headers: {
+                'Content-Type': 'multipart/form-data;',
+            },
+            data: form
+        };
+
+         return axios.request(options).then(resp => {
+             setUrl("/assets/img/leaders/"+resp.data.file);
+             console.log(url);
+             return "/assets/img/leaders/"+resp.data.file;
+        })
+            .catch(err => console.error(err));
+    }
+
+    async function updateLeader(leader: object){
+
+        const data =  {
+            name : leader.name,
+            role: leader.role
+
         }
 
-        axios.request(options).then(resp =>{
-            console.log(resp.data);
-            setUpdateName('');
-            setUpdateRole('');
-            setUpdateId('');
-            setUpdateId2('');
+        console.log(data);
+
+        axios.put("/api/dashboard/leader/"+leader._id, data, {
+            headers: {'Content-Type':'application/json'}
         })
-            .catch(err => console.error(err.message))
+            .then(resp => {
+                console.log(resp.data);
+            })
+            .catch(err => console.error(err));
     }
 
 
@@ -47,7 +77,7 @@ export default function homeedit(){
         <>
             <DashboardHeader title={"Leaders"}/>
 
-            <div className="rounded-lg bg-white px-1 py-6 shadow grid md:grid-cols-4 grid-cols-2 gap-4  mt-10  ">
+            <div className="rounded-lg bg-white px-1 py-6 shadow grid md:grid-cols-4 grid-cols-2 gap-4  mt-10">
                 {people.map((e, i) => {
                     return (
                         <div key={i}>
@@ -84,11 +114,18 @@ export default function homeedit(){
                                 <input
                                     type="text"
                                     onChange={event => {
-                                        setUpdateId(e._id);
-                                        setUpdateName(event.target.value);
-                                    }}
+
+                                       const updatedLeaders = people.map(p => {
+                                            return e._id === p._id ?
+                                                updateChangeName(event.target.value, p)
+                                                : p
+                                        })
+
+                                        setPeople(updatedLeaders);
+                                    }
+                                }
                                     value={
-                                        updateId === e._id ? updateName : e.name
+                                        e.name
                                     }
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     placeholder="Leader Name"
@@ -98,32 +135,46 @@ export default function homeedit(){
                                 <input
                                     type="text"
                                     value={
-                                        updateId2 === e._id ? updateRole : e.role
+                                       e.role
                                     }
                                     onChange={event => {
-                                        setUpdateId2(e._id);
-                                        setUpdateRole(event.target.value);
-                                    }}
+
+                                        const updatedLeaders = people.map(p => {
+                                            return e._id === p._id ?
+                                                updateChangeRole(event.target.value, p)
+                                                : p
+                                        })
+
+                                        setPeople(updatedLeaders);
+                                    }
+                                    }
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     placeholder="Leader Role"
                                 />
                             </div>
                             <button
-                                onClick={o  => {
-                                    updateLeader(e._id);
-                                    }
-                                }
+                                onClick={event => updateLeader(e)}
                                 type="button"
                                 className="rounded-md bg-indigo-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 Update
                             </button>
-                            <button
-                                type="button"
-                                className="rounded-md bg-indigo-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            >
-                                Change Photo
-                            </button>
+                            <input
+                                type="file"
+                                onInput={async event => {
+                                    const url = await changeImage(event);
+                                    const updatedLeaders = people.map(p => {
+                                        return e._id === p._id ?
+                                            updateChangeImg(url, p)
+                                            : p
+                                    })
+
+                                    setPeople(updatedLeaders);
+                                    console.log(people)
+                                }
+                                }
+                            />
+
                         </div>
                     )
                 })
