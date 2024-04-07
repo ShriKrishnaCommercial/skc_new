@@ -9,15 +9,19 @@ import {log} from "node:util";
 export default function homeedit(){
 
     const [people, setPeople] = useState([]);
-    const [url, setUrl] = useState('');
+   // const [url, setUrl] = useState('');
 
     useEffect(() => {
-        axios.get("/api/leaders/all")
-            .then(resp => {
-                setPeople(resp.data);
-            })
-            .catch(err => console.error(err));
+        fetchLeaders();
     }, []);
+
+    function fetchLeaders(){
+            axios.get("/api/leaders/all")
+                .then(resp => {
+                    setPeople(resp.data);
+                })
+                .catch(err => console.error(err));
+    }
 
     function updateChangeName(toUpdate: string, leader : object){
         return {...leader, name: toUpdate}
@@ -28,6 +32,7 @@ export default function homeedit(){
     }
 
     function updateChangeImg(toUpdate: string, leader: object){
+        console.log(leader, toUpdate)
         return {...leader, imageUrl: toUpdate}
 
     }
@@ -46,8 +51,7 @@ export default function homeedit(){
         };
 
          return axios.request(options).then(resp => {
-             setUrl("/assets/img/leaders/"+resp.data.file);
-             console.log(url);
+             const url = "/assets/img/leaders/"+resp.data.file;
              return "/assets/img/leaders/"+resp.data.file;
         })
             .catch(err => console.error(err));
@@ -57,8 +61,8 @@ export default function homeedit(){
 
         const data =  {
             name : leader.name,
-            role: leader.role
-
+            role: leader.role,
+            imageUrl: leader.imageUrl
         }
 
         console.log(data);
@@ -77,7 +81,7 @@ export default function homeedit(){
         <>
             <DashboardHeader title={"Leaders"}/>
 
-            <div className="rounded-lg bg-white px-1 py-6 shadow grid md:grid-cols-4 grid-cols-2 gap-4  mt-10">
+            <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:gap-8 lg:mt-20 lg:max-w-none lg:grid-cols-2">
                 {people.map((e, i) => {
                     return (
                         <div key={i}>
@@ -97,7 +101,7 @@ export default function homeedit(){
                                     style={{clipPath: `url(#${e._id}-${i % 3})`}}
                                 >
                                     <Image
-                                        className="transition duration-300 group-hover:scale-110"
+                                        className="transition duration-300 group-hover:scale-110 object-scale-down"
                                         src={e.imageUrl}
                                         alt=""
                                         layout="fill"
@@ -153,7 +157,11 @@ export default function homeedit(){
                                 />
                             </div>
                             <button
-                                onClick={event => updateLeader(e)}
+                                onClick={event => {
+                                    updateLeader(e);
+                                    fetchLeaders();
+                                }
+                                }
                                 type="button"
                                 className="rounded-md bg-indigo-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
@@ -165,14 +173,14 @@ export default function homeedit(){
                                     const url = await changeImage(event);
                                     const updatedLeaders = people.map(p => {
                                         return e._id === p._id ?
-                                            updateChangeImg(url, p)
+                                             updateChangeImg(url, p)
                                             : p
                                     })
 
                                     setPeople(updatedLeaders);
-                                    console.log(people)
-                                }
-                                }
+                                 }
+
+                            }
                             />
 
                         </div>
