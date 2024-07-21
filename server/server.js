@@ -25,6 +25,7 @@ const endproduct = require("./routes/endproductRoutes");
 const dashboard = require('./routes/dashboardRoutes');
 const quotes = require('./routes/quotesRoute');
 const faq = require('./routes/faqRoutes');
+const leaders = require('./routes/leaderRoute');
 const jwt = require("express-jwt");
 
 app.prepare().then(async () => {
@@ -118,6 +119,7 @@ app.prepare().then(async () => {
     server.use('/api/quotes',quotes);
     server.use('/api/dashboard', dashboard);
     server.use('/api/faq', faq);
+    server.use('/api/leaders', leaders);
     // analytics
 
     server.get('/va/counts', async (req, res) => {

@@ -4,6 +4,7 @@ import Image from 'next/image'
 import {Tab} from '@headlessui/react'
 import clsx from 'clsx'
 import {Container} from "./Container";
+import axios from "axios";
 
 
 const days = [
@@ -123,30 +124,38 @@ const days = [
 export function Employees() {
     let id = useId()
     let [tabOrientation, setTabOrientation] = useState('horizontal')
-    const people = [
-        {
-            name: 'Anuj Sanyal ',
-            role: 'Sr. Executive: Back Office',
-            imageUrl:
-                "/assets/img/leaders/Anuj_Sanyal.jpeg"
-        }, {
-            name: 'Raj Sinha ',
-            role: 'Sr. Executive: Back Office',
-            imageUrl:
-                "/assets/img/leaders/Raj Sinha.jpeg"
-        }, {
-            name: 'Atul Sharma',
-            role: 'Manager',
-            imageUrl:
-                "/assets/img/leaders/Atul_Sharma.jpeg"
-        }, {
-            name: 'Sanjay Kumar',
-            role: 'Sr. Executive Back Office',
-            imageUrl:
-                "/assets/img/leaders/Sanjay Kumar.jpeg"
-        },
-        // More people...
-    ]
+    // const people = [
+    //     {
+    //         name: 'Anuj Sanyal ',
+    //         role: 'Sr. Executive: Back Office',
+    //         imageUrl:
+    //             "/assets/img/leaders/Anuj_Sanyal.jpeg"
+    //     }, {
+    //         name: 'Raj Sinha ',
+    //         role: 'Sr. Executive: Back Office',
+    //         imageUrl:
+    //             "/assets/img/leaders/Raj Sinha.jpeg"
+    //     }, {
+    //         name: 'Atul Sharma',
+    //         role: 'Manager',
+    //         imageUrl:
+    //             "/assets/img/leaders/Atul_Sharma.jpeg"
+    //     }, {
+    //         name: 'Sanjay Kumar',
+    //         role: 'Sr. Executive Back Office',
+    //         imageUrl:
+    //             "/assets/img/leaders/Sanjay Kumar.jpeg"
+    //     },
+    //     // More people...
+    // ]
+    const [people, setPeople] = useState([]);
+    useEffect(() => {
+        axios.get("/api/leaders/all")
+            .then(resp => {
+                setPeople(resp.data);
+            })
+            .catch(err => console.error(err));
+    }, []);
     useEffect(() => {
         let lgMediaQuery = window.matchMedia('(min-width: 1024px)')
 
