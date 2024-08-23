@@ -37,7 +37,7 @@ export default function homeedit(){
 
     }
 
-     function changeImage(event){
+     function changeImage(event:any){
         const form = new FormData();
         const file = event.target.files[0];
         form.append("leader", file);
