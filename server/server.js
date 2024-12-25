@@ -1,7 +1,7 @@
 const express = require('express');
 const next = require('next');
 const dbConnect = require("../utils/dbConnect");
-
+const cors = require('cors');
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({dev});
 const handle = app.getRequestHandler();
@@ -27,9 +27,14 @@ const quotes = require('./routes/quotesRoute');
 const faq = require('./routes/faqRoutes');
 const leaders = require('./routes/leaderRoute');
 const jwt = require("express-jwt");
-
+const aboutImages = require("./routes/aboutUsImages");
+const homeaboutImages = require("./routes/homeaboutUsImages");
+const carouselImages = require("./routes/carouselRoutes")
 app.prepare().then(async () => {
     const server = express();
+    server.use(cors({
+        origin: ['http://localhost:3000', 'https://shrikrishnacommercial.com']
+    }));
     await dbConnect()
     server.use(json())
     server.post('/va', async (req, res) => {
@@ -120,6 +125,9 @@ app.prepare().then(async () => {
     server.use('/api/dashboard', dashboard);
     server.use('/api/faq', faq);
     server.use('/api/leaders', leaders);
+    server.use('/api/aboutImages',aboutImages);
+    server.use('/api/homeaboutImages',homeaboutImages);
+    server.use("/api/carouselImages", carouselImages);
     // analytics
 
     server.get('/va/counts', async (req, res) => {
